@@ -98,6 +98,7 @@ const Auth = {
           .cookie("refresh_token", token.refreshToken, {
             httpOnly: true,
             expires: dayExpires,
+            domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
           })
           .json({
             userInfo,
