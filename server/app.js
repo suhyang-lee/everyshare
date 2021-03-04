@@ -55,13 +55,6 @@ app.use(
     saveUninitialized: true,
     resave: false,
     secret: process.env.COOKIE_SECRET,
-    proxy: true,
-    cookie: {
-      sameSite: process.env.NODE_ENV === "development" ? false : "none",
-      secure: process.env.NODE_ENV === "development" ? false : true,
-      httpOnly: true,
-      domain: "everyshare-app.vercel.app",
-    },
   }),
 );
 
