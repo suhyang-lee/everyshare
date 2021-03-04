@@ -34,7 +34,6 @@ const Header = () => {
   }, [logoutDone, user]);
 
   const onLogOut = useCallback(() => {
-    dispatch(logoutRequstAction());
     Router.push("/logout");
   }, []);
 
