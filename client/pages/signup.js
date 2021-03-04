@@ -22,9 +22,12 @@ const SignUp = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const cookie = context.req ? context.req.headers.cookie : "";
-    if (context.req && cookie) {
-      axios.defaults.headers.Cookie = cookie;
+    if (context.isServer) {
+      const cookie = context.req ? context.req.headers.cookie : "";
+
+      if (context.req && cookie) {
+        axios.defaults.headers.Cookie = cookie;
+      }
     }
     context.store.dispatch({
       type: USER.LOAD_USER_INFO_REQUEST,
