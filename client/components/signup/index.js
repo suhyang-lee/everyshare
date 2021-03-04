@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -54,6 +54,7 @@ const signUpSchema = yup.object().shape({
 });
 
 const Signup = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { signupDone, signupError, user } = useSelector((state) => state.user);
   const { register, handleSubmit, errors } = useForm({
@@ -64,14 +65,15 @@ const Signup = () => {
 
   const onKakaoTalkLogin = useCallback((e) => {
     e.preventDefault();
-    const currentUrl = document.location.href;
+    const currentUrl = router.asPath;
     window.location.href = `${ServerURL.getServerURL()}/auth/kakao?redirect_url=${encodeURIComponent(
       currentUrl,
     )}`;
   }, []);
 
-  const onNaverLogin = useCallback((e) => {
+  const onNaverLogin = useCallback(async (e) => {
     e.preventDefault();
+    const currentUrl = router.asPath;
     window.location.href = `${ServerURL.getServerURL()}/auth/naver?redirect_url=${encodeURIComponent(
       currentUrl,
     )}`;

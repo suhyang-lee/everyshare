@@ -38,6 +38,7 @@ const Auth = {
     try {
       if (req.query.redirect_url)
         req.session["redirect"] = decodeURIComponent(req.query.redirect_url);
+
       next();
     } catch (error) {
       console.error(error);
@@ -49,7 +50,6 @@ const Auth = {
     try {
       const { id } = req.user;
       const redirect = decodeURIComponent(req.session.redirect);
-      console.log(redirect);
       const token = await createToken(id);
 
       console.log("login ing....");
@@ -64,11 +64,14 @@ const Auth = {
 
       const dayExpires = setCookieDays(14);
 
-      res.status(200).cookie("refresh_token", token.refreshToken, {
-        httpOnly: true,
-        expires: dayExpires,
-        domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
-      });
+      res
+        .status(200)
+        .cookie("refresh_token", token.refreshToken, {
+          httpOnly: true,
+          expires: dayExpires,
+          domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
+        })
+        .redirect(`http://everyshare.shop${redirect}`);
     } catch (error) {
       console.error(error);
       next(error);
