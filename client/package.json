@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "next -p 3000",
-    "build": "next build",
-    "start": "next start",
-    "deploy": "next build && next export"
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build",
+    "start": "cross-env NODE_ENV=production next start"
   },
   "author": "SUHYANG.LEE",
   "license": "ISC",
