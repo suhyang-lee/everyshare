@@ -180,10 +180,10 @@ const PostService = {
     }
   },
 
-  addComment: async (postId, userId) => {
+  addComment: async (postId, userId, comment) => {
     try {
       const result = await Comment.create({
-        contents: req.body.comment,
+        contents: comment,
         PostId: postId,
         UserId: userId,
       });

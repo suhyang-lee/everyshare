@@ -103,6 +103,7 @@ const Post = {
     try {
       const userId = req.decoded.user_id;
       const postId = parseInt(req.params.id, 10);
+      const { comment } = req.body;
 
       const exPost = await PostService.verifyPost(postId);
 
