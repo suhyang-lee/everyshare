@@ -144,7 +144,6 @@ function* loadPost(action) {
   }
 }
 
-//댓글 등록하기
 function addCommentAPI(data) {
   return axios.post(`/post/${data.postId}/comment`, data);
 }
@@ -228,10 +227,6 @@ function* addApply(action) {
   }
 }
 
-function* watchAdd() {
-  yield takeLatest(POST.ADD_COMMENT_REQUEST, addComment);
-}
-
 function* watchLoadPosts() {
   yield throttle(5000, POST.LOAD_POSTS_REQUEST, loadPosts);
 }
@@ -277,7 +272,6 @@ function* watchAddApply() {
 
 export default function* postSaga() {
   yield all([
-    fork(watchAdd),
     fork(watchLoadPosts),
     fork(watchloadPost),
     fork(watchRemovePost),
@@ -289,8 +283,8 @@ export default function* postSaga() {
 
     fork(watchZzimPost),
     fork(watchNotZzimPost),
-
     fork(watchAddComment),
+
     fork(watchAddApply),
   ]);
 }

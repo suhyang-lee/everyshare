@@ -109,8 +109,8 @@ const Post = {
 
       if (!exPost) return res.status(403).send("존재하지 않는 게시글입니다.");
 
-      const comment = await PostService.addComment(postId, userId);
-      const newComment = await PostService.loadComment(comment.id);
+      const { id } = await PostService.addComment(postId, userId, comment);
+      const newComment = await PostService.loadComment(id);
 
       res.status(201).json(newComment);
     } catch (error) {

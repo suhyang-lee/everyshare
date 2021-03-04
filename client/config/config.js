@@ -1,6 +1,6 @@
 const closureURL = () => {
-  const url = "http://api.everyshare.shop";
-  //const url = "http://localhost:3060";
+  //const url = "http://api.everyshare.shop";
+  const url = "http://localhost:80";
   return {
     getServerURL: () => url,
   };
