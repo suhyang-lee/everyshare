@@ -5,7 +5,7 @@ dotenv.config();
 module.exports = {
   development: {
     username: "root",
-    password: process.env.DB_LOCAL_PASSWORD,
+    password: process.env.DB_PASSWORD,
     database: "everyshare",
     host: "127.0.0.1",
     port: "3306",
@@ -13,16 +13,18 @@ module.exports = {
   },
   test: {
     username: "root",
-    password: null,
+    password: process.env.DB_PASSWORD,
     database: "everyshare",
     host: "127.0.0.1",
+    port: "3306",
     dialect: "mysql",
   },
   production: {
-    username: process.env.DB_USER_NAME,
+    username: "root",
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    host: process.env.DB_HOST,
+    database: "everyshare",
+    host: "127.0.0.1",
+    port: "3306",
     dialect: "mysql",
   },
 };
