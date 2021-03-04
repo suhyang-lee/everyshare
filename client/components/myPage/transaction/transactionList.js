@@ -6,10 +6,7 @@ import { STATE } from "utils/variables";
 const TransactionList = ({ data }) => {
   return (
     <li>
-      <img
-        src={`http://localhost:3060/${data.Post.Images[0].src}`}
-        alt="이미지"
-      />
+      <img src={data.Post.Images[0].src} alt="이미지" />
       <div className={styles.info}>
         <p>{data.Post.title}</p>
         <p>

@@ -49,7 +49,6 @@ const Auth = {
   callSnsLogin: async (req, res, next) => {
     try {
       const { id } = req.user;
-      const redirect = decodeURIComponent(req.session.redirect);
       const token = await createToken(id);
 
       console.log("login ing....");
@@ -71,7 +70,7 @@ const Auth = {
           expires: dayExpires,
           domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
         })
-        .redirect(`http://everyshare.shop${redirect}`);
+        .redirect(`http://everyshare.shop/`);
     } catch (error) {
       console.error(error);
       next(error);

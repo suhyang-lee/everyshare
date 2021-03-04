@@ -51,14 +51,11 @@ const LoginPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    if (context.isServer) {
-      const cookie = context.req ? context.req.headers.cookie : "";
+    const cookie = context.req ? context.req.headers.cookie : "";
 
-      if (context.req && cookie) {
-        axios.defaults.headers.Cookie = cookie;
-      }
+    if (context.req && cookie) {
+      axios.defaults.headers.Cookie = cookie;
     }
-
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   },

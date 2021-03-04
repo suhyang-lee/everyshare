@@ -29,7 +29,7 @@ const Preview = ({ image, index, post }) => {
         key={image.src}
         onClick={onRemoveImage}
       />
-      <img src={`http://localhost:3060/${image.src}`} alt={image.src} />
+      <img src={image.src} alt={image.src} />
     </div>
   );
 };

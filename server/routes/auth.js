@@ -14,7 +14,7 @@ router.get(
   ctrl.callLogin,
 );
 
-router.get("/kakao", ctrl.passCallback, passport.authenticate("kakao"));
+router.get("/kakao", passport.authenticate("kakao"));
 
 router.get(
   "/kakao/callback",
@@ -24,7 +24,7 @@ router.get(
   ctrl.callSnsLogin,
 );
 
-router.get("/naver", ctrl.passCallback, passport.authenticate("naver"));
+router.get("/naver", passport.authenticate("naver"));
 
 router.get(
   "/naver/callback",

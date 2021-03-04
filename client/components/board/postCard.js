@@ -15,10 +15,7 @@ const PostCard = ({ post }) => {
       <div className={styles.postCard}>
         <div className={styles.imageWrapper}>
           {post.Images && post.Images[0] ? (
-            <img
-              src={`http://localhost:3060/${post.Images[0].src}`}
-              alt="썸네일 이미지"
-            />
+            <img src={post.Images[0].src} alt="썸네일 이미지" />
           ) : (
             <img src="../images/no-images.png" alt="썸네일 이미지" />
           )}

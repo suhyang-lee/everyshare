@@ -33,7 +33,7 @@ const Global = createGlobalStyle`
 const ProductSlider = ({ Images }) => {
   const settings = {
     customPaging: function (i) {
-      return <img src={`http://localhost:3060/${Images[i].src}`} />;
+      return <img src={Images[i].src} />;
     },
     dots: true,
     fade: true,
@@ -57,10 +57,7 @@ const ProductSlider = ({ Images }) => {
             return (
               <a key={image.id}>
                 <div className={styles.slickImageWrapper}>
-                  <img
-                    src={`http://localhost:3060/${image.src}`}
-                    alt="이미지리스트"
-                  />
+                  <img src={image.src} alt="이미지리스트" />
                 </div>
               </a>
             );

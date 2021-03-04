@@ -44,7 +44,7 @@ const User = {
     try {
       return res
         .status(200)
-        .clearCookie("refresh_token")
+        .clearCookie("refresh_token", { path: "/", domain: ".everyshare.shop" })
         .send("로그아웃 완료되었습니다.");
     } catch (error) {
       console.error(error);

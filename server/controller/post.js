@@ -5,7 +5,7 @@ const { dateDiff } = require("../utils/formatter");
 const Post = {
   addImagePostRequest: (req, res, next) => {
     const data = [];
-    req.files.map((image) => data.push({ src: image.filename }));
+    req.files.map((image) => data.push({ src: image.location }));
     res.json(data);
   },
 
