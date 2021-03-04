@@ -1,0 +1,57 @@
+/* mainBanner.module.scss */
+@import "../../common/scss/mixins";
+@import "../../common/scss/variables";
+@import "./mainBannerResoponsiv.scss";
+
+@import url(https://cdn.rawgit.com/kattergil/NotoSerifKR-Web/76eb9ebf/stylesheet/NotoSerif-Web.css);
+
+.mainBannerWrapper {
+  height: $height-100;
+  background-color: $G-color-white;
+  background-image: url("/images/photo-1603376728541-6e1906a300e6.jpg");
+  background-repeat: no-repeat;
+
+  .mainBanner {
+    height: $height-100;
+    background-color: rgba(0, 0, 0, 50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.bannerContents {
+  h5 {
+    text-transform: uppercase;
+    color: $G-color-white;
+    box-sizing: border-box;
+    font-family: serif;
+  }
+
+  p {
+    font-family: "Noto Serif KR";
+    color: $G-color-white;
+  }
+
+  .bannerWriteBtn {
+    border-radius: 3rem;
+    color: $G-color-white;
+    margin-top: 2rem;
+    background-color: $color-transparency;
+    border: 1px solid $G-color-white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $G-color-yellow;
+      border: 1px;
+      color: $G-color-black;
+      font-weight: $bold;
+      outline: 0;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+}

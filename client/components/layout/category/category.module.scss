@@ -1,0 +1,26 @@
+/* 헤더 > 메뉴 카테고리 > 전체 메뉴 영역 */
+@import "../../common/scss/variables";
+@import "../../common/scss/mixins";
+@import "./categoryResponsive.scss";
+
+.fakeBox {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.lnbWrapper {
+  display: flex;
+  position: absolute;
+  overflow: hidden;
+  z-index: $index-2;
+  background-color: $G-color-white;
+
+  .lnbNav {
+    overflow: hidden;
+  }
+}
+.lnbItem:last-child {
+  display: none;
+}

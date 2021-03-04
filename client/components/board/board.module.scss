@@ -1,0 +1,72 @@
+@import "../common/scss/variables";
+@import "../common/scss/mixins";
+@import "./boardResponsive.scss";
+
+.contentsWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 10rem;
+
+  .titleWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5rem;
+  }
+}
+
+.titleWrapper {
+  h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    background-color: #000;
+    color: #fff;
+    font-weight: 500;
+    img {
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.listContents {
+  display: grid;
+  -moz-column-gap: 24px;
+  column-gap: 24px;
+  row-gap: 40px;
+  grid-template-rows: repeat(auto-fill, 1fr);
+}
+
+.nonePost {
+  display: flex;
+  flex-direction: column;
+  span {
+    margin-right: 0.5rem;
+    color: gray;
+  }
+  button {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid rgb(216, 216, 216);
+    background-color: #fff;
+    font-size: 0.8rem;
+    &:hover {
+      background-color: #ffc800;
+      font-weight: bold;
+    }
+  }
+  font-size: 1.4rem;
+  letter-spacing: 0.5;
+  padding: 2rem;
+  color: gray;
+}

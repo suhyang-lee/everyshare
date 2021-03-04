@@ -1,0 +1,80 @@
+/* header.module.scss */
+
+@import "../../common/scss/variables";
+@import "../../common/scss/mixins";
+
+@import "./headerResoponsive.scss";
+
+.header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0px 3px 6px $G-shadow-gray16;
+  font-size: 1rem;
+  font-weight: 700;
+  background-color: $G-color-white;
+  z-index: $index-1;
+}
+
+.headerItem {
+  h1 {
+    cursor: pointer;
+  }
+}
+
+.headerItemsWrapper {
+  display: grid;
+  position: relative;
+  place-items: center center;
+  box-sizing: border-box;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.headerMenuBtn {
+  display: flex;
+  align-items: center;
+}
+
+.gnbUl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  li {
+    cursor: pointer;
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      margin-right: 0.5rem;
+    }
+  }
+
+  $circleSize: 20px;
+
+  .circleBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 2.5rem;
+    margin-right: 0.2rem;
+    position: relative;
+
+    .zzimed {
+      width: $circleSize;
+      height: $circleSize;
+      border-radius: $circleSize;
+      line-height: $circleSize;
+      text-align: center;
+      background-color: #000;
+      color: #fff;
+      font-weight: 300;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      font-size: 12px;
+    }
+  }
+}
