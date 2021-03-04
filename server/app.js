@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://52.79.113.249"],
+    origin: ["http://localhost:3000", "http://everyshare.shop"],
     credentials: true,
   }),
 );
@@ -55,6 +55,10 @@ app.use(
     saveUninitialized: true,
     resave: false,
     secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+      domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
+    },
   }),
 );
 
