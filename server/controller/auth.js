@@ -67,6 +67,7 @@ const Auth = {
       res.status(200).cookie("refresh_token", token.refreshToken, {
         httpOnly: true,
         expires: dayExpires,
+        domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
       });
     } catch (error) {
       console.error(error);
