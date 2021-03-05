@@ -3,24 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import USER from "actions/userAction";
 import styles from "./userInfo.module.scss";
+import useInput from "hooks/useInput";
 
 const UserInfo = () => {
   const dispatch = useDispatch();
   const { changeNicknameDone, user } = useSelector((state) => state.user);
 
   const [email, setEmail] = useState(() => user?.email);
-  const [nickname, setNickname] = useState(() => user?.nickname);
-
-  useEffect(() => {
-    if (changeNicknameDone) {
-      confirm("닉네임 변경이 완료되었습니다.");
-    }
-  }, [user, changeNicknameDone]);
-
-  useEffect(() => {
-    setEmail(user.email);
-    setNickname(user.nickname);
-  }, []);
+  const [nickname, onChangeNickname] = useInput(user?.nickname);
 
   const onChangePrfile = useCallback((e) => {
     e.preventDefault();
@@ -45,6 +35,12 @@ const UserInfo = () => {
     },
     [nickname],
   );
+
+  useEffect(() => {
+    if (changeNicknameDone) {
+      confirm("닉네임 변경이 완료되었습니다.");
+    }
+  }, [user, changeNicknameDone]);
 
   return (
     <div className={styles.userInfoWrapper}>
@@ -81,7 +77,7 @@ const UserInfo = () => {
           name="nickname"
           id="nickname"
           value={nickname}
-          onChange={setNickname}
+          onChange={onChangeNickname}
         />
       </form>
       <button className={styles.updateBtn} onClick={onSubmit}>

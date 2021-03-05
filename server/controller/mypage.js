@@ -27,9 +27,9 @@ const Mypage = {
     try {
       const userId = req.decoded.user_id;
 
-      await mypageService.updateProfile(userId, req.file.filename);
+      await mypageService.updateProfile(userId, req.file.location);
 
-      const user = await UserService.getUserInfo(userId);
+      const user = await UserService.loadUserInfo(userId);
 
       res.status(200).json(user);
     } catch (error) {
@@ -44,7 +44,7 @@ const Mypage = {
 
       await mypageService.updateNickname(userId, req.body.nickname);
 
-      const user = await UserService.getUserInfo(userId);
+      const user = await UserService.loadUserInfo(userId);
 
       res.status(200).json(user);
     } catch (error) {
@@ -73,7 +73,7 @@ const Mypage = {
       const history = await mypageService.loadMyOwnerItem(userId);
 
       if (!history)
-        return res.status(200).send("요청된 정보를 찾을 수 없습니다.");
+        return res.status(403).send("요청된 정보를 찾을 수 없습니다.");
 
       res.status(200).json(history);
     } catch (error) {
@@ -89,7 +89,7 @@ const Mypage = {
       const history = await mypageService.loadMyRentalItem(userId);
 
       if (!history)
-        return res.status(200).send("요청된 정보를 찾을 수 없습니다.");
+        return res.status(403).send("요청된 정보를 찾을 수 없습니다.");
 
       res.status(200).json(history);
     } catch (error) {

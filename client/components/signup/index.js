@@ -99,7 +99,7 @@ const Signup = () => {
 
   const onSubmit = useCallback((data) => {
     data.provider = "local";
-    console.log(data);
+
     dispatch({
       type: USER.SIGN_UP_REQUEST,
       data: data,

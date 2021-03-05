@@ -39,6 +39,8 @@ class History extends Sequelize.Model {
       foreignKey: "lenderId",
       targetKey: "id",
     });
+
+    db.History.belongsTo(db.Post);
   }
 }
 
