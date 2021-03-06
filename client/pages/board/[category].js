@@ -20,7 +20,7 @@ const Board = () => {
   const dispatch = useDispatch();
   const { category } = router.query;
 
-  const { posts, hasMorePost, loadPostsLoading, loadPostsDone } = useSelector(
+  const { posts, hasMorePost, loadPostsLoading } = useSelector(
     (state) => state.post,
   );
 
@@ -53,7 +53,7 @@ const Board = () => {
     };
   }, [hasMorePost, loadPostsLoading, posts]);
 
-  if (loadPostsLoading || !loadPostsDone) {
+  if (loadPostsLoading) {
     return <LoadingIcon />;
   }
 
