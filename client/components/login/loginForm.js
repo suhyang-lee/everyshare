@@ -56,18 +56,12 @@ const LoginForm = ({ onLoginModalClose }) => {
 
   const onKakaoTalkLogin = useCallback((e) => {
     e.preventDefault();
-    const currentUrl = router.asPath;
-    window.location.href = `${ServerURL.getServerURL()}/auth/kakao?redirect_url=${encodeURIComponent(
-      currentUrl,
-    )}`;
+    window.location.href = `${ServerURL.getServerURL()}/auth/kakao}`;
   }, []);
 
   const onNaverLogin = useCallback((e) => {
     e.preventDefault();
-    const currentUrl = router.asPath;
-    window.location.href = `${ServerURL.getServerURL()}/auth/naver?redirect_url=${encodeURIComponent(
-      currentUrl,
-    )}`;
+    window.location.href = `${ServerURL.getServerURL()}/auth/naver}`;
   }, []);
   return (
     <>
