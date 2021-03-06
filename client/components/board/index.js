@@ -8,6 +8,8 @@ import PostCard from "components/board/postCard";
 import styles from "./board.module.scss";
 
 const Board = ({ posts, title }) => {
+  const { loadPostsDone } = useSelector((state) => state.post);
+
   return (
     <section className={styles.contentsWrapper}>
       <div className={styles.titleWrapper}>
@@ -17,7 +19,7 @@ const Board = ({ posts, title }) => {
           <img src="../images/icon-filter.svg" alt="필터" />
         </button>
       </div>
-      {posts.length === 0 && (
+      {loadPostsDone && posts.length === 0 && (
         <div className={styles.nonePost}>
           <span>
             <SnippetsOutlined />
