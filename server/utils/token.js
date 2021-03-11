@@ -1,15 +1,12 @@
 const jwt = require("jsonwebtoken");
-const { createEncryption, decryptionCode } = require("./formatter");
+const { decryptionCode } = require("./formatter");
 
 // 토큰 발급
 exports.createToken = async (id) => {
   try {
-    const data = await createEncryption();
-
     const refreshToken = await jwt.sign(
       {
         user_id: id,
-        token_id: data,
       },
       process.env.JWT_REFRESH_SECRET,
       {
@@ -84,12 +81,13 @@ exports.decodeRefreshToken = async (refreshToken) => {
   }
 };
 
-exports.decodeAccessToken = async (accessToken) => {
+exports.validateToken = async (accessToken) => {
   try {
     const decodedToken = jwt.verify(accessToken, process.env.JWT_SECRET);
     if (!decodedToken) return;
-    return decodedToken;
+
+    if (decodedToken.exp - now > 2 * 60) return decodedToken;
   } catch (error) {
-    console.error(error);
+    return undefined;
   }
 };

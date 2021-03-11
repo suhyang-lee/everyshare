@@ -1,10 +1,13 @@
 import { all, fork, put, takeLatest, call } from "redux-saga/effects";
-import axios from "axios";
+import api from "lib/api";
 
 import MYPAGE from "actions/mypageAction";
 
 function loadMyContentsAPI(data) {
-  return axios.get(`mypage/contents?pageNum=${data.pageNum}&type=${data.type}`);
+  return api.get(`mypage/contents?pageNum=${data.pageNum}&type=${data.type}`, {
+    forceUpdate: false,
+    cache: true,
+  });
 }
 
 function* loadMyContents(action) {
@@ -24,7 +27,7 @@ function* loadMyContents(action) {
 }
 
 function loadMyZzimListAPI() {
-  return axios.get("mypage/zzim");
+  return api.get("mypage/zzim");
 }
 
 function* loadMyZzimList() {
@@ -44,7 +47,7 @@ function* loadMyZzimList() {
 }
 
 function loadMyOwnerListAPI() {
-  return axios.get("mypage/owner");
+  return api.get("mypage/owner");
 }
 
 function* loadMyOwnerList() {
@@ -64,7 +67,7 @@ function* loadMyOwnerList() {
 }
 
 function loadMyRentalListAPI() {
-  return axios.get("mypage/rental");
+  return api.get("mypage/rental");
 }
 
 function* loadMyRentalList() {

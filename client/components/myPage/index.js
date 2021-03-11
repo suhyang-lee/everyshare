@@ -5,6 +5,7 @@ import Contents from "components/myPage/contents";
 import Transaction from "components/myPage/transaction";
 import MyContents from "components/myPage/myContents";
 import UserInfo from "components/myPage/userInfo";
+import Signout from "components/myPage/signout";
 import MyList from "components/myPage/myList";
 
 import styles from "./userInfo.module.scss";
@@ -19,6 +20,7 @@ const MypageContents = ({ path, user }) => {
         {pageType === 0 && <Transaction path={path} />}
         {pageType === 1 && <MyContents path={path} />}
         {pageType === 2 && <UserInfo path={path} />}
+        {pageType === 3 && <Signout path={path} />}
         {pageType === 4 && <MyList path={path} />}
       </Contents>
     </section>

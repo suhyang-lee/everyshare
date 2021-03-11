@@ -1,0 +1,27 @@
+.filter {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #d9d9d9;
+  z-index: 2;
+}
+
+.filterItem {
+  box-sizing: border-box;
+  padding: 0.5rem;
+
+  input[type="radio"]:checked + label {
+    font-weight: bold;
+  }
+
+  label {
+    margin-left: 0.5rem;
+    font-weight: 300;
+    cursor: pointer;
+  }
+}

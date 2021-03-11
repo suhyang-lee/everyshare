@@ -50,10 +50,6 @@ const UserService = {
     try {
       const { id, email, nickname, phonenumber, profileUrl, provider } = data;
 
-      const exUser = await UserService.verifyUserEmail(email);
-
-      if (exUser) return exUser;
-
       const hashPassword = await bcrypt.hash(String(id), 10);
       const newUser = await User.create({
         email: email,
@@ -95,6 +91,14 @@ const UserService = {
       });
 
       return result;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  removeUser: async (id) => {
+    try {
+      await User.destroy({ where: { id: id } });
     } catch (error) {
       console.error(error);
     }

@@ -2,7 +2,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
-import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 
 import styled from "styled-components";

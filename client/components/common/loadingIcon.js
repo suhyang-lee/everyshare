@@ -1,12 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
+const LoadingIcon = ({ height }) => {
+  return (
+    <Wrapper height={height}>
+      <Loader />
+    </Wrapper>
+  );
+};
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 100vh;
+  height: ${(props) => props.height};
+  margin-bottom: 2rem;
 `;
 
 const Loader = styled.div`
@@ -27,13 +36,5 @@ const Loader = styled.div`
     }
   }
 `;
-
-const LoadingIcon = () => {
-  return (
-    <Wrapper>
-      <Loader />
-    </Wrapper>
-  );
-};
 
 export default LoadingIcon;

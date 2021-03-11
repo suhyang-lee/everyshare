@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 const UserService = require("../service/user");
 
 const { signToken, signRefrashToken } = require("../middleware/token");
-const { createToken } = require("../utils/token");
-const { setCookieDays } = require("../utils/formatter");
+const { createToken, validateToken } = require("../utils/token");
+const { setCookieDays, setCookieMinutes } = require("../utils/formatter");
 
 const Auth = {
   googleLogin: async (req, res, next) => {
@@ -36,9 +36,9 @@ const Auth = {
 
   passCallback: async (req, res, next) => {
     try {
-      if (req.query.redirect_url)
-        req.session["redirect"] = decodeURIComponent(req.query.redirect_url);
-
+      if (req.query.redirect_url) {
+        req.session.redirect = decodeURIComponent(req.query.redirect_url);
+      }
       next();
     } catch (error) {
       console.error(error);
@@ -51,18 +51,17 @@ const Auth = {
       const { id } = req.user;
       const token = await createToken(id);
 
-      console.log("login ing....");
-
       if (!token.accessToken || !token.refreshToken)
         return res.status(403).send("토큰 발급에 실패하였습니다.");
 
       const userInfo = await UserService.loadUserInfo(id);
 
-      if (!userInfo)
-        return res.status(400).send("요청 된 정보가 존재하지 않습니다.");
+      if (!userInfo) {
+        return res.status(201).redirect(`http://localhost:3000/signup`);
+      }
 
       const dayExpires = setCookieDays(14);
-
+      const minExpires = setCookieMinutes(10);
       res
         .status(200)
         .cookie("refresh_token", token.refreshToken, {
@@ -70,7 +69,16 @@ const Auth = {
           expires: dayExpires,
           domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
         })
-        .redirect(`http://everyshare.shop/`);
+        .cookie("access_token", token.accessToken, {
+          httpOnly: true,
+          expires: minExpires,
+          domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
+        })
+        .redirect(
+          process.env.NODE_ENV === "production"
+            ? "http://everyshare.shop/"
+            : "http://localhost:3000/",
+        );
     } catch (error) {
       console.error(error);
       next(error);
@@ -83,7 +91,7 @@ const Auth = {
       req.login(user, async (error) => {
         if (error) next(error);
         const { id } = user;
-        const token = await createToken(id);
+        let token = await createToken(id);
 
         if (!token.accessToken || !token.refreshToken)
           return res.status(403).send("토큰 발급에 실패하였습니다.");
@@ -95,7 +103,7 @@ const Auth = {
         }
 
         const dayExpires = setCookieDays(14);
-
+        const minExpires = setCookieMinutes(10);
         res
           .status(200)
           .cookie("refresh_token", token.refreshToken, {
@@ -103,9 +111,13 @@ const Auth = {
             expires: dayExpires,
             domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
           })
+          .cookie("access_token", token.accessToken, {
+            httpOnly: true,
+            expires: minExpires,
+            domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
+          })
           .json({
             userInfo,
-            accessToken: token.accessToken,
           });
       });
     })(req, res, next);
@@ -115,17 +127,24 @@ const Auth = {
     try {
       const refresh = req.cookies.refresh_token || undefined;
 
-      if (!refresh) return res.send("토큰이 존재하지 않습니다.");
+      if (!refresh) return res.status(201).redirect("/");
 
       const decode = jwt.verify(refresh, process.env.JWT_REFRESH_SECRET);
       const result = await UserService.verifyUserInfo({ id: decode.user_id });
 
-      if (!result) return res.send("존재하지않는 유저 입니다.");
-      const token = await createToken(decode.user_id);
+      if (!result) return res.status(401).send("존재하지않는 유저 입니다.");
 
-      res.status(200).json({
-        accessToken: token.accessToken,
-      });
+      const minExpires = setCookieMinutes(10);
+      let token = await createToken(decode.user_id);
+
+      return res
+        .status(200)
+        .cookie("access_token", token.accessToken, {
+          httpOnly: true,
+          expires: minExpires,
+          domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
+        })
+        .send("ok");
     } catch (error) {
       console.error(error);
       next(error);

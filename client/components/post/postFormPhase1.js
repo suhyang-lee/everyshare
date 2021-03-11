@@ -88,7 +88,7 @@ const PostFormPhase1 = ({ register, errors, post }) => {
 PostFormPhase1.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  post: PropTypes.object.isRequired,
+  post: PropTypes.object,
 };
 
 export default PostFormPhase1;

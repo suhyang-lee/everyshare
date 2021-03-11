@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import Head from "next/head";
+import { END } from "redux-saga";
+import wrapper from "store/configureStore";
+
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import Auth from "lib/api/auth";
 
-import axios from "axios";
-import wrapper from "store/configureStore";
-import { END } from "redux-saga";
 import { CATEOGRY } from "utils/variables";
 
 import POST from "actions/postAction";
-import USER from "actions/userAction";
 
 import AppLayout from "components/layout/appLayout";
 import BoardList from "components/board";
@@ -23,13 +23,6 @@ const Board = () => {
   const { posts, hasMorePost, loadPostsLoading } = useSelector(
     (state) => state.post,
   );
-
-  useEffect(() => {
-    dispatch({
-      type: POST.LOAD_POSTS_REQUEST,
-      data: category,
-    });
-  }, [category]);
 
   useEffect(() => {
     function onScroll() {
@@ -51,33 +44,29 @@ const Board = () => {
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, [hasMorePost, loadPostsLoading, posts]);
-
-  if (loadPostsLoading) {
-    return <LoadingIcon />;
-  }
+  }, [hasMorePost, loadPostsLoading]);
 
   return (
     <AppLayout>
       <Head>
         <title>게시물 리스트 보기 | EveryShare</title>
       </Head>
+      {loadPostsLoading && <LoadingIcon height="100vh" />}
+
       <BoardList posts={posts} title={CATEOGRY[category]} />
+
+      {hasMorePost && <LoadingIcon height="auto" />}
     </AppLayout>
   );
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const cookie = context.req ? context.req.headers.cookie : "";
-    if (context.req && cookie) {
-      axios.defaults.headers.Cookie = cookie;
-    }
-
+    await Auth.validateAuth(context);
     context.store.dispatch({
-      type: USER.LOAD_USER_INFO_REQUEST,
+      type: POST.LOAD_POSTS_REQUEST,
+      data: context.query.category,
     });
-
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   },

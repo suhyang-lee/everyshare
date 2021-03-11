@@ -19,6 +19,11 @@ const MyList = () => {
     <>
       <p>총 {myZzimList && myZzimList.length}건</p>
       <ul className={styles.list}>
+        {myZzimList && myZzimList.length === 0 && (
+          <div className={styles.empty}>
+            아직까지 담겨있는 제품이 없어요! 😥
+          </div>
+        )}
         {myZzimList &&
           myZzimList.map((zzim) => <List key={zzim.id} zzim={zzim} />)}
       </ul>

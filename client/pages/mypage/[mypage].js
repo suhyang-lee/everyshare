@@ -1,14 +1,13 @@
 import React from "react";
 import Head from "next/head";
-
 import { END } from "redux-saga";
-import axios from "axios";
 import wrapper from "store/configureStore";
 import { useRouter } from "next/router";
 
+import Auth from "lib/api/auth";
+
 import AppLayout from "components/layout/appLayout";
 import Contents from "components/myPage";
-import USER from "actions/userAction";
 
 const Mypage = () => {
   const { query } = useRouter();
@@ -24,15 +23,7 @@ const Mypage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const cookie = context.req ? context.req.headers.cookie : "";
-    if (context.req && cookie) {
-      axios.defaults.headers.Cookie = cookie;
-    }
-
-    context.store.dispatch({
-      type: USER.LOAD_USER_INFO_REQUEST,
-    });
-
+    await Auth.validateAuth(context);
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   },

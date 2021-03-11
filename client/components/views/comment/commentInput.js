@@ -19,7 +19,6 @@ const CommentInput = ({ postId }) => {
   }, [addCommentDone]);
 
   const onSubmitForm = useCallback((data) => {
-    console.log("dfsdfsd");
     data.postId = postId;
     dispatch(addComment(data));
   }, []);

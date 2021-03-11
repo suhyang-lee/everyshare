@@ -65,12 +65,12 @@ const Signup = () => {
 
   const onKakaoTalkLogin = useCallback((e) => {
     e.preventDefault();
-    window.location.href = `${ServerURL.getServerURL()}/auth/kakao}`;
+    window.location.href = `${ServerURL.getServerURL()}/auth/kakao`;
   }, []);
 
   const onNaverLogin = useCallback(async (e) => {
     e.preventDefault();
-    window.location.href = `${ServerURL.getServerURL()}/auth/naver}`;
+    window.location.href = `${ServerURL.getServerURL()}/auth/naver`;
   }, []);
 
   useEffect(() => {

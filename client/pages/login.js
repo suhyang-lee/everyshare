@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import nookies from "nookies";
+
 import Head from "next/head";
 import Link from "next/link";
-
 import { END } from "redux-saga";
+
 import wrapper from "store/configureStore";
-import axios from "axios";
 import styled from "styled-components";
 
 import Layout from "components/layout/layout";
 import LoginForm from "components/login/loginForm";
 import styles from "components/login/login.module.scss";
 import { useSelector } from "react-redux";
+import { useRouter } from "next/dist/client/router";
 
 const HeaderLink = styled.a`
   color: black;
@@ -19,13 +19,14 @@ const HeaderLink = styled.a`
 `;
 
 const LoginPage = () => {
-  const { loginDone } = useSelector((state) => state.user);
+  const { user, loginDone } = useSelector((state) => state.user);
+  const router = useRouter();
 
   useEffect(() => {
     if (loginDone) {
       router.push("/");
     }
-  }, [loginDone]);
+  }, [user, loginDone]);
 
   return (
     <Layout>
@@ -51,11 +52,6 @@ const LoginPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const cookie = context.req ? context.req.headers.cookie : "";
-
-    if (context.req && cookie) {
-      axios.defaults.headers.Cookie = cookie;
-    }
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   },

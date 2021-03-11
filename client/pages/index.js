@@ -3,12 +3,9 @@ import Head from "next/head";
 import { END } from "redux-saga";
 
 import wrapper from "store/configureStore";
-import axios from "axios";
-
 import AppLayout from "components/layout/appLayout";
 import Contents from "components/home";
-
-import USER from "actions/userAction";
+import Auth from "lib/api/auth";
 
 const Home = () => {
   return (
@@ -23,15 +20,7 @@ const Home = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const cookie = context.req ? context.req.headers.cookie : "";
-
-    if (context.req && cookie) {
-      axios.defaults.headers.Cookie = cookie;
-    }
-    context.store.dispatch({
-      type: USER.LOAD_USER_INFO_REQUEST,
-    });
-
+    await Auth.validateAuth(context);
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   },

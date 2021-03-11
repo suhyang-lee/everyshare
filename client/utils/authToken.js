@@ -14,5 +14,6 @@ const authToken = () => {
   };
 };
 
-const authTokenClosure = authToken();
-export { authTokenClosure };
+const AuthToken = authToken();
+
+export default AuthToken;

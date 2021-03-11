@@ -30,6 +30,10 @@ const reducer = (state = initState, action) => {
         draft.loadSearchError = action.error;
         break;
 
+      case SEARCH.RESET_SEARCH:
+        draft.loadSearchDone = false;
+        break;
+
       default:
         break;
     }

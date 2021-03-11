@@ -48,7 +48,8 @@ router.patch("/:id", verifyToken, ctrl.updatePostRequest);
 router.delete("/:id", verifyToken, ctrl.removePostRequest);
 
 router.post("/:id/comment", verifyToken, ctrl.addCommentRequest);
-router.delete("/:id/comment", verifyToken, ctrl.removeCommentRequest);
+router.patch("/comment/:id", verifyToken, ctrl.updateCommentRequest);
+router.delete("/comment/:id", verifyToken, ctrl.removeCommentRequest);
 
 router.patch("/:id/zzim", verifyToken, ctrl.addZzimListRequest);
 router.delete("/:id/zzim", verifyToken, ctrl.removeZzimListRequest);

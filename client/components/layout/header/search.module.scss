@@ -1,5 +1,5 @@
 .backgroundWrapper {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100vh;
   -webkit-backdrop-filter: blur(10px);
@@ -11,9 +11,10 @@
   width: 100%;
   position: absolute;
   z-index: 888;
-  height: 10rem;
+  height: 12rem;
   background-color: #fff;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   -webkit-animation: slideBottom 0.3s;
@@ -34,6 +35,28 @@
     }
     to {
       top: 0;
+    }
+  }
+
+  .keywordList {
+    display: flex;
+    width: 80vw;
+    margin-left: 10vw;
+    padding-top: 1rem;
+    box-sizing: border-box;
+
+    li {
+      width: fit-content;
+      font-size: 0.8rem;
+      padding: 0.5rem 1rem;
+      background-color: #ffc800;
+      border-radius: 1rem;
+      margin-right: 0.5rem;
+      cursor: pointer;
+
+      button {
+        background: 0;
+      }
     }
   }
 

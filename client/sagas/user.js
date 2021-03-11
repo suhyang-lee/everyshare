@@ -1,10 +1,10 @@
 import { all, fork, delay, put, takeLatest, call } from "redux-saga/effects";
-import axios from "axios";
+import api from "lib/api";
 
 import USER from "actions/userAction";
 
 function signUpAPI(data) {
-  return axios.post("/user", data);
+  return api.post("/user", data);
 }
 
 function* signup(action) {
@@ -22,12 +22,13 @@ function* signup(action) {
 }
 
 function logInAPI(data) {
-  return axios.post("/auth/local", data);
+  return api.post("/auth/local", data);
 }
 
 function* login(action) {
   try {
     const result = yield call(logInAPI, action.data);
+
     yield put({
       type: USER.LOG_IN_SUCCESS,
       data: result.data.userInfo,
@@ -41,13 +42,14 @@ function* login(action) {
   }
 }
 
-function loginKakaoAPI(data) {
-  return axios.post("/auth/kakao", data);
+function loginKakaoAPI() {
+  return api.post("/auth/kakao");
 }
 
-function* loginKakao(action) {
+function* loginKakao() {
   try {
-    const result = yield call(loginKakaoAPI, action.data);
+    const result = yield call(loginKakaoAPI);
+    console.log(result);
     yield put({
       type: USER.KAKAO_LOG_IN_SUCCESS,
       data: result.data,
@@ -62,7 +64,7 @@ function* loginKakao(action) {
 }
 
 function loginNaverAPI(data) {
-  return axios.get("/auth/naver", data);
+  return api.get("/auth/naver", data);
 }
 
 function* loginNaver(action) {
@@ -83,12 +85,12 @@ function* loginNaver(action) {
 }
 
 function loadUserInfoAPI() {
-  return axios.get("/user");
+  return api.get("/user");
 }
 
-function* loadUserInfo(action) {
+function* loadUserInfo() {
   try {
-    const result = yield call(loadUserInfoAPI, action);
+    const result = yield call(loadUserInfoAPI);
     yield put({
       type: USER.LOAD_USER_INFO_SUCCESS,
       data: result.data,
@@ -103,16 +105,12 @@ function* loadUserInfo(action) {
 }
 
 function logOutAPI() {
-  return axios.post("/user/logout");
+  return api.post("/user/logout");
 }
 
 function* logout() {
   try {
-    const result = yield call(logOutAPI);
-    if (result) {
-      axios.defaults.headers.common["Authorization"] = undefined;
-      axios.defaults.headers.Cookie = undefined;
-    }
+    yield call(logOutAPI);
     yield put({
       type: USER.LOG_OUT_SUCCESS,
     });
@@ -125,8 +123,28 @@ function* logout() {
   }
 }
 
+function signOutAPI() {
+  return api.delete("/user/signout");
+}
+
+function* signOut() {
+  try {
+    const result = yield call(signOutAPI);
+
+    yield put({
+      type: USER.SIGN_OUT_SUCCESS,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: USER.SIGN_OUT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function uploadProfileImageAPI(data) {
-  return axios.patch("/mypage/info/profile", data);
+  return api.patch("/mypage/info/profile", data);
 }
 
 function* uploadProfileImage(action) {
@@ -147,7 +165,7 @@ function* uploadProfileImage(action) {
 }
 
 function changeNicknameAPI(data) {
-  return axios.patch("/mypage/info", { nickname: data });
+  return api.patch("/mypage/info", { nickname: data });
 }
 
 function* changeNickname(action) {
@@ -198,6 +216,10 @@ function* watchChangeNickname() {
   yield takeLatest(USER.CHANGE_NICKNAME_REQUEST, changeNickname);
 }
 
+function* watchSignOut() {
+  yield takeLatest(USER.SIGN_OUT_REQUEST, signOut);
+}
+
 export default function* userSaga() {
   yield all([
     fork(watchLogIn),
@@ -208,5 +230,6 @@ export default function* userSaga() {
     fork(watchLoadUserInfo),
     fork(watchUploadProfileImage),
     fork(watchChangeNickname),
+    fork(watchSignOut),
   ]);
 }

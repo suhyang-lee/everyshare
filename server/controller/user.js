@@ -12,9 +12,9 @@ const User = {
 
       if (userId) {
         const user = await UserService.loadUserInfo(userId);
-        res.status(200).json(user);
+        return res.status(200).json(user);
       } else {
-        res.status(201).send("ok");
+        return res.status(201).send("ok");
       }
     } catch (error) {
       console.error(error);
@@ -30,6 +30,7 @@ const User = {
       if (exUser) {
         return res.status(403).send("이미 사용중인 아이디입니다.");
       }
+
       const result = UserService.addLocalUser(req.body);
       if (!result) return res.status(403).send("사용자 등록에 실패했습니다.");
 
@@ -44,8 +45,48 @@ const User = {
     try {
       return res
         .status(200)
-        .clearCookie("refresh_token", { path: "/", domain: ".everyshare.shop" })
-        .send("로그아웃 완료되었습니다.");
+        .clearCookie("refresh_token", {
+          path: "/",
+          domain:
+            process.env.NODE_ENV === "production"
+              ? ".everyshare.shop"
+              : "localhost",
+        })
+        .clearCookie("access_token", {
+          path: "/",
+          domain:
+            process.env.NODE_ENV === "production"
+              ? ".everyshare.shop"
+              : "localhost",
+        })
+        .send("ok");
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  },
+
+  signoutRequest: async (req, res, next) => {
+    try {
+      const userId = req.decoded.user_id;
+      UserService.removeUser(userId);
+      return res
+        .status(200)
+        .clearCookie("refresh_token", {
+          path: "/",
+          domain:
+            process.env.NODE_ENV === "production"
+              ? ".everyshare.shop"
+              : "localhost",
+        })
+        .clearCookie("access_token", {
+          path: "/",
+          domain:
+            process.env.NODE_ENV === "production"
+              ? ".everyshare.shop"
+              : "localhost",
+        })
+        .send("회원탈퇴 완료되었습니다.");
     } catch (error) {
       console.error(error);
       next(error);

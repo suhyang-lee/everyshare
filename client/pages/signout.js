@@ -3,29 +3,30 @@ import { destroyCookie } from "nookies";
 import wrapper from "store/configureStore";
 import { END } from "redux-saga";
 import { useRouter } from "next/router";
+
+import Auth from "lib/api/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 import USER from "actions/userAction";
 
-import api from "lib/api";
-
-const Logout = () => {
+const SignOut = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { logoutDone } = useSelector((state) => state.user);
+  const { signoutDone } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch({
-      type: USER.LOG_OUT_REQUEST,
+      type: USER.SIGN_OUT_REQUEST,
     });
   }, []);
 
   useEffect(() => {
-    if (logoutDone) {
+    if (signoutDone) {
       router.push("/");
     }
-  }, [logoutDone]);
-  return <div>로그아웃처리중</div>;
+  }, [signoutDone]);
+
+  return <div>회원탈퇴 처리중</div>;
 };
 
 export const getServerSideProps = wrapper.getServerSideProps(
@@ -35,4 +36,4 @@ export const getServerSideProps = wrapper.getServerSideProps(
   },
 );
 
-export default Logout;
+export default SignOut;

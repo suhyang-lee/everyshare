@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import axios from "axios";
 
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -23,7 +24,7 @@ const Error = styled.div`
 const LoginForm = ({ onLoginModalClose }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { loginDone, loginError } = useSelector((state) => state.user);
+  const { user, loginDone, loginError } = useSelector((state) => state.user);
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");
   const [keepLoggedIn, onChangeKeepLoggedIn] = useInput("");
@@ -37,11 +38,10 @@ const LoginForm = ({ onLoginModalClose }) => {
   }, [loginError, setAttemptLoginError]);
 
   useEffect(() => {
-    if (loginDone) {
+    if (user) {
       if (onLoginModalClose) onLoginModalClose();
-      router.replace("/");
     }
-  }, [loginDone]);
+  }, [user]);
 
   const onSubmit = useCallback(
     (e) => {
@@ -56,12 +56,13 @@ const LoginForm = ({ onLoginModalClose }) => {
 
   const onKakaoTalkLogin = useCallback((e) => {
     e.preventDefault();
-    window.location.href = `${ServerURL.getServerURL()}/auth/kakao}`;
+    window.location.href = `${ServerURL.getServerURL()}/auth/kakao`;
   }, []);
 
   const onNaverLogin = useCallback((e) => {
     e.preventDefault();
-    window.location.href = `${ServerURL.getServerURL()}/auth/naver}`;
+
+    window.location.href = `${ServerURL.getServerURL()}/auth/naver`;
   }, []);
   return (
     <>

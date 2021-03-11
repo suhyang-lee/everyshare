@@ -51,6 +51,14 @@ export const initState = {
   addCommentDone: false,
   addCommentError: null,
 
+  updateCommentLoading: false,
+  updateCommentDone: false,
+  updateCommentError: null,
+
+  removeCommentLoading: false,
+  removeCommentDone: false,
+  removeCommentError: null,
+
   zzimPostLoading: false,
   zzimPostDone: false,
   zzimPostError: null,
@@ -81,7 +89,7 @@ const reducer = (state = initState, action) => {
       case POST.LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
-        draft.posts = draft.posts.concat(action.data);
+        draft.posts = action.data;
         draft.hasMorePost = action.data.length === 10;
         break;
       case POST.LOAD_POSTS_FAILURE:
@@ -240,16 +248,51 @@ const reducer = (state = initState, action) => {
       case POST.ADD_COMMENT_REQUEST:
         draft.addCommentLoading = true;
         draft.addCommentDone = false;
-        draft.addPostError = null;
+        draft.addCommentError = null;
         break;
       case POST.ADD_COMMENT_SUCCESS:
-        draft.post.Comments.unshift(action.data);
+        draft.post.Comments.push(action.data);
         draft.addCommentLoading = false;
         draft.addCommentDone = true;
         break;
       case POST.ADD_COMMENT_FAILURE:
         draft.addCommentLoading = false;
-        draft.addPostError = action.error;
+        draft.addCommentError = action.error;
+        break;
+
+      case POST.UPDATE_COMMENT_REQUEST:
+        draft.updateCommentLoading = true;
+        draft.updateCommentDone = false;
+        draft.updateCommentError = null;
+        break;
+      case POST.UPDATE_COMMENT_SUCCESS:
+        draft.post.Comments = draft.post.Comments.map((v) => {
+          if (v.id === action.data.id) v.contents = action.data.contents;
+          return v;
+        });
+        draft.updateCommentLoading = false;
+        draft.updateCommentDone = true;
+        break;
+      case POST.UPDATE_COMMENT_FAILURE:
+        draft.updateCommentLoading = false;
+        draft.updateCommentDone = action.error;
+        break;
+
+      case POST.REMOVE_COMMENT_REQUEST:
+        draft.removeCommentLoading = true;
+        draft.removeCommentDone = false;
+        draft.removePostError = null;
+        break;
+      case POST.REMOVE_COMMENT_SUCCESS:
+        draft.post.Comments = draft.post.Comments.filter(
+          (v) => v.id !== action.data.commentId,
+        );
+        draft.removeCommentLoading = false;
+        draft.removeCommentDone = true;
+        break;
+      case POST.REMOVE_COMMENT_FAILURE:
+        draft.removeCommentLoading = false;
+        draft.removeCommentError = action.error;
         break;
 
       default:

@@ -9,7 +9,6 @@ const PostService = {
       });
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -41,7 +40,6 @@ const PostService = {
       return result;
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -64,7 +62,6 @@ const PostService = {
       }
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -74,7 +71,6 @@ const PostService = {
       return result;
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -92,11 +88,10 @@ const PostService = {
           },
         ],
       });
-      console.log(result);
+
       return result;
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -104,7 +99,6 @@ const PostService = {
     try {
       const result = await Post.findOne({
         where: { id: id },
-        order: [[Comment, "createdAt", "DESC"]],
         include: [
           {
             model: Image,
@@ -133,7 +127,6 @@ const PostService = {
       return result;
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -165,7 +158,6 @@ const PostService = {
       );
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -176,7 +168,6 @@ const PostService = {
       });
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -191,7 +182,33 @@ const PostService = {
       return result;
     } catch (error) {
       console.error(error);
-      next(error);
+    }
+  },
+
+  updateComment: async (commentId, data) => {
+    try {
+      await Comment.update(
+        {
+          contents: data,
+        },
+        { where: { id: commentId } },
+      );
+
+      const result = Comment.findByPk(commentId);
+
+      return result;
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
+  removeComment: async (commentId) => {
+    try {
+      await Comment.destroy({
+        where: { id: commentId },
+      });
+    } catch (error) {
+      console.error(error);
     }
   },
 
@@ -210,7 +227,6 @@ const PostService = {
       return result;
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -219,16 +235,15 @@ const PostService = {
       await data.addBasketer(id);
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
   removeZzimList: async (id, data) => {
     try {
-      await data.removeBasketer(id);
+      const result = await data.removeBasketer(id);
+      console.log(result);
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -256,7 +271,6 @@ const PostService = {
       });
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 
@@ -279,7 +293,6 @@ const PostService = {
       return result;
     } catch (error) {
       console.error(error);
-      next(error);
     }
   },
 };

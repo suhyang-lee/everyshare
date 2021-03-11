@@ -1,10 +1,10 @@
 import { all, fork, put, takeLatest, throttle, call } from "redux-saga/effects";
-import axios from "axios";
+import api from "lib/api";
 
 import POST from "actions/postAction";
 
 function loadPostAPI(data) {
-  return axios.get(`/post/${data.postId}`, data);
+  return api.get(`/post/${data.postId}`, data);
 }
 
 function* loadPosts(action) {
@@ -24,7 +24,7 @@ function* loadPosts(action) {
 }
 
 function addPostAPI(data) {
-  return axios.post("/post", data);
+  return api.post("/post", data);
 }
 
 function* addPost(action) {
@@ -44,7 +44,7 @@ function* addPost(action) {
 }
 
 function updatePostAPI(data) {
-  return axios.patch(`/post/${parseInt(data.id, 10)}`, data);
+  return api.patch(`/post/${parseInt(data.id, 10)}`, data);
 }
 
 function* updatePost(action) {
@@ -64,7 +64,7 @@ function* updatePost(action) {
 }
 
 function removePostAPI(data) {
-  return axios.delete(`/post/${data.postId}`, data);
+  return api.delete(`/post/${data.postId}`, data);
 }
 
 function* removePost(action) {
@@ -84,7 +84,7 @@ function* removePost(action) {
 }
 
 function uploadImagesAPI(data) {
-  return axios.post("/post/images", data);
+  return api.post("/post/images", data);
 }
 
 function* uploadImages(action) {
@@ -104,7 +104,7 @@ function* uploadImages(action) {
 }
 
 function uploadRemoveImagesAPI(data) {
-  return axios.delete(`/post/images?id=${data.id}`, data);
+  return api.delete(`/post/images?id=${data.id}`, data);
 }
 
 function* uploadRemoveImages(action) {
@@ -125,7 +125,7 @@ function* uploadRemoveImages(action) {
 }
 
 function loadPostsAPI(data, lastId) {
-  return axios.get(`/posts/${encodeURIComponent(data)}?lastId=${lastId || 0}`);
+  return api.get(`/posts/${encodeURIComponent(data)}?lastId=${lastId || 0}`);
 }
 
 function* loadPost(action) {
@@ -145,7 +145,7 @@ function* loadPost(action) {
 }
 
 function addCommentAPI(data) {
-  return axios.post(`/post/${data.postId}/comment`, data);
+  return api.post(`/post/${data.postId}/comment`, data);
 }
 
 function* addComment(action) {
@@ -164,9 +164,50 @@ function* addComment(action) {
   }
 }
 
+function updateCommentAPI(data) {
+  return api.patch(`/post/comment/${data.commentId}`, data);
+}
+
+function* updateComment(action) {
+  try {
+    const result = yield call(updateCommentAPI, action.data);
+    console.log(result);
+    yield put({
+      type: POST.UPDATE_COMMENT_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: POST.UPDATE_COMMENT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function removeCommentAPI(data) {
+  return api.delete(`/post/comment/${data.commentId}`);
+}
+
+function* removeComment(action) {
+  try {
+    yield call(removeCommentAPI, action.data);
+    yield put({
+      type: POST.REMOVE_COMMENT_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: POST.REMOVE_COMMENT_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 //물건 찜하기
 function zzimPostAPI(data) {
-  return axios.patch(`/post/${data.postId}/zzim`);
+  return api.patch(`/post/${data.postId}/zzim`);
 }
 
 function* zzimPost(action) {
@@ -187,7 +228,7 @@ function* zzimPost(action) {
 
 //찜 삭제
 function notZzimPostAPI(data) {
-  return axios.delete(`/post/${data.postId}/zzim`, data);
+  return api.delete(`/post/${data.postId}/zzim`, data);
 }
 
 function* notZzimPost(action) {
@@ -207,7 +248,7 @@ function* notZzimPost(action) {
 }
 
 function addApplyAPI(data) {
-  return axios.post("post/apply", data);
+  return api.post("post/apply", data);
 }
 
 function* addApply(action) {
@@ -228,7 +269,7 @@ function* addApply(action) {
 }
 
 function* watchLoadPosts() {
-  yield throttle(5000, POST.LOAD_POSTS_REQUEST, loadPosts);
+  yield throttle(500, POST.LOAD_POSTS_REQUEST, loadPosts);
 }
 
 function* watchAddPost() {
@@ -266,6 +307,14 @@ function* watchAddComment() {
   yield takeLatest(POST.ADD_COMMENT_REQUEST, addComment);
 }
 
+function* watchUpdateComment() {
+  yield takeLatest(POST.UPDATE_COMMENT_REQUEST, updateComment);
+}
+
+function* watchRemoveComment() {
+  yield takeLatest(POST.REMOVE_COMMENT_REQUEST, removeComment);
+}
+
 function* watchAddApply() {
   yield takeLatest(POST.APPLY_RENTAL_REQUEST, addApply);
 }
@@ -283,7 +332,10 @@ export default function* postSaga() {
 
     fork(watchZzimPost),
     fork(watchNotZzimPost),
+
     fork(watchAddComment),
+    fork(watchUpdateComment),
+    fork(watchRemoveComment),
 
     fork(watchAddApply),
   ]);

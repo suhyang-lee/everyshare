@@ -1,10 +1,10 @@
 import { all, fork, put, takeLatest, call } from "redux-saga/effects";
-import axios from "axios";
+import api from "lib/api";
 
 import SEARCH from "actions/searchAction";
 
 function loadSearchAPI(data, lastId) {
-  return axios.get(`/search/${encodeURIComponent(data)}?lastId=${lastId || 0}`);
+  return api.get(`/search/${encodeURIComponent(data)}?lastId=${lastId || 0}`);
 }
 
 function* loadSearch(action) {

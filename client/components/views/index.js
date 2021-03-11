@@ -103,16 +103,21 @@ const View = ({ post }) => {
           <h4>{CATEOGRY[post.category]}</h4>
           <h5>{post.title}</h5>
           <div className={styles.buyBtnWrapper}>
-            <button onClick={openModal}>신청하기</button>
             {user.id !== post.UserId && (
-              <button>
-                찜하기{" "}
-                {basketed ? (
-                  <HeartFilled style={{ color: "red" }} onClick={onNotZzimed} />
-                ) : (
-                  <HeartOutlined onClick={onZzimed} />
-                )}
-              </button>
+              <>
+                <button onClick={openModal}>신청하기</button>
+                <button>
+                  찜하기{" "}
+                  {basketed ? (
+                    <HeartFilled
+                      style={{ color: "red" }}
+                      onClick={onNotZzimed}
+                    />
+                  ) : (
+                    <HeartOutlined onClick={onZzimed} />
+                  )}
+                </button>
+              </>
             )}
           </div>
           <div className={styles.writerInfo}>
@@ -139,13 +144,13 @@ const View = ({ post }) => {
           </div>
           <div className={styles.priceWrapper}>
             <p>보증금</p>
-            <p>{post.deposit} ETH</p>
+            <p>{post.deposit} 원</p>
           </div>
           <div className={styles.totalPriceWrapper}>
             <p>
-              예상 대여비<span>(일 {post.price} ETH 기준)</span>
+              예상 대여비<span>(일 {post.price} 원 기준)</span>
             </p>
-            <p>{parseFloat(days * post.price + post.deposit).toFixed(3)} ETH</p>
+            <p>{parseFloat(days * post.price + post.deposit)} 원</p>
           </div>
         </div>
       </section>

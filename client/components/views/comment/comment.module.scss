@@ -2,7 +2,7 @@
   display: flex;
   box-sizing: border-box;
   border-bottom: 1px solid #cccccc;
-  padding-top: 3rem;
+  padding-top: 2rem;
   padding-bottom: 3rem;
 }
 
@@ -16,8 +16,8 @@
     text-align: center;
 
     &:first-of-type {
-      font-size: 1.063rem;
-      font-weight: 700;
+      font-size: 1rem;
+      font-weight: 500;
     }
 
     &:last-of-type {
@@ -85,18 +85,13 @@
 }
 
 .commentInput {
-  display: flex;
-  align-items: center;
-  width: 100%;
   height: 5rem;
+  align-items: center;
 
   input {
-    border: 0;
     width: 95%;
     height: 50px;
-    box-sizing: border-box;
     padding-left: 1rem;
-    border: 1px solid #c7c7c7;
     font-size: 1rem;
     font-weight: 500;
   }
@@ -106,5 +101,39 @@
     height: 50px;
     background-color: #ffc800;
     color: #fff;
+  }
+}
+
+.commentInput,
+.modifyComment {
+  display: flex;
+  width: 100%;
+
+  input,
+  textarea {
+    border: 0;
+    box-sizing: border-box;
+    border: 1px solid #c7c7c7;
+    font-weight: 500;
+    outline: 0;
+  }
+
+  button {
+    background-color: #ffc800;
+    color: #fff;
+  }
+}
+
+.modifyComment {
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  textarea {
+    width: 90%;
+    padding: 1rem;
+  }
+  button {
+    width: 100px;
   }
 }

@@ -36,6 +36,6 @@ router.get(
 
 router.post("/local", ctrl.callLogin);
 
-router.get("/token", ctrl.issueToken);
+router.post("/token", ctrl.issueToken);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const PostService = require("../service/post");
-
+const { Op } = require("sequelize");
 const { dateDiff } = require("../utils/formatter");
 
 const Post = {
@@ -119,10 +119,24 @@ const Post = {
     }
   },
 
+  updateCommentRequest: async (req, res, next) => {
+    try {
+      const commentId = parseInt(req.params.id, 10);
+      const { contents } = req.body;
+
+      const result = await PostService.updateComment(commentId, contents);
+
+      res.status(201).json(result);
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  },
+
   removeCommentRequest: async (req, res, next) => {
     try {
-      // 1. 댓글 번호 가져오기
-      // 2. 댓글 번호로 찾아 -> 작성자와 요청보낸 사용자가 동일하면 삭제
+      const commentId = parseInt(req.params.id, 10);
+      await PostService.removeComment(commentId);
 
       res.status(201).json("댓글이 삭제되었습니다.");
     } catch (error) {
@@ -158,7 +172,7 @@ const Post = {
 
       if (!exPost) return res.status(403).send("상품이 존재하지 않습니다.");
 
-      await PostService.removeZzimList(postId);
+      await PostService.removeZzimList(postId, exPost);
 
       res.json({ PostId: exPost.id, UserId: userId });
     } catch (error) {
@@ -184,6 +198,7 @@ const Post = {
   loadSearchPostRequest: async (req, res, next) => {
     try {
       const keyword = decodeURIComponent(req.params.keyword);
+      console.log(keyword);
       const searchList = await PostService.loadSearchPost(keyword);
 
       res.status(200).json(searchList);

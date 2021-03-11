@@ -67,7 +67,7 @@ exports.createTokenCookies = (accessToken, refreshToken) => {
       accessToken,
       {
         httpOnly: true,
-        maxAge: 10 * 60,
+        maxAge: 3 * 60,
       },
     ],
     refresh: [
@@ -90,5 +90,6 @@ exports.setCookieDays = (day) => {
 exports.setCookieMinutes = (minutes) => {
   const expires = new Date();
   expires.setMinutes(expires.getMinutes() + minutes);
+  console.log(expires);
   return expires;
 };

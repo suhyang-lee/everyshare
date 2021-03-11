@@ -27,7 +27,7 @@ const PostCard = ({ post }) => {
           <p>대여비 및 보증금</p>
           <div className={styles.cardInfoPrice}>
             <p>
-              {post.price} ETH / {post.deposit} ETH
+              {post.price} 원 / {post.deposit} 원
             </p>
           </div>
         </div>

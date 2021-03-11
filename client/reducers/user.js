@@ -23,6 +23,10 @@ export const initState = {
   signupDone: false,
   signupError: false,
 
+  signoutLoadding: false,
+  signoutDone: false,
+  signoutError: false,
+
   uploadImageLoading: false,
   uploadImageDone: false,
   uploadImageError: null,
@@ -147,13 +151,27 @@ const reducer = (state = initState, action) => {
         draft.logoutLoadding = false;
         draft.logoutDone = true;
         draft.user = null;
-        authTokenClosure.setToken(undefined);
-
         break;
       case USER.LOG_OUT_FAILURE:
         draft.logoutLoadding = false;
         draft.logoutDone = false;
         draft.logoutError = action.error;
+        break;
+
+      case USER.SIGN_OUT_REQUEST:
+        draft.signoutLoadding = true;
+        draft.signoutDone = false;
+        draft.signoutError = null;
+        break;
+      case USER.SIGN_OUT_SUCCESS:
+        draft.signoutLoadding = false;
+        draft.signoutDone = true;
+        draft.user = null;
+        break;
+      case USER.SIGN_OUT_FAILURE:
+        draft.signoutLoadding = false;
+        draft.signoutDone = false;
+        draft.signoutError = action.error;
         break;
 
       case USER.SIGN_UP_REQUEST:

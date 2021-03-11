@@ -3,24 +3,40 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import { END } from "redux-saga";
-
-import axios from "axios";
+import _ from "lodash/array";
+import Auth from "lib/api/auth";
 import wrapper from "store/configureStore";
 
 import AppLayout from "components/layout/appLayout";
 import BoardList from "components/board";
 
-import USER from "actions/userAction";
 import SEARCH from "actions/searchAction";
 
 const Search = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+
   const { keyword } = router.query;
 
   const { searchs, hasMoreSearch, loadSearchLoading } = useSelector(
     (state) => state.search,
   );
+
+  useEffect(() => {
+    const newKeyword = {
+      id: Date.now(),
+      keyword: keyword,
+    };
+
+    const keywordList = JSON.parse(localStorage.getItem("keywords") || "[]");
+
+    if (keywordList.length >= 10) keywordList.pop();
+
+    keywordList.unshift(newKeyword);
+    const keywords = _.uniqBy(keywordList, "keyword");
+
+    localStorage.setItem("keywords", JSON.stringify([...keywords]));
+  }, [keyword]);
 
   useEffect(() => {
     function onScroll() {
@@ -56,14 +72,7 @@ const Search = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
-    const cookie = context.req ? context.req.headers.cookie : "";
-
-    if (context.req && cookie) {
-      axios.defaults.headers.Cookie = cookie;
-    }
-    context.store.dispatch({
-      type: USER.LOAD_USER_INFO_REQUEST,
-    });
+    await Auth.validateAuth(context);
 
     context.store.dispatch({
       type: SEARCH.LOAD_SEARCH_REQUEST,
