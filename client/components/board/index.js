@@ -43,11 +43,12 @@ const Board = ({ posts, title }) => {
       )}
 
       <div className={styles.listContents}>
-        {posts
-          .filter((v) => v.postType !== filterValue)
-          .map((post) => {
-            return <PostCard key={post.id} post={post} />;
-          })}
+        {posts &&
+          posts
+            .filter((v) => v.postType !== filterValue)
+            .map((post) => {
+              return <PostCard key={post.id} post={post} />;
+            })}
       </div>
     </section>
   );
