@@ -12,4 +12,4 @@ yarn-debug.log*
 yarn-error.log*
 .vscode
 everyshare-project.pem
-config
+config/config.js

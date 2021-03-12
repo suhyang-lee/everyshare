@@ -57,7 +57,13 @@ const Auth = {
       const userInfo = await UserService.loadUserInfo(id);
 
       if (!userInfo) {
-        return res.status(201).redirect(`http://localhost:3000/signup`);
+        return res
+          .status(201)
+          .redirect(
+            process.env.NODE_ENV === "production"
+              ? "http://everyshare.shop/"
+              : "http://localhost:3000/",
+          );
       }
 
       const dayExpires = setCookieDays(14);

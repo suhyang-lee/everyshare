@@ -6,7 +6,6 @@ const User = {
       const userId = req.decoded.user_id;
 
       if (!req.cookies.refresh_token) {
-        req.headers.authorization = null;
         return res.status(201).send("");
       }
 
