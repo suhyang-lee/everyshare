@@ -46,6 +46,11 @@ class Post extends Sequelize.Model {
         }, //1:day 2:month 3: year
         price: { type: Sequelize.DOUBLE, allowNull: false },
         deposit: { type: Sequelize.DOUBLE, allowNull: false },
+        flag: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,
+          defaultValue: false,
+        },
       },
       {
         sequelize,

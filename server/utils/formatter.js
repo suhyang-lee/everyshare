@@ -1,14 +1,13 @@
 /* 어디든 공통으로 사용할 수 있는 util 함수들 */
 const bcrypt = require("bcrypt");
 
-/* 날짜 포맷 */
-exports.dateFormat = (key, values) => {
+const dateFormat = (key, values) => {
   var myDate = new Date(values[key]);
   values[key] = myDate.getTime();
   return values;
 };
 
-exports.dateFormats = (key, values) => {
+const dateFormats = (key, values) => {
   values = values.map((date) => {
     var myDate = new Date(date[key]);
     return (date[key] = myDate.getTime());
@@ -17,7 +16,7 @@ exports.dateFormats = (key, values) => {
   return values;
 };
 
-exports.dateDiff = (date1, date2) => {
+const dateDiff = (date1, date2) => {
   const sdt = new Date(date1);
   const edt = new Date(date2);
   const dateDiff = Math.ceil(
@@ -28,21 +27,19 @@ exports.dateDiff = (date1, date2) => {
 };
 
 /* 밀리초 변환 */
-exports.getMillisecondsOfDay = (days) => {
+const getMillisecondsOfDay = (days) => {
   var date = new Date();
   date.setDate(date.getDate() + days);
   return date.setMilliseconds(date.getMilliseconds() + 10000);
 };
 
-exports.getMillisecondsOfMinutes = (minutes) => {
+const getMillisecondsOfMinutes = (minutes) => {
   var date = new Date();
   date.setMinutes(date.getMinutes() + minutes);
   return date.setMilliseconds(date.getMilliseconds());
 };
 
-/* 암호화 */
-
-exports.createEncryption = async () => {
+const createEncryption = async () => {
   try {
     return await bcrypt.hash(process.env.JWT_REFRESH_SECRET, 10);
   } catch (error) {
@@ -51,7 +48,7 @@ exports.createEncryption = async () => {
   }
 };
 
-exports.decryptionCode = async (value) => {
+const decryptionCode = async (value) => {
   try {
     return await bcrypt.compare(process.env.JWT_REFRESH_SECRET, value);
   } catch (error) {
@@ -60,7 +57,7 @@ exports.decryptionCode = async (value) => {
   }
 };
 
-exports.createTokenCookies = (accessToken, refreshToken) => {
+const createTokenCookies = (accessToken, refreshToken) => {
   return {
     access: [
       "access_token",
@@ -81,15 +78,27 @@ exports.createTokenCookies = (accessToken, refreshToken) => {
   };
 };
 
-exports.setCookieDays = (day) => {
+const setCookieDays = (day) => {
   const expires = new Date();
   expires.setDate(expires.getDate() + day);
   return expires;
 };
 
-exports.setCookieMinutes = (minutes) => {
+const setCookieMinutes = (minutes) => {
   const expires = new Date();
   expires.setMinutes(expires.getMinutes() + minutes);
-  console.log(expires);
   return expires;
+};
+
+module.exports = {
+  dateFormat,
+  dateFormats,
+  dateDiff,
+  getMillisecondsOfDay,
+  getMillisecondsOfMinutes,
+  createEncryption,
+  decryptionCode,
+  createTokenCookies,
+  setCookieDays,
+  setCookieMinutes,
 };

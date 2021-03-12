@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import MaterialUIPickers from "components/views/apply/picker";
 import styled from "styled-components";
 import POST from "actions/postAction";
+import { Router } from "next/router";
 
 const customStyles = {
   content: {
@@ -42,7 +43,7 @@ const ApplyButton = styled.button`
   margin-bottom: 1rem;
 `;
 
-const Apply = ({ modalIsOpen, closeModal, writer }) => {
+const Apply = ({ modalIsOpen, closeModal }) => {
   const dispatch = useDispatch();
   const { post } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
@@ -76,6 +77,8 @@ const Apply = ({ modalIsOpen, closeModal, writer }) => {
       type: POST.APPLY_RENTAL_REQUEST,
       data,
     });
+
+    Router.push("/mypage/borrow");
   }, [selectedStartDate, selectedEndDate, post]);
 
   return (

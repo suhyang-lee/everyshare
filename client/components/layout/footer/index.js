@@ -117,15 +117,22 @@ const Footer = () => {
             </li>
           </ul>
 
-          {/* <!-- 에브리쉐어에 대해 메뉴 --> */}
           <ul className={styles.footerItem}>
             <li>
               <h3>ABOUT EVERYSHARE</h3>
             </li>
-            <li>에브리쉐어에 대해</li>
+
+            <Link
+              href={{
+                pathname: "/about",
+              }}
+            >
+              <li>
+                <FooterLink>에브리쉐어에 대해</FooterLink>
+              </li>
+            </Link>
           </ul>
 
-          {/* <!-- 소셜 서비스 메뉴 --> */}
           <ul className={styles.footerItem}>
             <li>
               <h3>SOCIAL SERVICE</h3>
@@ -150,7 +157,24 @@ const Footer = () => {
           <p>Born In KOREA</p>
           <div className={styles.githubInfo}>
             <p>
-              https://github.com/suhyang-lee <br /> alzmzl1012@gmail.com
+              <FooterLink
+                onClick={() =>
+                  window.open("https://github.com/suhyang-lee", "_blank")
+                }
+              >
+                https://github.com/suhyang-lee
+              </FooterLink>
+              <br />{" "}
+              <FooterLink
+                onClick={() =>
+                  window.open(
+                    "https://mail.google.com/mail/u/0/?fs=1&to=alzmzl1012@gmail.com&tf=cm",
+                    "_blank",
+                  )
+                }
+              >
+                alzmzl1012@gmail.com
+              </FooterLink>
             </p>
             <span>
               {" "}

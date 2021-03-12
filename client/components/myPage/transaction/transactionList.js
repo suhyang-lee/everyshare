@@ -14,7 +14,7 @@ const TransactionList = ({ data }) => {
           {getFormatDate(data.returnDate)}
         </p>
         <p>
-          <span>대여금액</span> : {data.price} ETH
+          <span>대여금액</span> : {data.price} 원
         </p>
       </div>
       <div className={styles.transactionState}>

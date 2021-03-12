@@ -1,10 +1,8 @@
 import { useEffect } from "react";
-import { destroyCookie } from "nookies";
 import wrapper from "store/configureStore";
 import { END } from "redux-saga";
 import { useRouter } from "next/router";
 
-import Auth from "lib/api/auth";
 import { useDispatch, useSelector } from "react-redux";
 
 import USER from "actions/userAction";

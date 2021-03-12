@@ -13,7 +13,7 @@ const MainBanner = () => {
             Just borrow.
           </h5>
           <p>에브리쉐어에서는 모든 것을 공유합니다</p>
-          <p>이제는 사지말고 공유하세요</p>
+          <p>봄에도 에브리쉐어와 공유하세요</p>
           <Link href="/post">
             <button className={styles.bannerWriteBtn}>글쓰러 가기</button>
           </Link>

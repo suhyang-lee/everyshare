@@ -45,7 +45,6 @@ const Category = ({ onClickOpen, isOpen }) => {
         onMouseOverCapture={onMouseOverCapture}
       >
         <nav className={styles.lnbNav}>
-          {/* <!-- 카테고리 메뉴 --> */}
           <ul className={styles.lnbItem}>
             <li>
               <h3>CATEGORY</h3>
@@ -129,7 +128,6 @@ const Category = ({ onClickOpen, isOpen }) => {
             </li>
           </ul>
 
-          {/* <!-- 퀵 메뉴 --> */}
           <ul className={styles.lnbItem}>
             <li>
               <h3>QUICK MENU</h3>
@@ -147,12 +145,14 @@ const Category = ({ onClickOpen, isOpen }) => {
             </li>
             <li>
               <h4>
-                <HeaderLink>내가 대여해 준 물품</HeaderLink>
+                <HeaderLink href="/mypage/owner">
+                  내가 대여해 준 물품
+                </HeaderLink>
               </h4>
             </li>
             <li>
               <h4>
-                <HeaderLink>내가 대여한 물품</HeaderLink>
+                <HeaderLink href="/mypage/borrow">내가 대여한 물품</HeaderLink>
               </h4>
             </li>
             <li>
@@ -164,31 +164,19 @@ const Category = ({ onClickOpen, isOpen }) => {
             </li>
           </ul>
 
-          {/* <!-- 고객서비스 메뉴 --> */}
           <ul className={styles.lnbItem}>
             <li>
               <h3>
-                <HeaderLink>자주묻는 질문</HeaderLink>
+                <HeaderLink>ABOUT</HeaderLink>
               </h3>
             </li>
             <li>
               <h4>
-                <HeaderLink>자주묻는 질문</HeaderLink>
-              </h4>
-            </li>
-            <li>
-              <h4>
-                <HeaderLink>문의하기</HeaderLink>
-              </h4>
-            </li>
-            <li>
-              <h4>
-                <HeaderLink>공지사항</HeaderLink>
+                <HeaderLink href="/about">에브리쉐어에 대해</HeaderLink>
               </h4>
             </li>
           </ul>
 
-          {/* <!-- 이벤트 메뉴 --> */}
           <ul className={styles.lnbItem}>
             <li>
               <h3>EVENT</h3>
@@ -196,7 +184,6 @@ const Category = ({ onClickOpen, isOpen }) => {
             <li className={styles.eventBanner}></li>
           </ul>
 
-          {/* <!-- 모바일용 gnb 메뉴 --> */}
           <ul className={styles.lnbItem}>
             <li>
               <Link

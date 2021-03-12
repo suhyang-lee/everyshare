@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import PropTypes from "prop-types";
@@ -31,6 +31,13 @@ const View = ({ post }) => {
 
   const id = user?.id;
   const basketed = post.Basketer.find((v) => v.id === id);
+
+  const getPrice = (days) => {
+    const result = parseInt(days * post.price + post.deposit);
+    return result;
+  };
+
+  const price = useMemo(() => getPrice(days), [days]);
 
   const handleMinus = useCallback(() => {
     if (days > 1) {
@@ -150,10 +157,13 @@ const View = ({ post }) => {
             <p>
               예상 대여비<span>(일 {post.price} 원 기준)</span>
             </p>
-            <p>{parseFloat(days * post.price + post.deposit)} 원</p>
+            <p>
+              {price ? price : parseInt(days * post.price + post.deposit)} 원
+            </p>
           </div>
         </div>
       </section>
+
       {/* 댓글 및 내용  */}
       <section className={styles.viewContents}>
         <ul className={styles.menu}>
@@ -179,11 +189,7 @@ const View = ({ post }) => {
           {post && post.id ? <CommentInput postId={post.id} /> : <></>}
         </article>
       </section>
-      <ApplyModal
-        modalIsOpen={modalIsOpen}
-        closeModal={closeModal}
-        writer={post.User}
-      />
+      <ApplyModal modalIsOpen={modalIsOpen} closeModal={closeModal} />
     </div>
   );
 };

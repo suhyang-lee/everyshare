@@ -43,6 +43,7 @@ const Post = {
       }
 
       where.category = decodeURIComponent(req.params.category);
+      where.flag = false;
 
       const posts = await PostService.loadAllPosts(where);
 

@@ -247,6 +247,19 @@ const PostService = {
     }
   },
 
+  updatePostFlag: async (id) => {
+    try {
+      await Post.update(
+        {
+          flag: true,
+        },
+        { where: { id: id } },
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  },
+
   addApply: async (data, diff) => {
     try {
       const {
@@ -258,6 +271,8 @@ const PostService = {
         lenderId,
         PostId,
       } = data;
+
+      await PostService.updatePostFlag(PostId);
 
       await History.create({
         rentalDate,

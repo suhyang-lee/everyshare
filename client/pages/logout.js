@@ -1,13 +1,10 @@
 import { useEffect } from "react";
-import { destroyCookie } from "nookies";
 import wrapper from "store/configureStore";
 import { END } from "redux-saga";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 
 import USER from "actions/userAction";
-
-import api from "lib/api";
 
 const Logout = () => {
   const router = useRouter();
