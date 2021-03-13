@@ -1,6 +1,5 @@
 import api from "./index";
 import USER from "actions/userAction";
-import { ServerURL } from "config/config";
 
 const Auth = {
   validateAuth: async (ctx) => {
