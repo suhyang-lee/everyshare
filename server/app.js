@@ -38,7 +38,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(helmet());
   app.use(
     cors({
-      origin: ["http://everyshare.shop"],
+      origin: ["http://everyshare.shop", "https://everyshare.shop"],
       credentials: true,
     }),
   );
@@ -63,6 +63,7 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
+      secure: true,
       domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
     },
   }),

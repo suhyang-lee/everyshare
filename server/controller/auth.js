@@ -72,6 +72,7 @@ const Auth = {
         .status(200)
         .cookie("refresh_token", token.refreshToken, {
           httpOnly: true,
+          secure: true,
           expires: dayExpires,
           domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
         })
@@ -109,6 +110,7 @@ const Auth = {
           .status(200)
           .cookie("refresh_token", token.refreshToken, {
             httpOnly: true,
+            secure: true,
             expires: dayExpires,
             domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
           })
