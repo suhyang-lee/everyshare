@@ -10,7 +10,7 @@ import Preview from "components/post/preview";
 import Editor from "components/post/postEditor";
 import POST from "actions/postAction";
 
-import { RightOutlined, CloseCircleFilled } from "@ant-design/icons";
+import { RightOutlined } from "@ant-design/icons";
 import styles from "./post.module.scss";
 
 const cx = classNames.bind(styles);
@@ -49,6 +49,13 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
     },
     [ImagePaths],
   );
+
+  const onClickWindowOpen = () => {
+    window.open(
+      "https://shopping.naver.com",
+      "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes",
+    );
+  };
 
   return (
     <>
@@ -189,7 +196,7 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
                   name="rentalFee"
                   className={styles.rentalFee}
                 />
-                <p>ETH</p>
+                <p>원</p>
               </div>
 
               {_.get("rentalFee.type", errors) === "required" && (
@@ -216,8 +223,12 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
                   name="deposit"
                   className={styles.depositInput}
                 />
-                <p>ETH</p>
-                <button className={styles.searchBtn}>
+                <p>원</p>
+                <button
+                  type="button"
+                  className={styles.searchBtn}
+                  onClick={onClickWindowOpen}
+                >
                   시세 알아보기&nbsp;
                   <RightOutlined />
                 </button>

@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
 
 import PropTypes from "prop-types";
@@ -28,6 +28,7 @@ const View = ({ post }) => {
 
   const [days, setDays] = useState(1);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [zzim, setZzim] = useState(false);
 
   const id = user?.id;
   const basketed = post.Basketer.find((v) => v.id === id);
@@ -52,25 +53,24 @@ const View = ({ post }) => {
   }, [days]);
 
   const onZzimed = useCallback(() => {
-    if (!id) {
-      return alert("로그인이 필요합니다.");
-    }
-    dispatch({
-      type: POST.ZZIM_POST_REQUEST,
-      data: { postId: post.id },
-    });
+    if (!id) return alert("로그인이 필요합니다.");
+
+    setZzim(!zzim);
   }, [id, post]);
 
-  const onNotZzimed = useCallback(() => {
-    if (!id) {
-      return alert("로그인이 필요합니다.");
+  useEffect(() => {
+    if (zzim) {
+      dispatch({
+        type: POST.ZZIM_POST_REQUEST,
+        data: { postId: post.id },
+      });
+    } else {
+      dispatch({
+        type: POST.NOT_ZZIM_POST_REQUEST,
+        data: { postId: post.id },
+      });
     }
-
-    dispatch({
-      type: POST.NOT_ZZIM_POST_REQUEST,
-      data: { postId: post.id },
-    });
-  }, [id, post]);
+  }, [zzim]);
 
   const onPostUpdate = useCallback(() => {
     if (post.id) {
@@ -113,15 +113,12 @@ const View = ({ post }) => {
             {user.id !== post.UserId && (
               <>
                 <button onClick={openModal}>신청하기</button>
-                <button>
+                <button onClick={onZzimed}>
                   찜하기{" "}
                   {basketed ? (
-                    <HeartFilled
-                      style={{ color: "red" }}
-                      onClick={onNotZzimed}
-                    />
+                    <HeartFilled style={{ color: "red" }} />
                   ) : (
-                    <HeartOutlined onClick={onZzimed} />
+                    <HeartOutlined />
                   )}
                 </button>
               </>
@@ -136,7 +133,9 @@ const View = ({ post }) => {
             </div>
             <div className={styles.profileInfo}>
               <p>{post.User.nickname}</p>
-              <button className={styles.chatBtn}> 1대1 대화요청</button>
+              <span className={styles.prfileId}>
+                @{post.User.email && post.User.email.split("@")[0]}
+              </span>
             </div>
           </div>
           <div className={styles.priceWrapper}>

@@ -5,6 +5,7 @@ import { END } from "redux-saga";
 import wrapper from "store/configureStore";
 import AppLayout from "components/layout/appLayout";
 import Auth from "lib/api/auth";
+
 import Main from "components/about";
 
 const About = () => {

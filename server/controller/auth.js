@@ -75,11 +75,6 @@ const Auth = {
           expires: dayExpires,
           domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
         })
-        .cookie("access_token", token.accessToken, {
-          httpOnly: true,
-          expires: minExpires,
-          domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
-        })
         .redirect(
           process.env.NODE_ENV === "production"
             ? "http://everyshare.shop/"
@@ -117,13 +112,9 @@ const Auth = {
             expires: dayExpires,
             domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
           })
-          .cookie("access_token", token.accessToken, {
-            httpOnly: true,
-            expires: minExpires,
-            domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
-          })
           .json({
             userInfo,
+            accessToken: token.accessToken,
           });
       });
     })(req, res, next);
@@ -143,14 +134,7 @@ const Auth = {
       const minExpires = setCookieMinutes(10);
       let token = await createToken(decode.user_id);
 
-      return res
-        .status(200)
-        .cookie("access_token", token.accessToken, {
-          httpOnly: true,
-          expires: minExpires,
-          domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
-        })
-        .send("ok");
+      return res.status(200).json({ accessToken: token.accessToken });
     } catch (error) {
       console.error(error);
       next(error);

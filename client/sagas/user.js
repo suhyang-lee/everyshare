@@ -91,6 +91,7 @@ function loadUserInfoAPI() {
 function* loadUserInfo() {
   try {
     const result = yield call(loadUserInfoAPI);
+
     yield put({
       type: USER.LOAD_USER_INFO_SUCCESS,
       data: result.data,

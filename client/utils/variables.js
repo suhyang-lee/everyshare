@@ -1,4 +1,5 @@
 const CATEOGRY = {
+  all: "모두보기",
   digital: "디지털/가전",
   kids: "유아동",
   goods: "생활용품",

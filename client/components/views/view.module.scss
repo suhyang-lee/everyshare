@@ -117,15 +117,12 @@
 .profileInfo {
   font-size: 1.5rem;
 
-  .chatBtn {
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem;
-    padding-left: 0.5rem;
-    padding-right: 1rem;
+  .prfileId {
+    font-size: 1rem;
     box-sizing: border-box;
     background: 0;
-    border: 1px solid #707070;
     margin-top: 0.5rem;
+    color: gray;
   }
 }
 

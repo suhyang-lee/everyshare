@@ -42,7 +42,10 @@ const Post = {
         where.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
       }
 
-      where.category = decodeURIComponent(req.params.category);
+      if (req.params.category !== "all") {
+        where.category = decodeURIComponent(req.params.category);
+      }
+
       where.flag = false;
 
       const posts = await PostService.loadAllPosts(where);
@@ -173,7 +176,7 @@ const Post = {
 
       if (!exPost) return res.status(403).send("상품이 존재하지 않습니다.");
 
-      await PostService.removeZzimList(postId, exPost);
+      await PostService.removeZzimList(userId, exPost);
 
       res.json({ PostId: exPost.id, UserId: userId });
     } catch (error) {

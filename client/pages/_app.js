@@ -5,14 +5,14 @@ import "styles/global.css";
 
 import wrapper from "store/configureStore";
 
-const EveryShare = ({ Component }) => {
+const EveryShare = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
         <title>EveryShare</title>
         <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
-      <Component />
+      <Component {...pageProps} />
     </>
   );
 };

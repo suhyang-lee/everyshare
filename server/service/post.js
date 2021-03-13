@@ -232,7 +232,8 @@ const PostService = {
 
   addZzimList: async (id, data) => {
     try {
-      await data.addBasketer(id);
+      const result = await data.addBasketer(id);
+      console.log(result);
     } catch (error) {
       console.error(error);
     }

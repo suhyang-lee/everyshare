@@ -7,7 +7,7 @@ const MyageService = {
       if (pageNum > 1) offset = 5 * (pageNum - 1);
 
       const result = await Comment.findAndCountAll({
-        where: { postId: id },
+        where: { userId: id },
         offset,
         limit: 5,
         order: [["createdAt", "DESC"]],

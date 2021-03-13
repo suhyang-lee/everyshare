@@ -11,6 +11,7 @@ const User = {
 
       if (userId) {
         const user = await UserService.loadUserInfo(userId);
+
         return res.status(200).json(user);
       } else {
         return res.status(201).send("ok");

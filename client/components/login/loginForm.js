@@ -23,7 +23,6 @@ const Error = styled.div`
 
 const LoginForm = ({ onLoginModalClose }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const { user, loginDone, loginError } = useSelector((state) => state.user);
   const [email, onChangeEmail] = useInput("");
   const [password, onChangePassword] = useInput("");

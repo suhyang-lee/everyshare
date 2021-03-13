@@ -12,6 +12,10 @@ const UserInfo = () => {
   const [email, setEmail] = useState(() => user?.email);
   const [nickname, onChangeNickname] = useInput(user?.nickname);
 
+  useEffect(() => {
+    dispatch({ type: USER.LOAD_USER_INFO_REQUEST });
+  }, []);
+
   const onChangePrfile = useCallback((e) => {
     e.preventDefault();
 

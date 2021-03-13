@@ -15,8 +15,6 @@ const Category = ({ onClickOpen, isOpen }) => {
   const body = document.querySelector("body");
   const lockScroll = (e) => e.preventDefault();
 
-  let timeOutid;
-
   useEffect(() => {
     body.addEventListener("touchmove", lockScroll, { passive: false });
     body.style.overflow = "hidden";
@@ -25,6 +23,8 @@ const Category = ({ onClickOpen, isOpen }) => {
       body.style.removeProperty("overflow");
     };
   }, []);
+
+  let timeOutid;
 
   const onMouseLeave = useCallback(() => {
     timeOutid = setTimeout(() => {
@@ -48,6 +48,17 @@ const Category = ({ onClickOpen, isOpen }) => {
           <ul className={styles.lnbItem}>
             <li>
               <h3>CATEGORY</h3>
+            </li>
+            <li>
+              <h4>
+                <Link
+                  href={{
+                    pathname: "/board/all",
+                  }}
+                >
+                  <HeaderLink>모두보기</HeaderLink>
+                </Link>
+              </h4>
             </li>
             <li>
               <h4>
