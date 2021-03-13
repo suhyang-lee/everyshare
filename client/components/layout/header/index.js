@@ -2,7 +2,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import Router from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import styled from "styled-components";
 import styles from "./header.module.scss";
@@ -11,15 +11,12 @@ import Login from "components/login";
 import Category from "components/layout/category";
 import Search from "components/layout/header/search";
 
-import { logoutRequstAction } from "reducers/user";
-
 const HeaderLink = styled.a`
   color: black;
   cursor: pointer;
 `;
 
 const Header = () => {
-  const dispatch = useDispatch();
   const { user, logoutDone } = useSelector((state) => state.user);
 
   const [isOpen, setIsOpen] = useState(false);

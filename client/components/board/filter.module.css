@@ -1,0 +1,35 @@
+.filter {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 100%;
+  position: absolute;
+  margin-top: 0.5rem;
+  padding: 1rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #d9d9d9;
+  z-index: 2;
+}
+
+.filterItem {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+.filterItem input[type="radio"]:checked + label {
+  font-weight: bold;
+}
+
+.filterItem label {
+  margin-left: 0.5rem;
+  font-weight: 300;
+  cursor: pointer;
+}
+/*# sourceMappingURL=filter.module.css.map */

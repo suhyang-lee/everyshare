@@ -1,8 +1,7 @@
-/* 헤더 내부 카테고리  */
-
 import React, { useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import styles from "./category.module.scss";
 
@@ -13,6 +12,7 @@ const HeaderLink = styled.a`
 
 const Category = ({ onClickOpen, isOpen }) => {
   const body = document.querySelector("body");
+  const { user } = useSelector((state) => state.user);
   const lockScroll = (e) => e.preventDefault();
 
   useEffect(() => {
@@ -194,36 +194,67 @@ const Category = ({ onClickOpen, isOpen }) => {
             </li>
             <li className={styles.eventBanner}></li>
           </ul>
-
-          <ul className={styles.lnbItem}>
-            <li>
-              <Link
-                href={{
-                  pathname: "/mypage",
-                }}
-              >
-                <HeaderLink>마이페이지</HeaderLink>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={{
-                  pathname: "/login",
-                }}
-              >
-                <HeaderLink>로그인</HeaderLink>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href={{
-                  pathname: "/signup",
-                }}
-              >
-                <HeaderLink>회원가입</HeaderLink>
-              </Link>
-            </li>
-          </ul>
+          {user ? (
+            <ul className={styles.lnbItem}>
+              <li>
+                <Link
+                  href={{
+                    pathname: "/mypage/info",
+                  }}
+                >
+                  <HeaderLink>마이페이지</HeaderLink>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={{
+                    pathname: "/logout",
+                  }}
+                >
+                  <HeaderLink>로그아웃</HeaderLink>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={{
+                    pathname: "/mypage/items",
+                  }}
+                >
+                  <HeaderLink>찜목록</HeaderLink>
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            <ul className={styles.lnbItem}>
+              <li>
+                <Link
+                  href={{
+                    pathname: "/mypage/info",
+                  }}
+                >
+                  <HeaderLink>마이페이지</HeaderLink>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={{
+                    pathname: "/login",
+                  }}
+                >
+                  <HeaderLink>로그인</HeaderLink>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href={{
+                    pathname: "/signup",
+                  }}
+                >
+                  <HeaderLink>회원가입</HeaderLink>
+                </Link>
+              </li>
+            </ul>
+          )}
         </nav>
       </div>
     </>

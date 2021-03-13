@@ -236,7 +236,7 @@
   .eventBanner {
     border-radius: 0.5rem;
     height: 60%;
-    background-image: url("https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80");
+    background-image: url("/images/banner.jpg");
     background-repeat: no-repeat;
     background-size: 100%;
     background-position: center;
