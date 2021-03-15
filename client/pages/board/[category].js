@@ -67,10 +67,7 @@ const Board = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
     await Auth.validateAuth(context);
-    // context.store.dispatch({
-    //   type: POST.LOAD_POSTS_REQUEST,
-    //   data: context.query.category,
-    // });
+
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   },
