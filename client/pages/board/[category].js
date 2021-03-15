@@ -51,8 +51,6 @@ const Board = () => {
       <Head>
         <title>게시물 리스트 보기 | EveryShare</title>
       </Head>
-      {loadPostsLoading && <LoadingIcon height='100vh' />}
-
       <BoardList posts={posts} title={CATEOGRY[category]} />
 
       {hasMorePost && <LoadingIcon height='auto' />}
