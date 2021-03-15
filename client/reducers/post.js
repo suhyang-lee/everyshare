@@ -1,5 +1,5 @@
-import produce from "utils/produce";
-import POST from "actions/postAction";
+import produce from 'utils/produce';
+import POST from 'actions/postAction';
 
 export const initState = {
   posts: [],
@@ -89,7 +89,7 @@ const reducer = (state = initState, action) => {
       case POST.LOAD_POSTS_SUCCESS:
         draft.loadPostsLoading = false;
         draft.loadPostsDone = true;
-        draft.posts = action.data;
+        draft.posts = draft.posts.concat(action.data);
         draft.hasMorePost = action.data.length === 10;
         break;
       case POST.LOAD_POSTS_FAILURE:
