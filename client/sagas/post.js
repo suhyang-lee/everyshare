@@ -269,7 +269,7 @@ function* addApply(action) {
 }
 
 function* watchLoadPosts() {
-  yield throttle(5000, POST.LOAD_POSTS_REQUEST, loadPosts);
+  yield throttle(3000, POST.LOAD_POSTS_REQUEST, loadPosts);
 }
 
 function* watchAddPost() {
