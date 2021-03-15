@@ -2,7 +2,7 @@ const mypageService = require("../service/mypage");
 const UserService = require("../service/user");
 
 const Mypage = {
-  loadCommentsRequest: async (req, res, next) => {
+  loadContentsRequest: async (req, res, next) => {
     try {
       const userId = req.decoded.user_id;
       const pageNum = parseInt(req.query.pageNum);
