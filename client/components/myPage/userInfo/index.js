@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import USER from "actions/userAction";
-import styles from "./userInfo.module.scss";
-import useInput from "hooks/useInput";
+import USER from 'actions/userAction';
+import styles from './userInfo.module.scss';
+import useInput from 'hooks/useInput';
 
 const UserInfo = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const UserInfo = () => {
     e.preventDefault();
 
     const imageFormData = new FormData();
-    imageFormData.append("profile", e.target.files[0]);
+    imageFormData.append('profile', e.target.files[0]);
 
     dispatch({
       type: USER.UPLOAD_PROFILE_IMAGE_REQUEST,
@@ -42,7 +42,7 @@ const UserInfo = () => {
 
   useEffect(() => {
     if (changeNicknameDone) {
-      confirm("닉네임 변경이 완료되었습니다.");
+      confirm('닉네임 변경이 완료되었습니다.');
     }
   }, [user, changeNicknameDone]);
 
@@ -50,36 +50,36 @@ const UserInfo = () => {
     <div className={styles.userInfoWrapper}>
       <form className={styles.userForm}>
         <div className={styles.uploadProfile}>
-          <label htmlFor="addProfile">프로필 업로드</label>
+          <label htmlFor='addProfile'>프로필 업로드</label>
           <img
             src={
-              user.profileUrl ? `${user.profileUrl}` : "/images/no-profile.webp"
+              user.profileUrl ? `${user.profileUrl}` : '/images/no-profile.webp'
             }
           />
         </div>
 
         <input
-          type="file"
-          name="addProfile"
-          id="addProfile"
+          type='file'
+          name='addProfile'
+          id='addProfile'
           onChange={onChangePrfile}
         />
 
-        <label htmlFor="email">이메일</label>
+        <label htmlFor='email'>이메일</label>
         <input
-          type="text"
-          name="email"
-          id="email"
+          type='text'
+          name='email'
+          id='email'
           value={email}
           onChange={setEmail}
           disabled
         />
 
-        <label htmlFor="nickname">닉네임</label>
+        <label htmlFor='nickname'>닉네임</label>
         <input
-          type="text"
-          name="nickname"
-          id="nickname"
+          type='text'
+          name='nickname'
+          id='nickname'
           value={nickname}
           onChange={onChangeNickname}
         />

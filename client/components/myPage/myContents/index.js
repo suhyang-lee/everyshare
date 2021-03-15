@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import MYPAGE from "actions/mypageAction";
-import PaginationList from "components/myPage/myContents/pagination";
-import UserViewItem from "components/myPage/myContents/userViewItem";
-import styles from "./userView.module.scss";
+import MYPAGE from 'actions/mypageAction';
+import PaginationList from 'components/myPage/myContents/pagination';
+import UserViewItem from 'components/myPage/myContents/userViewItem';
+import styles from './userView.module.scss';
 
 const MyContents = ({ path }) => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const MyContents = ({ path }) => {
       <thead>
         <tr>
           <th>
-            <input type="checkbox" name="allChecked" />
+            <input type='checkbox' name='allChecked' />
           </th>
           <th>제목</th>
           <th>작성일</th>
@@ -52,7 +52,9 @@ const MyContents = ({ path }) => {
       </thead>
       <tbody>
         {myContents.length !== 0 ? (
-          myContents.map((item) => <UserViewItem key={item.id} item={item} />)
+          myContents.map((item) => (
+            <UserViewItem key={item.id} item={item} path={path} />
+          ))
         ) : (
           <tr>
             <th></th>
@@ -63,7 +65,7 @@ const MyContents = ({ path }) => {
       </tbody>
       <tfoot>
         <tr>
-          <td colSpan="4">
+          <td colSpan='4'>
             <PaginationList
               pageCount={Math.ceil(myContentsTotalCount / 5)}
               page={pageNum}

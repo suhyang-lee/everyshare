@@ -1,4 +1,4 @@
-const { Post, User, Comment, History, Image } = require("../models");
+const { Post, User, Comment, History, Image } = require('../models');
 
 const MyageService = {
   loadComments: async (id, pageNum) => {
@@ -10,8 +10,8 @@ const MyageService = {
         where: { userId: id },
         offset,
         limit: 5,
-        order: [["createdAt", "DESC"]],
-        attributes: ["id", "contents", "createdAt"],
+        order: [['createdAt', 'DESC']],
+        attributes: ['id', 'contents', 'createdAt', 'PostId'],
         raw: true,
       });
 
@@ -31,8 +31,8 @@ const MyageService = {
         where: { userId: id },
         offset,
         limit: 5,
-        order: [["createdAt", "DESC"]],
-        attributes: ["id", "title", "createdAt"],
+        order: [['createdAt', 'DESC']],
+        attributes: ['id', 'title', 'createdAt'],
         raw: true,
       });
 
@@ -69,8 +69,8 @@ const MyageService = {
         include: [
           {
             model: Post,
-            as: "Zzimed",
-            attributes: ["id", "title"],
+            as: 'Zzimed',
+            attributes: ['id', 'title'],
           },
         ],
       });
@@ -87,18 +87,18 @@ const MyageService = {
       const result = await History.findAll({
         where: { ownerId: id },
         attributes: [
-          "id",
-          "rentalDate",
-          "returnDate",
-          "price",
-          "deposit",
-          "state",
-          "PostId",
+          'id',
+          'rentalDate',
+          'returnDate',
+          'price',
+          'deposit',
+          'state',
+          'PostId',
         ],
         include: [
           {
             model: Post,
-            attributes: ["title"],
+            attributes: ['title'],
             include: [{ model: Image }],
           },
         ],
@@ -116,18 +116,18 @@ const MyageService = {
       const result = await History.findAll({
         where: { lenderId: id },
         attributes: [
-          "id",
-          "rentalDate",
-          "returnDate",
-          "price",
-          "deposit",
-          "state",
-          "PostId",
+          'id',
+          'rentalDate',
+          'returnDate',
+          'price',
+          'deposit',
+          'state',
+          'PostId',
         ],
         include: [
           {
             model: Post,
-            attributes: ["title"],
+            attributes: ['title'],
             include: [{ model: Image }],
           },
         ],

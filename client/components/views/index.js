@@ -1,20 +1,20 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
 
-import PropTypes from "prop-types";
-import AnchorLink from "react-anchor-link-smooth-scroll";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import PropTypes from 'prop-types';
+import AnchorLink from 'react-anchor-link-smooth-scroll';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 
-import CommentList from "components/views/comment/commentList";
-import CommentInput from "components/views/comment/commentInput";
-import ProductSlider from "components/views/slider";
-import ApplyModal from "components/views/apply";
+import CommentList from 'components/views/comment/commentList';
+import CommentInput from 'components/views/comment/commentInput';
+import ProductSlider from 'components/views/slider';
+import ApplyModal from 'components/views/apply';
 
-import { CATEOGRY } from "utils/variables";
-import POST from "actions/postAction";
-import styles from "./view.module.scss";
+import { CATEOGRY } from 'utils/variables';
+import POST from 'actions/postAction';
+import styles from './view.module.scss';
 
 const AchorStyle = styled(AnchorLink)`
   color: #000;
@@ -53,12 +53,10 @@ const View = ({ post }) => {
   }, [days]);
 
   const onZzimed = useCallback(() => {
-    if (!id) return alert("로그인이 필요합니다.");
+    if (!id) return alert('로그인이 필요합니다.');
 
     setZzim(!zzim);
-  }, [id, post]);
 
-  useEffect(() => {
     if (zzim) {
       dispatch({
         type: POST.ZZIM_POST_REQUEST,
@@ -70,7 +68,7 @@ const View = ({ post }) => {
         data: { postId: post.id },
       });
     }
-  }, [zzim]);
+  }, [id, post]);
 
   const onPostUpdate = useCallback(() => {
     if (post.id) {
@@ -114,9 +112,9 @@ const View = ({ post }) => {
               <>
                 <button onClick={openModal}>신청하기</button>
                 <button onClick={onZzimed}>
-                  찜하기{" "}
+                  찜하기{' '}
                   {basketed ? (
-                    <HeartFilled style={{ color: "red" }} />
+                    <HeartFilled style={{ color: 'red' }} />
                   ) : (
                     <HeartOutlined />
                   )}
@@ -134,7 +132,7 @@ const View = ({ post }) => {
             <div className={styles.profileInfo}>
               <p>{post.User.nickname}</p>
               <span className={styles.prfileId}>
-                @{post.User.email && post.User.email.split("@")[0]}
+                @{post.User.email && post.User.email.split('@')[0]}
               </span>
             </div>
           </div>
@@ -168,7 +166,7 @@ const View = ({ post }) => {
         <ul className={styles.menu}>
           <li>내용보기</li>
           <li>
-            <AchorStyle offset="200" href="#comment">
+            <AchorStyle offset='200' href='#comment'>
               댓글보기 ({post.Comments.length})
             </AchorStyle>
           </li>
@@ -179,7 +177,7 @@ const View = ({ post }) => {
             dangerouslySetInnerHTML={{ __html: post.contents }}
           ></div>
         </article>
-        <article className={styles.productContents} id="comment">
+        <article className={styles.productContents} id='comment'>
           <ul>
             {post.Comments.map((comment) => {
               return <CommentList comment={comment} key={comment.id} />;

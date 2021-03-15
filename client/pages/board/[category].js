@@ -22,13 +22,6 @@ const Board = () => {
   const posts = useSelector((state) => state.post.posts);
 
   useEffect(() => {
-    dispatch({
-      type: POST.LOAD_POSTS_REQUEST,
-      data: category,
-    });
-  }, []);
-
-  useEffect(() => {
     function onScroll() {
       if (
         window.pageYOffset + document.documentElement.clientHeight >

@@ -1,15 +1,15 @@
-const passport = require("passport");
-const jwt = require("jsonwebtoken");
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 
-const UserService = require("../service/user");
+const UserService = require('../service/user');
 
-const { signToken, signRefrashToken } = require("../middleware/token");
-const { createToken, validateToken } = require("../utils/token");
-const { setCookieDays, setCookieMinutes } = require("../utils/formatter");
+const { signToken, signRefrashToken } = require('../middleware/token');
+const { createToken, validateToken } = require('../utils/token');
+const { setCookieDays, setCookieMinutes } = require('../utils/formatter');
 
 const Auth = {
   googleLogin: async (req, res, next) => {
-    passport.authenticate("google", { scope: ["email", "profile"] });
+    passport.authenticate('google', { scope: ['email', 'profile'] });
   },
 
   callGoogle: async (req, res) => {
@@ -17,13 +17,13 @@ const Auth = {
       const userInfo = req.user;
 
       const accessToken = await signToken(userInfo);
-      const refreshToken = await signRefrashToken("issue", userInfo);
+      const refreshToken = await signRefrashToken('issue', userInfo);
 
       if (!accessToken || !refreshToken) {
         return res.status(401).json(post);
       } else {
         return res.status(200).json({
-          message: "토큰이 발급되었습니다.",
+          message: '토큰이 발급되었습니다.',
           accessToken,
           refreshToken,
         });
@@ -52,7 +52,7 @@ const Auth = {
       const token = await createToken(id);
 
       if (!token.accessToken || !token.refreshToken)
-        return res.status(403).send("토큰 발급에 실패하였습니다.");
+        return res.status(403).send('토큰 발급에 실패하였습니다.');
 
       const userInfo = await UserService.loadUserInfo(id);
 
@@ -60,9 +60,9 @@ const Auth = {
         return res
           .status(201)
           .redirect(
-            process.env.NODE_ENV === "production"
-              ? "http://everyshare.shop/"
-              : "http://localhost:3000/",
+            process.env.NODE_ENV === 'production'
+              ? 'http://everyshare.shop/'
+              : 'http://localhost:3000/',
           );
       }
 
@@ -70,16 +70,16 @@ const Auth = {
       const minExpires = setCookieMinutes(10);
       res
         .status(200)
-        .cookie("refresh_token", token.refreshToken, {
+        .cookie('refresh_token', token.refreshToken, {
           httpOnly: true,
           secure: true,
           expires: dayExpires,
-          domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
+          domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
         })
         .redirect(
-          process.env.NODE_ENV === "production"
-            ? "http://everyshare.shop/"
-            : "http://localhost:3000/",
+          process.env.NODE_ENV === 'production'
+            ? 'http://everyshare.shop/'
+            : 'http://localhost:3000/',
         );
     } catch (error) {
       console.error(error);
@@ -88,7 +88,7 @@ const Auth = {
   },
 
   callLogin: (req, res, next) => {
-    passport.authenticate("local", { session: false }, (err, user, info) => {
+    passport.authenticate('local', { session: false }, (err, user, info) => {
       if (err || info || !user) return res.status(403).send(info.message);
       req.login(user, async (error) => {
         if (error) next(error);
@@ -96,23 +96,22 @@ const Auth = {
         let token = await createToken(id);
 
         if (!token.accessToken || !token.refreshToken)
-          return res.status(403).send("토큰 발급에 실패하였습니다.");
+          return res.status(403).send('토큰 발급에 실패하였습니다.');
 
         const userInfo = await UserService.loadUserInfo(id);
 
         if (!userInfo) {
-          return res.status(400).send("요청 된 정보가 존재하지 않습니다.");
+          return res.status(400).send('요청 된 정보가 존재하지 않습니다.');
         }
 
         const dayExpires = setCookieDays(14);
-        const minExpires = setCookieMinutes(10);
         res
           .status(200)
-          .cookie("refresh_token", token.refreshToken, {
+          .cookie('refresh_token', token.refreshToken, {
             httpOnly: true,
             secure: true,
             expires: dayExpires,
-            domain: process.env.NODE_ENV === "production" && ".everyshare.shop",
+            domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
           })
           .json({
             userInfo,
@@ -126,12 +125,12 @@ const Auth = {
     try {
       const refresh = req.cookies.refresh_token || undefined;
 
-      if (!refresh) return res.status(201).redirect("/");
+      if (!refresh) return res.status(201).redirect('/');
 
       const decode = jwt.verify(refresh, process.env.JWT_REFRESH_SECRET);
       const result = await UserService.verifyUserInfo({ id: decode.user_id });
 
-      if (!result) return res.status(401).send("존재하지않는 유저 입니다.");
+      if (!result) return res.status(401).send('존재하지않는 유저 입니다.');
 
       const minExpires = setCookieMinutes(10);
       let token = await createToken(decode.user_id);
