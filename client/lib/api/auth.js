@@ -1,9 +1,9 @@
-import api from "./index";
-import USER from "actions/userAction";
+import api from './index';
+import USER from 'actions/userAction';
 
 const Auth = {
   validateAuth: async (ctx) => {
-    const cookie = ctx.req ? ctx.req.headers.cookie : "";
+    const cookie = ctx.req ? ctx.req.headers.cookie : '';
 
     if (ctx.req && cookie) api.defaults.headers.Cookie = cookie;
 

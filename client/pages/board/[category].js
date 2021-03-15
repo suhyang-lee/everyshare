@@ -57,8 +57,8 @@ const Board = () => {
         <title>게시물 리스트 보기 | EveryShare</title>
       </Head>
 
+      {loadPostsLoading && <LoadingIcon height='100vh' />}
       <BoardList posts={posts} title={CATEOGRY[category]} />
-
       {hasMorePost && <LoadingIcon height='auto' />}
     </>
   );
@@ -67,6 +67,10 @@ const Board = () => {
 export const getServerSideProps = wrapper.getServerSideProps(
   async (context) => {
     await Auth.validateAuth(context);
+    // context.store.dispatch({
+    //   type: POST.LOAD_POSTS_REQUEST,
+    //   data: context.query.category,
+    // });
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
   },

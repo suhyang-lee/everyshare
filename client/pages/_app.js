@@ -32,11 +32,16 @@ const EveryShare = ({ Component, pageProps }) => {
     <>
       {router.pathname === '/login' ? (
         <Layout>
+          {' '}
           <Head>
             <title>EveryShare</title>
             <link rel='shortcut icon' href='/favicon.ico' />
           </Head>
-          <Component {...pageProps} />
+          {pageLoading ? (
+            <LoadingIcon height='100vh' />
+          ) : (
+            <Component {...pageProps} />
+          )}{' '}
         </Layout>
       ) : (
         <AppLayout>
@@ -44,7 +49,11 @@ const EveryShare = ({ Component, pageProps }) => {
             <title>EveryShare</title>
             <link rel='shortcut icon' href='/favicon.ico' />
           </Head>
-          <Component {...pageProps} />
+          {pageLoading ? (
+            <LoadingIcon height='100vh' />
+          ) : (
+            <Component {...pageProps} />
+          )}
         </AppLayout>
       )}
     </>
