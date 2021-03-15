@@ -1,7 +1,7 @@
-import { all, fork, put, takeLatest, throttle, call } from "redux-saga/effects";
-import api from "lib/api";
+import { all, fork, put, takeLatest, throttle, call } from 'redux-saga/effects';
+import api from 'lib/api';
 
-import POST from "actions/postAction";
+import POST from 'actions/postAction';
 
 function loadPostAPI(data) {
   return api.get(`/post/${data.postId}`, data);
@@ -24,7 +24,7 @@ function* loadPosts(action) {
 }
 
 function addPostAPI(data) {
-  return api.post("/post", data);
+  return api.post('/post', data);
 }
 
 function* addPost(action) {
@@ -84,7 +84,7 @@ function* removePost(action) {
 }
 
 function uploadImagesAPI(data) {
-  return api.post("/post/images", data);
+  return api.post('/post/images', data);
 }
 
 function* uploadImages(action) {
@@ -248,7 +248,7 @@ function* notZzimPost(action) {
 }
 
 function addApplyAPI(data) {
-  return api.post("post/apply", data);
+  return api.post('post/apply', data);
 }
 
 function* addApply(action) {
@@ -269,7 +269,7 @@ function* addApply(action) {
 }
 
 function* watchLoadPosts() {
-  yield throttle(500, POST.LOAD_POSTS_REQUEST, loadPosts);
+  yield throttle(5000, POST.LOAD_POSTS_REQUEST, loadPosts);
 }
 
 function* watchAddPost() {
