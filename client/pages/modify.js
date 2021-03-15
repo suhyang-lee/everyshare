@@ -1,27 +1,27 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Head from "next/head";
-import wrapper from "store/configureStore";
-import { END } from "redux-saga";
-import Auth from "lib/api/auth";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import Head from 'next/head';
+import wrapper from 'store/configureStore';
+import { END } from 'redux-saga';
+import Auth from 'lib/api/auth';
 
-import { useDispatch, useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import { convertToRaw } from "draft-js";
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import { convertToRaw } from 'draft-js';
 
-import draftToHtml from "draftjs-to-html";
+import draftToHtml from 'draftjs-to-html';
 
-import POST from "actions/postAction";
+import POST from 'actions/postAction';
 
-import AppLayout from "components/layout/appLayout";
-import PostForm from "components/post";
-import LoadingIcon from "components/common/loadingIcon";
+import AppLayout from 'components/layout/appLayout';
+import PostForm from 'components/post';
+import LoadingIcon from 'components/common/loadingIcon';
 
 const Modify = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const postId = router.query.postId;
 
-  const [contents, setContents] = useState("");
+  const [contents, setContents] = useState('');
   const { user } = useSelector((state) => state.user);
   const {
     post,
@@ -33,18 +33,18 @@ const Modify = () => {
 
   const defaultFormValues = {
     defaultValues: {
-      category: post.category || "",
-      deposit: post.deposit || "",
-      postType: post.postType || "",
-      rentTerm: post.rentTerm || "",
-      rentalFee: post.price || "",
-      rentelFeeSelect: post.priceType || "",
-      title: post.title || "",
+      category: post.category || '',
+      deposit: post.deposit || '',
+      postType: post.postType || '',
+      rentTerm: post.rentTerm || '',
+      rentalFee: post.price || '',
+      rentelFeeSelect: post.priceType || '',
+      title: post.title || '',
     },
   };
 
   useEffect(async () => {
-    if (!user) router.replace("/login");
+    if (!user) router.replace('/login');
 
     dispatch({
       type: POST.LOAD_POST_REQUEST,
@@ -54,7 +54,7 @@ const Modify = () => {
 
   useEffect(() => {
     if (updatePostDone) {
-      setContents("");
+      setContents('');
       router.push(`view/${posts[0].id}`);
     }
   }, [updatePostDone]);
@@ -79,7 +79,7 @@ const Modify = () => {
   return (
     <>
       {user ? (
-        <AppLayout>
+        <>
           <Head>
             <title>글 수정하기 | EveryShare</title>
           </Head>
@@ -89,7 +89,7 @@ const Modify = () => {
             onSubmit={onSubmit}
             defaultFormValues={defaultFormValues}
           />
-        </AppLayout>
+        </>
       ) : (
         <LoadingIcon />
       )}

@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useState, useEffect } from 'react';
+
 import PropTypes from 'prop-types';
+
 import Head from 'next/head';
 import 'styles/global.css';
 
 import wrapper from 'store/configureStore';
+import AppLayout from 'components/layout/appLayout';
+import Layout from 'components/layout/layout';
 import LoadingIcon from 'components/common/loadingIcon';
+import { useRouter } from 'next/router';
 
 const EveryShare = ({ Component, pageProps }) => {
   const router = useRouter();
   const [pageLoading, setPageLoading] = useState(false);
-  React.useEffect(() => {
+
+  useEffect(() => {
     const handleStart = () => {
       setPageLoading(true);
     };
@@ -25,14 +30,31 @@ const EveryShare = ({ Component, pageProps }) => {
 
   return (
     <>
-      <Head>
-        <title>EveryShare</title>
-        <link rel='shortcut icon' href='/favicon.ico' />
-      </Head>
-      {pageLoading ? (
-        <LoadingIcon height='100vh' />
+      {router.pathname === '/login' ? (
+        <Layout>
+          {' '}
+          <Head>
+            <title>EveryShare</title>
+            <link rel='shortcut icon' href='/favicon.ico' />
+          </Head>
+          {pageLoading ? (
+            <LoadingIcon height='100vh' />
+          ) : (
+            <Component {...pageProps} />
+          )}{' '}
+        </Layout>
       ) : (
-        <Component {...pageProps} />
+        <AppLayout>
+          <Head>
+            <title>EveryShare</title>
+            <link rel='shortcut icon' href='/favicon.ico' />
+          </Head>
+          {pageLoading ? (
+            <LoadingIcon height='100vh' />
+          ) : (
+            <Component {...pageProps} />
+          )}
+        </AppLayout>
       )}
     </>
   );

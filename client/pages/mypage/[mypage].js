@@ -1,23 +1,22 @@
-import React from "react";
-import Head from "next/head";
-import { END } from "redux-saga";
-import wrapper from "store/configureStore";
-import { useRouter } from "next/router";
+import React from 'react';
+import Head from 'next/head';
+import { END } from 'redux-saga';
+import wrapper from 'store/configureStore';
+import { useRouter } from 'next/router';
 
-import Auth from "lib/api/auth";
+import Auth from 'lib/api/auth';
 
-import AppLayout from "components/layout/appLayout";
-import Contents from "components/myPage";
+import Contents from 'components/myPage';
 
 const Mypage = () => {
   const { query } = useRouter();
   return (
-    <AppLayout>
+    <>
       <Head>
         <title>마이페이지 | EveryShare</title>
       </Head>
       <Contents path={query.mypage} />
-    </AppLayout>
+    </>
   );
 };
 

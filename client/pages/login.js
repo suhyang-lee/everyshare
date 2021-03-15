@@ -1,17 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 
-import Head from "next/head";
-import Link from "next/link";
-import { END } from "redux-saga";
+import Head from 'next/head';
+import Link from 'next/link';
+import { END } from 'redux-saga';
 
-import wrapper from "store/configureStore";
-import styled from "styled-components";
+import wrapper from 'store/configureStore';
+import styled from 'styled-components';
 
-import Layout from "components/layout/layout";
-import LoginForm from "components/login/loginForm";
-import styles from "components/login/login.module.scss";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/dist/client/router";
+import Layout from 'components/layout/layout';
+import LoginForm from 'components/login/loginForm';
+import styles from 'components/login/login.module.scss';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/dist/client/router';
 
 const HeaderLink = styled.a`
   color: black;
@@ -24,29 +24,29 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (loginDone) {
-      router.push("/");
+      router.push('/');
     }
   }, [user, loginDone]);
 
   return (
-    <Layout>
+    <>
       <Head>
         <title>로그인 | EveryShare</title>
       </Head>
       <div className={styles.loginWrapper}>
         <div className={styles.modalWrapper}>
-          <Link href="/">
+          <Link href='/'>
             <HeaderLink>
               <img
-                src="/images/img-everyshare-logo.svg"
-                alt="에브리쉐어 로고"
+                src='/images/img-everyshare-logo.svg'
+                alt='에브리쉐어 로고'
               />
             </HeaderLink>
           </Link>
           <LoginForm />
         </div>
       </div>
-    </Layout>
+    </>
   );
 };
 

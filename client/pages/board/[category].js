@@ -10,8 +10,6 @@ import Auth from 'lib/api/auth';
 import { CATEOGRY } from 'utils/variables';
 
 import POST from 'actions/postAction';
-
-import AppLayout from 'components/layout/appLayout';
 import BoardList from 'components/board';
 import LoadingIcon from 'components/common/loadingIcon';
 
@@ -27,7 +25,7 @@ const Board = () => {
     function onScroll() {
       if (
         window.pageYOffset + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 400
+        document.documentElement.scrollHeight - 200
       ) {
         if (hasMorePost && !loadPostsLoading) {
           const lastId = posts[posts.length - 1]?.id;
@@ -47,14 +45,15 @@ const Board = () => {
   }, [hasMorePost, loadPostsLoading, posts]);
 
   return (
-    <AppLayout>
+    <>
       <Head>
         <title>게시물 리스트 보기 | EveryShare</title>
       </Head>
+
       <BoardList posts={posts} title={CATEOGRY[category]} />
 
       {hasMorePost && <LoadingIcon height='auto' />}
-    </AppLayout>
+    </>
   );
 };
 

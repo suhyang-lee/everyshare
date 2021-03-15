@@ -1,17 +1,16 @@
-import React, { useEffect } from "react";
-import Head from "next/head";
-import { END } from "redux-saga";
-import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import Head from 'next/head';
+import { END } from 'redux-saga';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Auth from "lib/api/auth";
-import wrapper from "store/configureStore";
+import Auth from 'lib/api/auth';
+import wrapper from 'store/configureStore';
 
-import USER from "actions/userAction";
-import POST from "actions/postAction";
+import USER from 'actions/userAction';
+import POST from 'actions/postAction';
 
-import AppLayout from "components/layout/appLayout";
-import View from "components/views";
+import View from 'components/views';
 
 const PostContents = () => {
   const dispatch = useDispatch();
@@ -34,7 +33,7 @@ const PostContents = () => {
 
   useEffect(() => {
     if (!user) {
-      router.replace("/login");
+      router.replace('/login');
     }
   }, [user]);
 
@@ -54,12 +53,12 @@ const PostContents = () => {
   }, []);
 
   return (
-    <AppLayout>
+    <>
       <Head>
         <title>게시물 상세보기 | EveryShare</title>
       </Head>
       {user && <View post={post} />}
-    </AppLayout>
+    </>
   );
 };
 
