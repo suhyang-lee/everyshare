@@ -1,20 +1,18 @@
 const UserService = require('../service/user');
+const { setCookieMinutes } = require('../utils/formatter');
 
 const User = {
   loadUserRequest: async (req, res, next) => {
     try {
+      if (!req.cookies.refresh_token) return res.status(201).send('');
+
+      if (!req.decoded) return res.status(201).send('ok');
+
       const userId = req.decoded.user_id;
 
-      if (!req.cookies.refresh_token) {
-        return res.status(201).send('');
-      }
+      const user = await UserService.loadUserInfo(userId);
 
-      if (userId) {
-        const user = await UserService.loadUserInfo(userId);
-        return res.status(200).json(user);
-      } else {
-        return res.status(201).send('ok');
-      }
+      return res.status(200).json({ userInfo: user });
     } catch (error) {
       console.error(error);
       next(error);

@@ -7,6 +7,8 @@ const Auth = {
     const prevCookie = ctx.req ? ctx.req.headers.cookie : '';
     if (ctx.req && cookie) authAPI.defaults.headers.Cookie = prevCookie;
 
+    let userInfo = '';
+
     if (prevCookie) {
       const access = cookie.getCookie(ctx.req, 'access_token') || undefined;
       const refresh = cookie.getCookie(ctx.req, 'refresh_token') || undefined;
@@ -16,10 +18,17 @@ const Auth = {
       if (!access && refresh) {
         const res = await authAPI.post('/auth/token');
         cookie.setCookie(ctx, 'access_token', res.data.accessToken);
+        userInfo = res.data.userInfo;
+      }
+
+      if (!userInfo) {
+        const res = await authAPI.get('/user');
+        userInfo = res.data.userInfo;
       }
 
       ctx.store.dispatch({
-        type: USER.LOAD_USER_INFO_REQUEST,
+        type: USER.ADD_USER_INFO_REQUEST,
+        data: userInfo,
       });
     }
   },

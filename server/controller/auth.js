@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const UserService = require('../service/user');
 
 const { signToken, signRefrashToken } = require('../middleware/token');
-const { createToken, validateToken } = require('../utils/token');
+const { createToken } = require('../utils/token');
 const { setCookieDays, setCookieMinutes } = require('../utils/formatter');
 
 const Auth = {
@@ -75,11 +75,13 @@ const Auth = {
           httpOnly: true,
           secure: true,
           expires: dayExpires,
+          domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
         })
         .cookie('access_token', token.accessToken, {
           httpOnly: true,
           secure: true,
           expires: minExpires,
+          domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
         })
         .redirect(
           process.env.NODE_ENV === 'production'
@@ -118,11 +120,13 @@ const Auth = {
             httpOnly: true,
             secure: true,
             expires: dayExpires,
+            domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
           })
           .cookie('access_token', token.accessToken, {
             httpOnly: true,
             secure: true,
             expires: minExpires,
+            domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
           })
           .json({
             userInfo,
@@ -145,15 +149,12 @@ const Auth = {
       const minExpires = setCookieMinutes(30);
       let token = await createToken(decode.user_id);
 
+      const { id } = result;
+      const user = await UserService.loadUserInfo(id);
+
       return res
         .status(200)
-        .cookie('access_token', token.accessToken, {
-          httpOnly: true,
-          secure: true,
-          expires: minExpires,
-          domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
-        })
-        .json({ accessToken: token.accessToken });
+        .json({ accessToken: token.accessToken, userInfo: user });
     } catch (error) {
       console.error(error);
       next(error);

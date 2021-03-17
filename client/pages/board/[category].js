@@ -1,42 +1,46 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { END } from 'redux-saga';
 import wrapper from 'store/configureStore';
-
+import POST from 'actions/postAction';
 import { useRouter } from 'next/router';
+import useInfiniteScroll from 'hooks/useInfiniteScroll';
 import { useDispatch, useSelector } from 'react-redux';
 import Auth from 'lib/ssr/auth';
 
 import { CATEOGRY } from 'utils/variables';
 
-import POST from 'actions/postAction';
 import BoardList from 'components/board';
-import LoadingIcon from 'components/common/loadingIcon';
 
 const Board = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const { category } = router.query;
 
-  const { hasMorePost, loadPostsLoading } = useSelector((state) => state.post);
+  const { category } = router.query;
+  const [target, setTarget] = useState(null);
+  const [root, setRoot] = useState(null);
+
   const posts = useSelector((state) => state.post.posts);
+  const { hasMorePost, loadPostsLoading } = useSelector((state) => state.post);
 
   useEffect(() => {
+    if (!category) return;
+
     dispatch({
       type: POST.LOAD_POSTS_REQUEST,
       data: category,
     });
   }, []);
 
-  useEffect(() => {
-    function onScroll() {
-      if (
-        window.pageYOffset + document.documentElement.clientHeight >
-        document.documentElement.scrollHeight - 200
-      ) {
-        if (hasMorePost && !loadPostsLoading) {
-          const lastId = posts[posts.length - 1]?.id;
+  useInfiniteScroll({
+    root,
+    target,
+    onIntersect: ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        if (!category) return;
+        const lastId = posts[posts.length - 1]?.id;
 
+        if (hasMorePost && !loadPostsLoading) {
           dispatch({
             type: POST.LOAD_POSTS_REQUEST,
             lastId,
@@ -44,22 +48,20 @@ const Board = () => {
           });
         }
       }
-    }
-    window.addEventListener('scroll', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-    };
-  }, [hasMorePost, loadPostsLoading, posts]);
+    },
+  });
 
   return (
     <>
       <Head>
         <title>게시물 리스트 보기 | EveryShare</title>
       </Head>
-
-      {loadPostsLoading && <LoadingIcon height='100vh' />}
-      <BoardList posts={posts} title={CATEOGRY[category]} />
-      {hasMorePost && <LoadingIcon height='auto' />}
+      <BoardList
+        title={CATEOGRY[category]}
+        posts={posts}
+        setTarget={setTarget}
+        setRoot={setRoot}
+      />
     </>
   );
 };

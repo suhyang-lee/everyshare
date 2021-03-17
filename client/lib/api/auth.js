@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import cookie from 'utils/cookie';
 import { ServerURL } from 'config/config';
 
 const axiosInstance = axios.create({

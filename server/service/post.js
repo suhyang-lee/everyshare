@@ -1,5 +1,5 @@
-const { Post, Image, User, Comment, History } = require("../models");
-const { Op } = require("sequelize");
+const { Post, Image, User, Comment, History } = require('../models');
+const { Op } = require('sequelize');
 
 const PostService = {
   removeImagePost: async (id) => {
@@ -79,8 +79,8 @@ const PostService = {
       const result = await Post.findAll({
         where,
         limit: 10,
-        order: [["createdAt", "DESC"]],
-        attributes: ["id", "title", "postType", "price", "deposit"],
+        order: [['createdAt', 'DESC']],
+        attributes: ['id', 'title', 'postType', 'price', 'deposit'],
         include: [
           {
             model: Image,
@@ -108,18 +108,18 @@ const PostService = {
             include: [
               {
                 model: User,
-                attributes: ["id", "email", "nickname", "profileUrl"],
+                attributes: ['id', 'email', 'nickname', 'profileUrl'],
               },
             ],
           },
           {
             model: User,
-            attributes: ["id", "nickname", "email", "profileUrl"],
+            attributes: ['id', 'nickname', 'email', 'profileUrl'],
           },
           {
             model: User,
-            as: "Basketer",
-            attributes: ["id"],
+            as: 'Basketer',
+            attributes: ['id'],
           },
         ],
       });
@@ -219,7 +219,7 @@ const PostService = {
         include: [
           {
             model: User,
-            attributes: ["id", "nickname", "email", "profileUrl"],
+            attributes: ['id', 'nickname', 'email', 'profileUrl'],
           },
         ],
       });
@@ -296,8 +296,8 @@ const PostService = {
         where: {
           title: { [Op.like]: `%${keyword}%` },
         },
-        limit: 10,
-        order: [["createdAt", "DESC"]],
+        limit: 8,
+        order: [['createdAt', 'DESC']],
         include: [
           {
             model: Image,

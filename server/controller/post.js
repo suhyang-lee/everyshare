@@ -1,6 +1,6 @@
-const PostService = require("../service/post");
-const { Op } = require("sequelize");
-const { dateDiff } = require("../utils/formatter");
+const PostService = require('../service/post');
+const { Op } = require('sequelize');
+const { dateDiff } = require('../utils/formatter');
 
 const Post = {
   addImagePostRequest: (req, res, next) => {
@@ -13,7 +13,7 @@ const Post = {
     try {
       const id = req.query.id;
       await PostService.removeImagePost(id);
-      res.status(200).json({ id: id, message: "삭제가 완료되었습니다" });
+      res.status(200).json({ id: id, message: '삭제가 완료되었습니다' });
     } catch (error) {
       console.error(error);
       next(error);
@@ -42,7 +42,7 @@ const Post = {
         where.id = { [Op.lt]: parseInt(req.query.lastId, 10) };
       }
 
-      if (req.params.category !== "all") {
+      if (req.params.category !== 'all') {
         where.category = decodeURIComponent(req.params.category);
       }
 
@@ -62,7 +62,7 @@ const Post = {
       const id = parseInt(req.params.id);
       const exPost = await PostService.loadPost(id);
 
-      if (!exPost) return res.status(403).send("존재하지 않는 게시글입니다.");
+      if (!exPost) return res.status(403).send('존재하지 않는 게시글입니다.');
 
       res.status(201).json(exPost);
     } catch (error) {
@@ -96,7 +96,7 @@ const Post = {
 
       await PostService.removePost(userId, postId);
 
-      res.status(200).send("게시물이 삭제되었습니다.");
+      res.status(200).send('게시물이 삭제되었습니다.');
     } catch (error) {
       console.error(error);
       next(error);
@@ -111,7 +111,7 @@ const Post = {
 
       const exPost = await PostService.verifyPost(postId);
 
-      if (!exPost) return res.status(403).send("존재하지 않는 게시글입니다.");
+      if (!exPost) return res.status(403).send('존재하지 않는 게시글입니다.');
 
       const { id } = await PostService.addComment(postId, userId, comment);
       const newComment = await PostService.loadComment(id);
@@ -142,7 +142,7 @@ const Post = {
       const commentId = parseInt(req.params.id, 10);
       await PostService.removeComment(commentId);
 
-      res.status(201).json("댓글이 삭제되었습니다.");
+      res.status(201).json('댓글이 삭제되었습니다.');
     } catch (error) {
       console.error(error);
       next(error);
@@ -156,7 +156,7 @@ const Post = {
 
       const exPost = await PostService.verifyPost(postId);
 
-      if (!exPost) return res.status(403).send("상품이 존재하지 않습니다.");
+      if (!exPost) return res.status(403).send('상품이 존재하지 않습니다.');
 
       await PostService.addZzimList(userId, exPost);
 
@@ -174,7 +174,7 @@ const Post = {
 
       const exPost = await PostService.verifyPost(postId);
 
-      if (!exPost) return res.status(403).send("상품이 존재하지 않습니다.");
+      if (!exPost) return res.status(403).send('상품이 존재하지 않습니다.');
 
       await PostService.removeZzimList(userId, exPost);
 
@@ -192,7 +192,7 @@ const Post = {
       const diff = dateDiff(rentalDate, returnDate);
       await PostService.addApply(req.body, diff);
 
-      res.status(200).send("신청이 완료되었습니다.");
+      res.status(200).send('신청이 완료되었습니다.');
     } catch (error) {
       console.error(error);
       next(error);

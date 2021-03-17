@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import authAPI from 'lib/api/auth';
 import storage from 'lib/storage';
@@ -8,15 +9,11 @@ import USER from 'actions/userAction';
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [loginState, setLoginState] = useState(false);
   const dispatch = useDispatch();
-
-  const setLogin = (bool) => {
-    setLoginState(bool);
-  };
+  const { user } = useSelector((state) => state.user);
 
   return (
-    <AuthContext.Provider value={{ setLogin }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
   );
 };
 

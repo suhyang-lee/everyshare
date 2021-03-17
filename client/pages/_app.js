@@ -26,13 +26,15 @@ const EveryShare = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </Layout>
       ) : (
-        <AppLayout>
-          <Head>
-            <title>EveryShare</title>
-            <link rel='shortcut icon' href='/favicon.ico' />
-          </Head>
-          <Component {...pageProps} />
-        </AppLayout>
+        <AuthProvider>
+          <AppLayout>
+            <Head>
+              <title>EveryShare</title>
+              <link rel='shortcut icon' href='/favicon.ico' />
+            </Head>
+            <Component {...pageProps} />
+          </AppLayout>
+        </AuthProvider>
       )}
     </>
   );
