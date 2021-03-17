@@ -18,6 +18,7 @@ const cookie = {
       maxAge: 30 * 60,
       path: '/',
       httpOnly: true,
+      domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
     });
   },
 
