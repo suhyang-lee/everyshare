@@ -1,23 +1,24 @@
-import React, { useCallback, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Modal from "react-modal";
-import Grid from "@material-ui/core/Grid";
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Modal from 'react-modal';
+import Grid from '@material-ui/core/Grid';
 
-import MaterialUIPickers from "components/views/apply/picker";
-import styled from "styled-components";
-import POST from "actions/postAction";
-import { Router } from "next/router";
+import MaterialUIPickers from 'components/views/apply/picker';
+import styled from 'styled-components';
+import POST from 'actions/postAction';
+import { Router, useRouter } from 'next/router';
+import onConfirm from '../../../utils/confirm';
 
 const customStyles = {
   content: {
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    marginRight: "-50%",
-    transform: "translate(-50%, -50%)",
-    padding: "2rem",
-    borderRadius: "20px",
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    padding: '2rem',
+    borderRadius: '20px',
   },
 };
 
@@ -47,6 +48,7 @@ const Apply = ({ modalIsOpen, closeModal }) => {
   const dispatch = useDispatch();
   const { post } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
+  const router = useRouter();
 
   const [selectedStartDate, setSelectedStartDate] = useState(new Date());
   const [selectedEndDate, setSelectedEndDate] = useState(new Date());
@@ -78,7 +80,11 @@ const Apply = ({ modalIsOpen, closeModal }) => {
       data,
     });
 
-    Router.push("/mypage/borrow");
+    const isOk = onConfirm(
+      '신청이 완료되었습니다. 신청 내용을 확인 해 보시겠어요?',
+    );
+
+    if (isOk) router.push('/mypage/borrow');
   }, [selectedStartDate, selectedEndDate, post]);
 
   return (
@@ -87,29 +93,29 @@ const Apply = ({ modalIsOpen, closeModal }) => {
       onRequestClose={closeModal}
       style={customStyles}
       ariaHideApp={false}
-      contentLabel="거래 신청하기"
+      contentLabel='거래 신청하기'
     >
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Head>대여 신청</Head>
         </Grid>
 
-        <Grid container spacing={3} justify="space-evenly">
+        <Grid container spacing={3} justify='space-evenly'>
           <MaterialUIPickers
             selectedDate={selectedStartDate}
             handleDateChange={handleStartDateChange}
-            id="date-picker-start"
-            title="대여 시작 날짜"
+            id='date-picker-start'
+            title='대여 시작 날짜'
           />
           <MaterialUIPickers
             selectedDate={selectedEndDate}
             handleDateChange={handleEndDateChange}
-            id="date-picker-end"
-            title="대여 종료 날짜"
+            id='date-picker-end'
+            title='대여 종료 날짜'
           />
         </Grid>
 
-        <Grid container justify="center">
+        <Grid container justify='center'>
           <ApplyButton onClick={onSubmit}>신청하기</ApplyButton>
         </Grid>
       </Grid>

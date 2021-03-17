@@ -11,6 +11,7 @@ import { loginRequstAction } from 'reducers/user';
 import styled from 'styled-components';
 import styles from './login.module.scss';
 import { useAuth } from '../auth/provider';
+import onCallbackUserLogin from '../../utils/userLogin';
 
 const Error = styled.div`
   width: 100%;
@@ -63,14 +64,9 @@ const LoginForm = ({ onLoginModalClose }) => {
 
   const onKakaoTalkLogin = useCallback((e) => {
     e.preventDefault();
-    window.location.href = `${ServerURL.getServerURL()}/auth/kakao`;
+    onCallbackUserLogin({ snsName: 'kakao' });
   }, []);
 
-  const onNaverLogin = useCallback((e) => {
-    e.preventDefault();
-
-    window.location.href = `${ServerURL.getServerURL()}/auth/naver`;
-  }, []);
   return (
     <>
       <form className={styles.loginForm} onSubmit={onSubmit}>
@@ -112,7 +108,6 @@ const LoginForm = ({ onLoginModalClose }) => {
         <div className={styles.loginButtonList}>
           <button htmltype='submit'>에브리쉐어 로그인</button>
           <button onClick={onKakaoTalkLogin}>카카오 로그인</button>
-          <button onClick={onNaverLogin}>네이버 로그인</button>
         </div>
       </form>
     </>

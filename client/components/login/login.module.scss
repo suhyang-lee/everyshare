@@ -106,14 +106,15 @@
 
 .loginButtonList > button:nth-child(2) {
   color: #000;
-  background: url("/images/kakako-logo.png") no-repeat #fee500;
+  background: url('/images/kakako-logo.png') no-repeat #fee500;
   background-position: 5rem center;
   background-size: 1.5rem;
 }
 
+/*
 .loginButtonList > button:last-child {
   color: #fff;
-  background: url("/images/naver-logo.png") no-repeat #09c73f;
+  background: url('/images/naver-logo.png') no-repeat #09c73f;
   background-position: 5.2rem center;
   background-size: 1rem;
-}
+}*/

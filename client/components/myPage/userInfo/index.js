@@ -6,6 +6,7 @@ import styles from './userInfo.module.scss';
 import useInput from 'hooks/useInput';
 import { useAuth } from '../../auth/provider';
 import storage from 'lib/storage';
+import onConfirm from '../../../utils/confirm';
 
 const UserInfo = ({ userInfo }) => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const UserInfo = ({ userInfo }) => {
 
   useEffect(() => {
     if (changeNicknameDone) {
-      confirm('닉네임 변경이 완료되었습니다.');
+      onConfirm('닉네임 변경이 완료되었습니다.');
     }
   }, [user, changeNicknameDone]);
 
