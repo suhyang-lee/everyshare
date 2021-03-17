@@ -1,7 +1,6 @@
 /* 페이지 공통 헤더  */
 import React, { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
-import Router from 'next/router';
 import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
@@ -10,7 +9,9 @@ import styles from './header.module.scss';
 import Login from 'components/login';
 import Category from 'components/layout/category';
 import Search from 'components/layout/header/search';
-import storage from 'lib/storage';
+import useModal from 'hooks/useModal';
+import useToggle from 'hooks/useToggle';
+import { useRouter } from 'next/router';
 
 const HeaderLink = styled.a`
   color: black;
@@ -18,55 +19,28 @@ const HeaderLink = styled.a`
 `;
 
 const Header = () => {
+  const router = useRouter();
   const { user, logoutDone } = useSelector((state) => state.user);
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [isSearchShow, setIsSearchShow] = useState(false);
+  const [isOpen, onClickOpen] = useToggle(false);
+  const [isSearchShow, onClickSearch] = useToggle(false);
+  const [isShowModal, onModalOpen, onModalClose] = useModal(false);
 
   useEffect(() => {
     if (logoutDone && !user) {
-      Router.push('/');
+      router.push('/');
     }
   }, [logoutDone, user]);
 
   const onLogOut = useCallback(() => {
-    Router.push('/logout');
+    router.push('/logout');
   }, []);
-
-  const onClickOpen = useCallback(() => {
-    setIsOpen(!isOpen);
-  }, [isOpen]);
-
-  const onLoginModalOpen = useCallback(
-    (e) => {
-      setIsShowModal(true);
-    },
-    [setIsShowModal, isShowModal],
-  );
-
-  const onLoginModalClose = useCallback(
-    (e) => {
-      setIsShowModal(false);
-    },
-    [setIsShowModal, isShowModal],
-  );
-
-  const onClickSearch = useCallback(
-    (e) => {
-      setIsSearchShow(!isSearchShow);
-    },
-    [isSearchShow],
-  );
 
   return (
     <>
       {isSearchShow && <Search onClickSearch={onClickSearch} />}
       {isShowModal && (
-        <Login
-          onLoginModalOpen={onLoginModalOpen}
-          onLoginModalClose={onLoginModalClose}
-        />
+        <Login onModalOpen={onModalOpen} onModalClose={onModalClose} />
       )}
       <header className={styles.header}>
         <div className={styles.headerItemsWrapper}>
@@ -112,7 +86,7 @@ const Header = () => {
                 ) : (
                   <>
                     <li>
-                      <h2 onClick={onLoginModalOpen}>로그인</h2>
+                      <h2 onClick={onModalOpen}>로그인</h2>
                     </li>
                     <li>
                       <h2>

@@ -5,10 +5,10 @@ import styles from './login.module.scss';
 import LoginForm from 'components/login/loginForm';
 import useMouseLock from 'hooks/useMouseLock';
 
-const Login = ({ onLoginModalOpen, onLoginModalClose }) => {
+const Login = ({ onModalOpen, onModalClose }) => {
   const onMaskClick = (e) => {
     if (e.target === e.currentTarget) {
-      onLoginModalClose();
+      onModalClose();
     }
   };
 
@@ -17,14 +17,11 @@ const Login = ({ onLoginModalOpen, onLoginModalClose }) => {
   return (
     <div className={styles.loginWrapper} onClick={onMaskClick}>
       <div className={styles.modalWrapper}>
-        <button className={styles.closeBtn} onMouseDown={onLoginModalClose}>
+        <button className={styles.closeBtn} onMouseDown={onModalClose}>
           <img src='/images/icon-close.svg' alt='로그인 모달 닫기' />
         </button>
         <img src='/images/img-everyshare-logo.svg' alt='에브리쉐어 로고' />
-        <LoginForm
-          onLoginModalClose={onLoginModalClose}
-          onLoginModalOpen={onLoginModalOpen}
-        />
+        <LoginForm onModalOpen={onModalOpen} onModalClose={onModalClose} />
       </div>
     </div>
   );

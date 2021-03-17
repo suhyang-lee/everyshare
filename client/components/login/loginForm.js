@@ -23,7 +23,7 @@ const Error = styled.div`
   text-align: left;
 `;
 
-const LoginForm = ({ onLoginModalClose }) => {
+const LoginForm = ({ onModalClose }) => {
   const dispatch = useDispatch();
   const setLogin = useAuth();
 
@@ -48,7 +48,7 @@ const LoginForm = ({ onLoginModalClose }) => {
 
   useEffect(() => {
     if (user) {
-      if (onLoginModalClose) onLoginModalClose();
+      if (onModalClose) onModalClose();
     }
   }, [user]);
 
