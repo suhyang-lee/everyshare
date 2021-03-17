@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import wrapper from 'store/configureStore';
 import { END } from 'redux-saga';
-import Auth from 'lib/api/auth';
+import Auth from 'lib/ssr/auth';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';

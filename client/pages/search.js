@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { END } from 'redux-saga';
 import _ from 'lodash/array';
-import Auth from 'lib/api/auth';
+import Auth from 'lib/ssr/auth';
 import wrapper from 'store/configureStore';
 
 import AppLayout from 'components/layout/appLayout';

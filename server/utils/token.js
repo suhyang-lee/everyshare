@@ -1,5 +1,5 @@
-const jwt = require("jsonwebtoken");
-const { decryptionCode } = require("./formatter");
+const jwt = require('jsonwebtoken');
+const { decryptionCode } = require('./formatter');
 
 // 토큰 발급
 exports.createToken = async (id) => {
@@ -10,9 +10,9 @@ exports.createToken = async (id) => {
       },
       process.env.JWT_REFRESH_SECRET,
       {
-        issuer: "Everyshare",
-        subject: "refresh_token",
-        expiresIn: "14d",
+        issuer: 'Everyshare',
+        subject: 'refresh_token',
+        expiresIn: '14d',
       },
     );
 
@@ -22,9 +22,9 @@ exports.createToken = async (id) => {
       },
       process.env.JWT_SECRET,
       {
-        issuer: "Everyshare",
-        subject: "access_token",
-        expiresIn: "10m",
+        issuer: 'Everyshare',
+        subject: 'access_token',
+        expiresIn: '30m',
       },
     );
 
@@ -50,9 +50,9 @@ exports.createAccessToken = async (id) => {
       },
       process.env.JWT_SECRET,
       {
-        issuer: "Everyshare",
-        subject: "access_token",
-        expiresIn: "10m",
+        issuer: 'Everyshare',
+        subject: 'access_token',
+        expiresIn: '10m',
       },
     );
 

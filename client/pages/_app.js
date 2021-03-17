@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
-
+import AuthProvider from 'components/auth/provider';
 import Head from 'next/head';
 import 'styles/global.css';
 
@@ -13,20 +13,6 @@ import { useRouter } from 'next/router';
 
 const EveryShare = ({ Component, pageProps }) => {
   const router = useRouter();
-  const [pageLoading, setPageLoading] = useState(false);
-
-  useEffect(() => {
-    const handleStart = () => {
-      setPageLoading(true);
-    };
-    const handleComplete = () => {
-      setPageLoading(false);
-    };
-
-    router.events.on('routeChangeStart', handleStart);
-    router.events.on('routeChangeComplete', handleComplete);
-    router.events.on('routeChangeError', handleComplete);
-  }, [router]);
 
   return (
     <>
@@ -37,11 +23,7 @@ const EveryShare = ({ Component, pageProps }) => {
             <title>EveryShare</title>
             <link rel='shortcut icon' href='/favicon.ico' />
           </Head>
-          {pageLoading ? (
-            <LoadingIcon height='100vh' />
-          ) : (
-            <Component {...pageProps} />
-          )}{' '}
+          <Component {...pageProps} />
         </Layout>
       ) : (
         <AppLayout>
@@ -49,11 +31,7 @@ const EveryShare = ({ Component, pageProps }) => {
             <title>EveryShare</title>
             <link rel='shortcut icon' href='/favicon.ico' />
           </Head>
-          {pageLoading ? (
-            <LoadingIcon height='100vh' />
-          ) : (
-            <Component {...pageProps} />
-          )}
+          <Component {...pageProps} />
         </AppLayout>
       )}
     </>

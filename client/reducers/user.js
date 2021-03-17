@@ -1,6 +1,6 @@
-import produce from "utils/produce";
-import USER from "actions/userAction";
-import { authTokenClosure } from "utils/authToken";
+import produce from 'utils/produce';
+import USER from 'actions/userAction';
+import { authTokenClosure } from 'utils/authToken';
 
 export const initState = {
   loginLoadding: false,
@@ -137,6 +137,22 @@ const reducer = (state = initState, action) => {
         draft.user = action.data;
         break;
       case USER.LOAD_USER_INFO_FAILURE:
+        draft.loadUserInfoLoadding = false;
+        draft.loadUserInfoDone = false;
+        draft.loadUserInfoError = action.error;
+        break;
+
+      case USER.ADD_USER_INFO_REQUEST:
+        draft.loadUserInfoLoadding = true;
+        draft.loadUserInfoDone = false;
+        draft.loadUserInfoError = null;
+        break;
+      case USER.ADD_USER_INFO_SUCCESS:
+        draft.loadUserInfoLoadding = false;
+        draft.loadUserInfoDone = true;
+        draft.user = action.data;
+        break;
+      case USER.ADD_USER_INFO_FAILURE:
         draft.loadUserInfoLoadding = false;
         draft.loadUserInfoDone = false;
         draft.loadUserInfoError = action.error;

@@ -67,14 +67,19 @@ const Auth = {
       }
 
       const dayExpires = setCookieDays(14);
-      const minExpires = setCookieMinutes(10);
+      const minExpires = setCookieMinutes(30);
+
       res
         .status(200)
         .cookie('refresh_token', token.refreshToken, {
           httpOnly: true,
           secure: true,
           expires: dayExpires,
-          domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
+        })
+        .cookie('access_token', token.accessToken, {
+          httpOnly: true,
+          secure: true,
+          expires: minExpires,
         })
         .redirect(
           process.env.NODE_ENV === 'production'
@@ -105,13 +110,19 @@ const Auth = {
         }
 
         const dayExpires = setCookieDays(14);
+        const minExpires = setCookieMinutes(30);
+
         res
           .status(200)
           .cookie('refresh_token', token.refreshToken, {
             httpOnly: true,
             secure: true,
             expires: dayExpires,
-            domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
+          })
+          .cookie('access_token', token.accessToken, {
+            httpOnly: true,
+            secure: true,
+            expires: minExpires,
           })
           .json({
             userInfo,
@@ -124,7 +135,6 @@ const Auth = {
   issueToken: async (req, res, next) => {
     try {
       const refresh = req.cookies.refresh_token || undefined;
-
       if (!refresh) return res.status(201).redirect('/');
 
       const decode = jwt.verify(refresh, process.env.JWT_REFRESH_SECRET);
@@ -132,10 +142,38 @@ const Auth = {
 
       if (!result) return res.status(401).send('존재하지않는 유저 입니다.');
 
-      const minExpires = setCookieMinutes(10);
+      const minExpires = setCookieMinutes(30);
       let token = await createToken(decode.user_id);
 
-      return res.status(200).json({ accessToken: token.accessToken });
+      return res
+        .status(200)
+        .cookie('access_token', token.accessToken, {
+          httpOnly: true,
+          secure: true,
+          expires: minExpires,
+          domain: process.env.NODE_ENV === 'production' && '.everyshare.shop',
+        })
+        .json({ accessToken: token.accessToken });
+    } catch (error) {
+      console.error(error);
+      next(error);
+    }
+  },
+
+  loadUser: async (req, res, next) => {
+    try {
+      const access = req.cookies.access_token || undefined;
+      if (!access) return res.status(301).send('토큰이 존재하지 않습니다.');
+
+      const decode = jwt.verify(access, process.env.JWT_SECRET);
+      const result = await UserService.verifyUserInfo({ id: decode.user_id });
+
+      if (!result) return res.status(401).send('존재하지않는 유저 입니다.');
+
+      const { id } = result;
+      const user = await UserService.loadUserInfo(id);
+
+      return res.status(200).json({ userInfo: user });
     } catch (error) {
       console.error(error);
       next(error);

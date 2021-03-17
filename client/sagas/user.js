@@ -1,10 +1,11 @@
-import { all, fork, delay, put, takeLatest, call } from "redux-saga/effects";
-import api from "lib/api";
+import { all, fork, delay, put, takeLatest, call } from 'redux-saga/effects';
+import api from 'lib/api';
+import authAPI from 'lib/api/auth';
 
-import USER from "actions/userAction";
+import USER from 'actions/userAction';
 
 function signUpAPI(data) {
-  return api.post("/user", data);
+  return api.post('/user', data);
 }
 
 function* signup(action) {
@@ -22,7 +23,7 @@ function* signup(action) {
 }
 
 function logInAPI(data) {
-  return api.post("/auth/local", data);
+  return api.post('/auth/local', data);
 }
 
 function* login(action) {
@@ -43,7 +44,7 @@ function* login(action) {
 }
 
 function loginKakaoAPI() {
-  return api.post("/auth/kakao");
+  return api.post('/auth/kakao');
 }
 
 function* loginKakao() {
@@ -64,7 +65,7 @@ function* loginKakao() {
 }
 
 function loginNaverAPI(data) {
-  return api.get("/auth/naver", data);
+  return api.get('/auth/naver', data);
 }
 
 function* loginNaver(action) {
@@ -85,7 +86,7 @@ function* loginNaver(action) {
 }
 
 function loadUserInfoAPI() {
-  return api.get("/user");
+  return authAPI.get('/user');
 }
 
 function* loadUserInfo() {
@@ -105,8 +106,23 @@ function* loadUserInfo() {
   }
 }
 
+function* addUserInfo(action) {
+  try {
+    yield put({
+      type: USER.ADD_USER_INFO_SUCCESS,
+      data: action.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: USER.ADD_USER_INFO_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function logOutAPI() {
-  return api.post("/user/logout");
+  return api.post('/user/logout');
 }
 
 function* logout() {
@@ -125,7 +141,7 @@ function* logout() {
 }
 
 function signOutAPI() {
-  return api.delete("/user/signout");
+  return api.delete('/user/signout');
 }
 
 function* signOut() {
@@ -145,7 +161,7 @@ function* signOut() {
 }
 
 function uploadProfileImageAPI(data) {
-  return api.patch("/mypage/info/profile", data);
+  return api.patch('/mypage/info/profile', data);
 }
 
 function* uploadProfileImage(action) {
@@ -166,7 +182,7 @@ function* uploadProfileImage(action) {
 }
 
 function changeNicknameAPI(data) {
-  return api.patch("/mypage/info", { nickname: data });
+  return api.patch('/mypage/info', { nickname: data });
 }
 
 function* changeNickname(action) {
@@ -221,6 +237,9 @@ function* watchSignOut() {
   yield takeLatest(USER.SIGN_OUT_REQUEST, signOut);
 }
 
+function* watchAddUserInfo() {
+  yield takeLatest(USER.ADD_USER_INFO_REQUEST, addUserInfo);
+}
 export default function* userSaga() {
   yield all([
     fork(watchLogIn),
@@ -232,5 +251,6 @@ export default function* userSaga() {
     fork(watchUploadProfileImage),
     fork(watchChangeNickname),
     fork(watchSignOut),
+    fork(watchAddUserInfo),
   ]);
 }

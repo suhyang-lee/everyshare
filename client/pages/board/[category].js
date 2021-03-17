@@ -5,7 +5,7 @@ import wrapper from 'store/configureStore';
 
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import Auth from 'lib/api/auth';
+import Auth from 'lib/ssr/auth';
 
 import { CATEOGRY } from 'utils/variables';
 
@@ -20,6 +20,13 @@ const Board = () => {
 
   const { hasMorePost, loadPostsLoading } = useSelector((state) => state.post);
   const posts = useSelector((state) => state.post.posts);
+
+  useEffect(() => {
+    dispatch({
+      type: POST.LOAD_POSTS_REQUEST,
+      data: category,
+    });
+  }, []);
 
   useEffect(() => {
     function onScroll() {

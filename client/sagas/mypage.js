@@ -1,13 +1,10 @@
-import { all, fork, put, takeLatest, call } from "redux-saga/effects";
-import api from "lib/api";
+import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
+import api from 'lib/api';
 
-import MYPAGE from "actions/mypageAction";
+import MYPAGE from 'actions/mypageAction';
 
 function loadMyContentsAPI(data) {
-  return api.get(`mypage/contents?pageNum=${data.pageNum}&type=${data.type}`, {
-    forceUpdate: false,
-    cache: true,
-  });
+  return api.get(`mypage/contents?pageNum=${data.pageNum}&type=${data.type}`);
 }
 
 function* loadMyContents(action) {
@@ -27,7 +24,7 @@ function* loadMyContents(action) {
 }
 
 function loadMyZzimListAPI() {
-  return api.get("mypage/zzim");
+  return api.get('mypage/zzim');
 }
 
 function* loadMyZzimList() {
@@ -47,7 +44,7 @@ function* loadMyZzimList() {
 }
 
 function loadMyOwnerListAPI() {
-  return api.get("mypage/owner");
+  return api.get('mypage/owner');
 }
 
 function* loadMyOwnerList() {
@@ -67,7 +64,7 @@ function* loadMyOwnerList() {
 }
 
 function loadMyRentalListAPI() {
-  return api.get("mypage/rental");
+  return api.get('mypage/rental');
 }
 
 function* loadMyRentalList() {

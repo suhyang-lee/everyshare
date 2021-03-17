@@ -4,7 +4,7 @@ import { END } from 'redux-saga';
 
 import wrapper from 'store/configureStore';
 import Contents from 'components/home';
-import Auth from 'lib/api/auth';
+import Auth from 'lib/ssr/auth';
 
 const metaContents = {
   description: '모든 것을 공유하는 에브리쉐어',

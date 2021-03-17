@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { END } from 'redux-saga';
 
 import wrapper from 'store/configureStore';
-import Auth from 'lib/api/auth';
+import Auth from 'lib/ssr/auth';
 
 import Main from 'components/about';
 

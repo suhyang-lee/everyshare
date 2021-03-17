@@ -4,7 +4,7 @@ import { END } from 'redux-saga';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Auth from 'lib/api/auth';
+import Auth from 'lib/ssr/auth';
 import wrapper from 'store/configureStore';
 
 import USER from 'actions/userAction';

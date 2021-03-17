@@ -46,10 +46,9 @@ const User = {
         .status(200)
         .clearCookie('refresh_token', {
           path: '/',
-          domain:
-            process.env.NODE_ENV === 'production'
-              ? '.everyshare.shop'
-              : 'localhost',
+        })
+        .clearCookie('access_token', {
+          path: '/',
         })
         .send('ok');
     } catch (error) {

@@ -9,6 +9,7 @@ const MyageService = {
       const result = await Comment.findAndCountAll({
         where: { userId: id },
         offset,
+
         limit: 5,
         order: [['createdAt', 'DESC']],
         attributes: ['id', 'contents', 'createdAt', 'PostId'],

@@ -1,19 +1,23 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { authTokenClosure } from 'utils/authToken';
 import USER from 'actions/userAction';
 import styles from './userInfo.module.scss';
 import useInput from 'hooks/useInput';
+import { useAuth } from '../../auth/provider';
+import storage from 'lib/storage';
 
-const UserInfo = () => {
+const UserInfo = ({ userInfo }) => {
   const dispatch = useDispatch();
-  const { changeNicknameDone, user } = useSelector((state) => state.user);
+  const { user, changeNicknameDone } = useSelector((state) => state.user);
 
-  const [email, setEmail] = useState(() => user?.email);
-  const [nickname, onChangeNickname] = useInput(user?.nickname);
+  const [email, setEmail] = useState(() => userInfo.email);
+  const [nickname, onChangeNickname] = useInput(userInfo.nickname);
 
   useEffect(() => {
-    dispatch({ type: USER.LOAD_USER_INFO_REQUEST });
+    dispatch({
+      type: USER.LOAD_USER_INFO_REQUEST,
+    });
   }, []);
 
   const onChangePrfile = useCallback((e) => {
@@ -53,7 +57,9 @@ const UserInfo = () => {
           <label htmlFor='addProfile'>프로필 업로드</label>
           <img
             src={
-              user.profileUrl ? `${user.profileUrl}` : '/images/no-profile.webp'
+              user?.profileUrl
+                ? `${user.profileUrl}`
+                : '/images/no-profile.webp'
             }
           />
         </div>

@@ -1,15 +1,16 @@
 /* 페이지 공통 헤더  */
-import React, { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
-import Router from "next/router";
-import { useSelector } from "react-redux";
+import React, { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
+import Router from 'next/router';
+import { useSelector } from 'react-redux';
 
-import styled from "styled-components";
-import styles from "./header.module.scss";
+import styled from 'styled-components';
+import styles from './header.module.scss';
 
-import Login from "components/login";
-import Category from "components/layout/category";
-import Search from "components/layout/header/search";
+import Login from 'components/login';
+import Category from 'components/layout/category';
+import Search from 'components/layout/header/search';
+import storage from 'lib/storage';
 
 const HeaderLink = styled.a`
   color: black;
@@ -25,12 +26,12 @@ const Header = () => {
 
   useEffect(() => {
     if (logoutDone && !user) {
-      Router.push("/");
+      Router.push('/');
     }
   }, [logoutDone, user]);
 
   const onLogOut = useCallback(() => {
-    Router.push("/logout");
+    Router.push('/logout');
   }, []);
 
   const onClickOpen = useCallback(() => {
@@ -71,15 +72,15 @@ const Header = () => {
         <div className={styles.headerItemsWrapper}>
           <div className={styles.headerItem}>
             <div className={styles.headerMenuBtn} onClick={onClickOpen}>
-              <img src="/images/icon-menu.svg" alt="메뉴열기" />
+              <img src='/images/icon-menu.svg' alt='메뉴열기' />
               <h2>카테고리</h2>
             </div>
           </div>
 
           <div className={styles.headerItem}>
-            <Link href="/">
+            <Link href='/'>
               <h1>
-                <img src="/images/img-everyshare-logo.svg" alt="에브리쉐어" />
+                <img src='/images/img-everyshare-logo.svg' alt='에브리쉐어' />
               </h1>
             </Link>
           </div>
@@ -91,7 +92,7 @@ const Header = () => {
                   <>
                     <li>
                       <h2>
-                        <Link href="/mypage/info">
+                        <Link href='/mypage/info'>
                           <HeaderLink>마이페이지</HeaderLink>
                         </Link>
                       </h2>
@@ -99,12 +100,12 @@ const Header = () => {
                     <li onClick={onLogOut}>
                       <h2>로그아웃</h2>
                     </li>
-                    <Link href="/mypage/items">
+                    <Link href='/mypage/items'>
                       <li className={styles.circleBtn}>
                         <div className={styles.zzimed}>
                           {user.Zzimed.length || 0}
                         </div>
-                        <img src="/images/icon-shopping.svg" alt="담아두기" />
+                        <img src='/images/icon-shopping.svg' alt='담아두기' />
                       </li>
                     </Link>
                   </>
@@ -115,7 +116,7 @@ const Header = () => {
                     </li>
                     <li>
                       <h2>
-                        <Link href="/signup">
+                        <Link href='/signup'>
                           <HeaderLink>회원가입</HeaderLink>
                         </Link>
                       </h2>
@@ -124,7 +125,7 @@ const Header = () => {
                 )}
 
                 <li className={styles.circleBtn} onClick={onClickSearch}>
-                  <img src="/images/icon-search.svg" alt="검색하기" />
+                  <img src='/images/icon-search.svg' alt='검색하기' />
                 </li>
               </ul>
             </nav>

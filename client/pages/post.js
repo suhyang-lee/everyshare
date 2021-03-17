@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { convertToRaw } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import { END } from 'redux-saga';
-import Auth from 'lib/api/auth';
+import Auth from 'lib/ssr/auth';
 
 import { useDispatch, useSelector } from 'react-redux';
 

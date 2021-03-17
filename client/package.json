@@ -36,6 +36,7 @@
     "moment": "^2.29.1",
     "next": "^10.0.7",
     "next-redux-wrapper": "^6.0.2",
+    "nookies": "^2.5.2",
     "pm2": "^4.5.5",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^6.7.0",

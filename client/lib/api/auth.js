@@ -1,16 +1,11 @@
-import api from './index';
-import USER from 'actions/userAction';
+import axios from 'axios';
 
-const Auth = {
-  validateAuth: async (ctx) => {
-    const cookie = ctx.req ? ctx.req.headers.cookie : '';
+import { ServerURL } from 'config/config';
 
-    if (ctx.req && cookie) api.defaults.headers.Cookie = cookie;
+const axiosInstance = axios.create({
+  baseURL: ServerURL.getServerURL(),
+  timeout: 10000,
+  withCredentials: true,
+});
 
-    ctx.store.dispatch({
-      type: USER.LOAD_USER_INFO_REQUEST,
-    });
-  },
-};
-
-export default Auth;
+export default axiosInstance;

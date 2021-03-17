@@ -34,6 +34,8 @@ router.get(
   ctrl.callSnsLogin,
 );
 
+router.post("/user", ctrl.loadUser);
+
 router.post("/local", ctrl.callLogin);
 
 router.post("/token", ctrl.issueToken);
