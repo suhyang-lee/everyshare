@@ -52,6 +52,7 @@
       }
       img {
         width: 2rem;
+        height: auto;
       }
     }
   }
@@ -125,6 +126,7 @@
     }
     img {
       width: 2rem;
+      height: auto;
     }
   }
 }
@@ -167,6 +169,10 @@
   .headerMenuBtn {
     h2 {
       margin-left: 1rem;
+    }
+    img {
+      width: fit-content;
+      height: auto;
     }
   }
 }

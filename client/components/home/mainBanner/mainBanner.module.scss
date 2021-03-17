@@ -1,14 +1,12 @@
 /* mainBanner.module.scss */
-@import "../../common/scss/mixins";
-@import "../../common/scss/variables";
-@import "./mainBannerResoponsiv.scss";
-
-@import url(https://cdn.rawgit.com/kattergil/NotoSerifKR-Web/76eb9ebf/stylesheet/NotoSerif-Web.css);
+@import '../../common/scss/mixins';
+@import '../../common/scss/variables';
+@import './mainBannerResoponsiv.scss';
 
 .mainBannerWrapper {
   height: $height-100;
   background-color: $G-color-white;
-  background-image: url("/images/photo-1603376728541-6e1906a300e6.jpg");
+  background-image: url('/images/main-bg.jpg');
   background-repeat: no-repeat;
 
   .mainBanner {
@@ -30,7 +28,7 @@
   }
 
   p {
-    font-family: "Noto Serif KR";
+    font-family: 'Noto Serif KR';
     color: $G-color-white;
   }
 

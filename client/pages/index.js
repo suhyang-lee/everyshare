@@ -21,7 +21,7 @@ const Home = () => {
       <meta name='keyword' content={metaContents.keyword} />
       <meta property='og:title' content={'에브리쉐어 | 물건공유플랫폼'} />
       <meta property='og:description' content={metaContents.description} />
-      <meta property='og:image' content={'/images/them.png'} />
+      <meta property='og:image' content={'/images/them.jpg'} />
       <meta property='og:url' content={`http://everyshare.shop`} />
       <Contents />
     </>

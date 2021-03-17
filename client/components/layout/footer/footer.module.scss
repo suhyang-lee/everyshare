@@ -1,7 +1,7 @@
 /* footer */
-@import "../../common/scss/variables.scss";
-@import "../../common/scss/mixins";
-@import "./footerResponsive.scss";
+@import '../../common/scss/variables.scss';
+@import '../../common/scss/mixins';
+@import './footerResponsive.scss';
 
 .footer {
   background-color: $G-color-black;
@@ -43,6 +43,13 @@
       font-weight: 700;
       margin-bottom: 1rem;
     }
+  }
+}
+
+.linkSns {
+  img {
+    width: fit-content;
+    height: auto;
   }
 }
 
