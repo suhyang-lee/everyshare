@@ -8,18 +8,21 @@ const verifyToken = async (req, res, next) => {
 
     return next();
   } catch (error) {
-    return res.status(401).send('잘못된 토큰이거나 존재하지 않습니다.');
+    console.log('토큰없음');
+    return next();
   }
 };
 
 const verifyUser = async (req, res, next) => {
   try {
+    console.log('토큰확인');
     const token = req.cookies.access_token || undefined;
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.decoded = decoded;
 
     return next();
   } catch (error) {
+    console.log('토큰없음');
     return next();
   }
 };
