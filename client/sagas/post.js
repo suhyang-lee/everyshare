@@ -126,7 +126,7 @@ function* loadPosts(action) {
 }
 
 function loadPostAPI(data) {
-  return api.authAPI(`/post/${data.postId}`, data);
+  return authAPI.authAPI(`/post/${data.postId}`, data);
 }
 
 function* loadPost(action) {
