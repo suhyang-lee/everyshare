@@ -1,9 +1,11 @@
 import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
-import authAPI from 'lib/authAPI/auth';
+import authAPI from 'lib/api/auth';
 import MYPAGE from 'actions/mypageAction';
 
 function loadMyContentsAPI(data) {
-  return authAPI.get(`mypage/contents?pageNum=${data.pageNum}&type=${data.type}`);
+  return authAPI.get(
+    `mypage/contents?pageNum=${data.pageNum}&type=${data.type}`,
+  );
 }
 
 function* loadMyContents(action) {

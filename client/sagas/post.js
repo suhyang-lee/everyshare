@@ -1,6 +1,6 @@
 import { all, fork, put, takeLatest, throttle, call } from 'redux-saga/effects';
 import api from 'lib/api';
-import authAPI from 'lib/api';
+import authAPI from 'lib/api/auth';
 
 import POST from 'actions/postAction';
 
