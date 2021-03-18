@@ -18,13 +18,13 @@ const PostContents = () => {
 
   const postId = router.query.postContents;
 
-  const { post, removePostDone, zzimPostDone } = useSelector(
+  const { post, removePostDone, zzimPostDone, notZzimPostDone } = useSelector(
     (state) => state.post,
   );
   const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (zzimPostDone) {
+    if (zzimPostDone || notZzimPostDone) {
       dispatch({
         type: USER.LOAD_USER_INFO_REQUEST,
       });
