@@ -6,7 +6,7 @@ const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 
 const ctrl = require('../controller/post');
-const { verifyToken, verifyLoginToken } = require('../middleware/token');
+const { verifyToken, verifyToken } = require('../middleware/token');
 
 const router = express.Router();
 
@@ -36,24 +36,24 @@ const upload = multer({
 
 router.post(
   '/images',
-  verifyLoginToken,
+  verifyToken,
   upload.array('image'),
   ctrl.addImagePostRequest,
 );
-router.delete('/images', verifyLoginToken, ctrl.removeImagePostRequest);
+router.delete('/images', verifyToken, ctrl.removeImagePostRequest);
 
-router.post('/', verifyLoginToken, ctrl.addPostRequest);
+router.post('/', verifyToken, ctrl.addPostRequest);
 router.get('/:id', ctrl.loadPostRequest);
-router.patch('/:id', verifyLoginToken, ctrl.updatePostRequest);
-router.delete('/:id', verifyLoginToken, ctrl.removePostRequest);
+router.patch('/:id', verifyToken, ctrl.updatePostRequest);
+router.delete('/:id', verifyToken, ctrl.removePostRequest);
 
-router.post('/:id/comment', verifyLoginToken, ctrl.addCommentRequest);
-router.patch('/comment/:id', verifyLoginToken, ctrl.updateCommentRequest);
-router.delete('/comment/:id', verifyLoginToken, ctrl.removeCommentRequest);
+router.post('/:id/comment', verifyToken, ctrl.addCommentRequest);
+router.patch('/comment/:id', verifyToken, ctrl.updateCommentRequest);
+router.delete('/comment/:id', verifyToken, ctrl.removeCommentRequest);
 
-router.patch('/:id/zzim', verifyLoginToken, ctrl.addZzimListRequest);
-router.delete('/:id/zzim', verifyLoginToken, ctrl.removeZzimListRequest);
+router.patch('/:id/zzim', verifyToken, ctrl.addZzimListRequest);
+router.delete('/:id/zzim', verifyToken, ctrl.removeZzimListRequest);
 
-router.post('/apply', verifyLoginToken, ctrl.addApplyRequest);
+router.post('/apply', verifyToken, ctrl.addApplyRequest);
 
 module.exports = router;

@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const ctrl = require('../controller/mypage');
-const { verifyToken, verifyLoginToken } = require('../middleware/token');
+const { verifyToken, verifyToken } = require('../middleware/token');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 
@@ -35,12 +35,12 @@ const upload = multer({
 
 router.patch(
   '/info/profile',
-  verifyLoginToken,
+  verifyToken,
   upload.single('profile'),
   ctrl.updateProfileRequest,
 );
 
-router.patch('/info', verifyLoginToken, ctrl.updateNicknameRequest);
+router.patch('/info', verifyToken, ctrl.updateNicknameRequest);
 
 router.get('/contents', verifyToken, ctrl.loadContentsRequest);
 
