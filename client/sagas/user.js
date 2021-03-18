@@ -122,7 +122,7 @@ function* addUserInfo(action) {
 }
 
 function logOutAPI() {
-  return api.post('/user/logout');
+  return authAPI.post('/user/logout');
 }
 
 function* logout() {
@@ -141,7 +141,7 @@ function* logout() {
 }
 
 function signOutAPI() {
-  return api.delete('/user/signout');
+  return authAPI.delete('/user/signout');
 }
 
 function* signOut() {

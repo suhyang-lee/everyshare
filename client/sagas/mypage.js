@@ -1,10 +1,9 @@
 import { all, fork, put, takeLatest, call } from 'redux-saga/effects';
-import api from 'lib/api';
-
+import authAPI from 'lib/authAPI/auth';
 import MYPAGE from 'actions/mypageAction';
 
 function loadMyContentsAPI(data) {
-  return api.get(`mypage/contents?pageNum=${data.pageNum}&type=${data.type}`);
+  return authAPI.get(`mypage/contents?pageNum=${data.pageNum}&type=${data.type}`);
 }
 
 function* loadMyContents(action) {
@@ -24,7 +23,7 @@ function* loadMyContents(action) {
 }
 
 function loadMyZzimListAPI() {
-  return api.get('mypage/zzim');
+  return authAPI.get('mypage/zzim');
 }
 
 function* loadMyZzimList() {
@@ -44,7 +43,7 @@ function* loadMyZzimList() {
 }
 
 function loadMyOwnerListAPI() {
-  return api.get('mypage/owner');
+  return authAPI.get('mypage/owner');
 }
 
 function* loadMyOwnerList() {
@@ -64,7 +63,7 @@ function* loadMyOwnerList() {
 }
 
 function loadMyRentalListAPI() {
-  return api.get('mypage/rental');
+  return authAPI.get('mypage/rental');
 }
 
 function* loadMyRentalList() {

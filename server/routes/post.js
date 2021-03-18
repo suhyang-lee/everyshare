@@ -40,6 +40,7 @@ router.post(
   upload.array('image'),
   ctrl.addImagePostRequest,
 );
+
 router.delete('/images', verifyToken, ctrl.removeImagePostRequest);
 
 router.post('/', verifyToken, ctrl.addPostRequest);

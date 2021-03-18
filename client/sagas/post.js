@@ -1,30 +1,11 @@
 import { all, fork, put, takeLatest, throttle, call } from 'redux-saga/effects';
 import api from 'lib/api';
+import authAPI from 'lib/api';
 
 import POST from 'actions/postAction';
 
-function loadPostAPI(data) {
-  return api.get(`/post/${data.postId}`, data);
-}
-
-function* loadPosts(action) {
-  try {
-    const result = yield call(loadPostsAPI, action.data, action.lastId);
-    yield put({
-      type: POST.LOAD_POSTS_SUCCESS,
-      data: result.data,
-    });
-  } catch (err) {
-    console.error(err);
-    yield put({
-      type: POST.LOAD_POSTS_FAILURE,
-      error: err.response.data,
-    });
-  }
-}
-
 function addPostAPI(data) {
-  return api.post('/post', data);
+  return authAPI.post('/post', data);
 }
 
 function* addPost(action) {
@@ -44,7 +25,7 @@ function* addPost(action) {
 }
 
 function updatePostAPI(data) {
-  return api.patch(`/post/${parseInt(data.id, 10)}`, data);
+  return authAPI.patch(`/post/${parseInt(data.id, 10)}`, data);
 }
 
 function* updatePost(action) {
@@ -64,7 +45,7 @@ function* updatePost(action) {
 }
 
 function removePostAPI(data) {
-  return api.delete(`/post/${data.postId}`, data);
+  return authAPI.delete(`/post/${data.postId}`, data);
 }
 
 function* removePost(action) {
@@ -84,7 +65,7 @@ function* removePost(action) {
 }
 
 function uploadImagesAPI(data) {
-  return api.post('/post/images', data);
+  return authAPI.post('/post/images', data);
 }
 
 function* uploadImages(action) {
@@ -104,7 +85,7 @@ function* uploadImages(action) {
 }
 
 function uploadRemoveImagesAPI(data) {
-  return api.delete(`/post/images?id=${data.id}`, data);
+  return authAPI.delete(`/post/images?id=${data.id}`, data);
 }
 
 function* uploadRemoveImages(action) {
@@ -128,6 +109,26 @@ function loadPostsAPI(data, lastId) {
   return api.get(`/posts/${encodeURIComponent(data)}?lastId=${lastId || 0}`);
 }
 
+function* loadPosts(action) {
+  try {
+    const result = yield call(loadPostsAPI, action.data, action.lastId);
+    yield put({
+      type: POST.LOAD_POSTS_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    console.error(err);
+    yield put({
+      type: POST.LOAD_POSTS_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function loadPostAPI(data) {
+  return api.authAPI(`/post/${data.postId}`, data);
+}
+
 function* loadPost(action) {
   try {
     const result = yield call(loadPostAPI, action.data);
@@ -145,7 +146,7 @@ function* loadPost(action) {
 }
 
 function addCommentAPI(data) {
-  return api.post(`/post/${data.postId}/comment`, data);
+  return authAPI.post(`/post/${data.postId}/comment`, data);
 }
 
 function* addComment(action) {
@@ -165,7 +166,7 @@ function* addComment(action) {
 }
 
 function updateCommentAPI(data) {
-  return api.patch(`/post/comment/${data.commentId}`, data);
+  return authAPI.patch(`/post/comment/${data.commentId}`, data);
 }
 
 function* updateComment(action) {
@@ -186,7 +187,7 @@ function* updateComment(action) {
 }
 
 function removeCommentAPI(data) {
-  return api.delete(`/post/comment/${data.commentId}`);
+  return authAPI.delete(`/post/comment/${data.commentId}`);
 }
 
 function* removeComment(action) {
@@ -207,7 +208,7 @@ function* removeComment(action) {
 
 //물건 찜하기
 function zzimPostAPI(data) {
-  return api.patch(`/post/${data.postId}/zzim`);
+  return authAPI.patch(`/post/${data.postId}/zzim`);
 }
 
 function* zzimPost(action) {
@@ -228,7 +229,7 @@ function* zzimPost(action) {
 
 //찜 삭제
 function notZzimPostAPI(data) {
-  return api.delete(`/post/${data.postId}/zzim`, data);
+  return authAPI.delete(`/post/${data.postId}/zzim`, data);
 }
 
 function* notZzimPost(action) {
@@ -248,7 +249,7 @@ function* notZzimPost(action) {
 }
 
 function addApplyAPI(data) {
-  return api.post('post/apply', data);
+  return authAPI.post('post/apply', data);
 }
 
 function* addApply(action) {
