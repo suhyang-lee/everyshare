@@ -1,11 +1,14 @@
 const PostService = require('../service/post');
 const { Op } = require('sequelize');
 const { dateDiff } = require('../utils/formatter');
+const UUID = require('../utils/uuid');
 
 const Post = {
   addImagePostRequest: (req, res, next) => {
     const data = [];
-    req.files.map((image) => data.push({ src: image.location }));
+    req.files.map((image) =>
+      data.push({ id: UUID.getUUID(), src: image.location }),
+    );
     res.json(data);
   },
 

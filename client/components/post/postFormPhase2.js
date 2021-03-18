@@ -1,17 +1,18 @@
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import _ from "lodash/fp";
-import PropTypes from "prop-types";
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash/fp';
+import PropTypes from 'prop-types';
 
-import styled from "styled-components";
-import classNames from "classnames/bind";
+import styled from 'styled-components';
+import classNames from 'classnames/bind';
 
-import Preview from "components/post/preview";
-import Editor from "components/post/postEditor";
-import POST from "actions/postAction";
+import Preview from 'components/post/preview';
+import Editor from 'components/post/postEditor';
+import POST from 'actions/postAction';
 
-import { RightOutlined } from "@ant-design/icons";
-import styles from "./post.module.scss";
+import { RightOutlined } from '@ant-design/icons';
+import styles from './post.module.scss';
+import UUID from 'lib/uuid';
 
 const cx = classNames.bind(styles);
 
@@ -34,12 +35,12 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
       totalImages += e.target.files.length;
 
       if (totalImages >= 11) {
-        return alert("최대 10개까지 업로드가 가능합니다.");
+        return alert('최대 10개까지 업로드가 가능합니다.');
       }
 
       const formData = new FormData();
       [].forEach.call(e.target.files, (file) => {
-        formData.append("image", file);
+        formData.append('image', file);
       });
 
       dispatch({
@@ -52,8 +53,8 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
 
   const onClickWindowOpen = () => {
     window.open(
-      "https://shopping.naver.com",
-      "width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes",
+      'https://shopping.naver.com',
+      'width=800, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes',
     );
   };
 
@@ -69,14 +70,14 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
               <div className={styles.postTypeRadio}>
                 <input
                   ref={register}
-                  type="radio"
-                  name="rentTerm"
-                  value="long"
-                  id="long"
+                  type='radio'
+                  name='rentTerm'
+                  value='long'
+                  id='long'
                   hidden
                   defaultChecked
                 />
-                <label htmlFor="long" className={cx("radioLabel", "termLabel")}>
+                <label htmlFor='long' className={cx('radioLabel', 'termLabel')}>
                   장기 대여
                   <p>
                     장기간 대여를 하는 분들이 선택하는 유형으로 <br />
@@ -88,15 +89,15 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
               <div className={styles.postTypeRadio}>
                 <input
                   ref={register}
-                  type="radio"
-                  name="rentTerm"
-                  value="short"
-                  id="short"
+                  type='radio'
+                  name='rentTerm'
+                  value='short'
+                  id='short'
                   hidden
                 />
                 <label
-                  htmlFor="short"
-                  className={cx("radioLabel", "termLabel")}
+                  htmlFor='short'
+                  className={cx('radioLabel', 'termLabel')}
                 >
                   단기 대여
                   <p>
@@ -109,37 +110,27 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
             </div>
           </div>
 
-          {/* 물품 이미지 추가 */}
           <div className={styles.postContents}>
             <h5>
-              대여 할 이미지를 등록 해 주세요 <br />{" "}
+              대여 할 이미지를 등록 해 주세요 <br />{' '}
               <span>{totalImages}/10</span>
             </h5>
 
             <div className={styles.imageUploadWrapper}>
-              <label htmlFor="addFile">사진등록</label>
+              <label htmlFor='addFile'>사진등록</label>
               <input
-                type="file"
+                type='file'
                 multiple
-                id="addFile"
-                name="image"
+                id='addFile'
+                name='image'
                 onChange={onChangeImages}
               />
-              {/* 이미지 업로드시 미리보기 */}
-
-              {post?.Images.map((image, index) => {
-                return (
-                  <Preview
-                    key={image.src}
-                    image={image}
-                    post={post}
-                    index={image.id}
-                  />
-                );
+              {post?.Images.map((image) => {
+                return <Preview key={image.id} image={image} post={post} />;
               })}
 
-              {ImagePaths?.map((image, index) => {
-                return <Preview key={image.src} image={image} index={index} />;
+              {ImagePaths?.map((image) => {
+                return <Preview key={image.id} image={image} />;
               })}
             </div>
           </div>
@@ -148,18 +139,18 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
             <div className={styles.contentsBox}>
               <div className={styles.textWrapper}>
                 <input
-                  type="text"
-                  name="title"
+                  type='text'
+                  name='title'
                   ref={register({
                     required: true,
                     maxLength: 100,
                   })}
                 />
               </div>
-              {_.get("title.type", errors) === "required" && (
+              {_.get('title.type', errors) === 'required' && (
                 <ErrorMessage>제목은 필수 입력 사항입니다</ErrorMessage>
               )}
-              {_.get("title.type", errors) === "maxLength" && (
+              {_.get('title.type', errors) === 'maxLength' && (
                 <ErrorMessage>제목은 최대 100자까지 입니다</ErrorMessage>
               )}
             </div>
@@ -180,30 +171,30 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
               <div className={styles.inputWrapper}>
                 <select
                   ref={register}
-                  name="rentelFeeSelect"
-                  className={cx("selectList", "rentalFeeSelect")}
+                  name='rentelFeeSelect'
+                  className={cx('selectList', 'rentalFeeSelect')}
                 >
-                  <option value="day">일(Days) 당</option>
-                  <option value="month">달(Month) 당</option>
-                  <option value="year">년(year) 당</option>
+                  <option value='day'>일(Days) 당</option>
+                  <option value='month'>달(Month) 당</option>
+                  <option value='year'>년(year) 당</option>
                 </select>
                 <input
-                  type="text"
+                  type='text'
                   ref={register({
                     required: true,
                     pattern: /^[0-9]*$/,
                   })}
-                  name="rentalFee"
+                  name='rentalFee'
                   className={styles.rentalFee}
                 />
                 <p>원</p>
               </div>
 
-              {_.get("rentalFee.type", errors) === "required" && (
+              {_.get('rentalFee.type', errors) === 'required' && (
                 <ErrorMessage>대여비는 필수 입력 사항입니다</ErrorMessage>
               )}
 
-              {_.get("rentalFee.type", errors) === "pattern" && (
+              {_.get('rentalFee.type', errors) === 'pattern' && (
                 <ErrorMessage>오직 숫자만 입력하셔야 합니다</ErrorMessage>
               )}
             </div>
@@ -215,17 +206,17 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
             <div className={styles.contentsBox}>
               <div className={styles.inputWrapper}>
                 <input
-                  type="text"
+                  type='text'
                   ref={register({
                     required: true,
                     pattern: /^[0-9]*$/,
                   })}
-                  name="deposit"
+                  name='deposit'
                   className={styles.depositInput}
                 />
                 <p>원</p>
                 <button
-                  type="button"
+                  type='button'
                   className={styles.searchBtn}
                   onClick={onClickWindowOpen}
                 >
@@ -233,11 +224,11 @@ const PostFormPhase2 = ({ register, errors, post, setContents }) => {
                   <RightOutlined />
                 </button>
               </div>
-              {_.get("deposit.type", errors) === "required" && (
+              {_.get('deposit.type', errors) === 'required' && (
                 <ErrorMessage>보증금은 필수 입력 사항입니다</ErrorMessage>
               )}
 
-              {_.get("deposit.type", errors) === "pattern" && (
+              {_.get('deposit.type', errors) === 'pattern' && (
                 <ErrorMessage>오직 숫자만 입력하셔야 합니다</ErrorMessage>
               )}
             </div>

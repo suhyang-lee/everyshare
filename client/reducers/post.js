@@ -189,7 +189,7 @@ const reducer = (state = initState, action) => {
 
       case POST.REMOVE_IMAGE:
         draft.ImagePaths = draft.ImagePaths.filter(
-          (image, index) => index !== action.data,
+          (image) => image.id !== action.data,
         );
         break;
 

@@ -1,34 +1,29 @@
-import React, { useCallback } from "react";
-import { useSelector } from "react-redux";
-import styles from "./post.module.scss";
-import { CloseCircleFilled } from "@ant-design/icons";
-import { useDispatch } from "react-redux";
-import POST from "actions/postAction";
+import React, { useCallback } from 'react';
+import styles from './post.module.scss';
+import { CloseCircleFilled } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import POST from 'actions/postAction';
 
-const Preview = ({ image, index, post }) => {
+const Preview = ({ image, post }) => {
   const dispatch = useDispatch();
 
-  const onRemoveImage = useCallback((e) => {
+  const onRemoveImage = useCallback(() => {
     if (post) {
       dispatch({
         type: POST.REMOVE_IMAGES_REQUEST,
-        data: { id: index },
+        data: { id: image.id },
       });
     } else {
       dispatch({
         type: POST.REMOVE_IMAGE,
-        data: index,
+        data: image.id,
       });
     }
   }, []);
 
   return (
-    <div className={styles.imagePreviews} key={index}>
-      <CloseCircleFilled
-        className={styles.closeBtn}
-        key={image.src}
-        onClick={onRemoveImage}
-      />
+    <div className={styles.imagePreviews}>
+      <CloseCircleFilled className={styles.closeBtn} onClick={onRemoveImage} />
       <img src={image.src} alt={image.src} />
     </div>
   );
