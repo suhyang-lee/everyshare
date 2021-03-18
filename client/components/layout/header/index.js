@@ -38,7 +38,7 @@ const Header = () => {
   }, []);
 
   useEffect(() => {
-    if (!user.Zzimed) return;
+    if (!user) return;
     let cnt = user.Zzimed.length;
     setZzim(cnt);
   }, [user]);
