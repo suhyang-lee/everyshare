@@ -6,7 +6,7 @@ const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 
 const ctrl = require('../controller/post');
-const { verifyToken, verifyToken } = require('../middleware/token');
+const { verifyToken } = require('../middleware/token');
 
 const router = express.Router();
 

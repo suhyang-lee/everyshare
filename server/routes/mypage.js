@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const ctrl = require('../controller/mypage');
-const { verifyToken, verifyToken } = require('../middleware/token');
+const { verifyToken } = require('../middleware/token');
 const multerS3 = require('multer-s3');
 const AWS = require('aws-sdk');
 
