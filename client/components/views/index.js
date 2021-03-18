@@ -27,11 +27,17 @@ const View = ({ post }) => {
   const { user } = useSelector((state) => state.user);
 
   const [days, setDays] = useState(1);
+  const [isBasket, setIsBasket] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [zzim, setZzim] = useState(false);
 
   const id = user?.id;
-  const basketed = post.Basketer.find((v) => v.id === id);
+
+  useEffect(() => {
+    const result = post.Basketer.find((v) => v.id === id);
+    if (!result) return;
+    setIsBasket(true);
+  }, [post]);
 
   const getPrice = (days) => {
     const result = parseInt(days * post.price + post.deposit);
@@ -53,22 +59,22 @@ const View = ({ post }) => {
   }, [days]);
 
   const onZzimed = useCallback(() => {
-    if (!id) return alert('로그인이 필요합니다.');
-
     setZzim(!zzim);
-
     if (zzim) {
       dispatch({
         type: POST.ZZIM_POST_REQUEST,
         data: { postId: post.id },
       });
+
+      setIsBasket(true);
     } else {
       dispatch({
         type: POST.NOT_ZZIM_POST_REQUEST,
         data: { postId: post.id },
       });
+      setIsBasket(false);
     }
-  }, [id, post]);
+  }, [post, zzim]);
 
   const onPostUpdate = useCallback(() => {
     if (post.id) {
@@ -113,7 +119,7 @@ const View = ({ post }) => {
                 <button onClick={openModal}>신청하기</button>
                 <button onClick={onZzimed}>
                   찜하기{' '}
-                  {basketed ? (
+                  {isBasket ? (
                     <HeartFilled style={{ color: 'red' }} />
                   ) : (
                     <HeartOutlined />

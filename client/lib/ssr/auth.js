@@ -19,11 +19,14 @@ const Auth = {
         const res = await authAPI.post('/auth/token');
         cookie.setCookie(ctx, 'access_token', res.data.accessToken);
         userInfo = res.data.userInfo;
+        console.log('액세스없음', userInfo);
       }
 
       if (!userInfo) {
         const res = await authAPI.get('/user');
         userInfo = res.data.userInfo;
+
+        console.log('액세스가 있다고오오옹', userInfo);
       }
 
       ctx.store.dispatch({

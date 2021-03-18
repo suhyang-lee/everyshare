@@ -232,8 +232,7 @@ const PostService = {
 
   addZzimList: async (id, data) => {
     try {
-      const result = await data.addBasketer(id);
-      console.log(result);
+      await data.addBasketer(id);
     } catch (error) {
       console.error(error);
     }
@@ -241,8 +240,7 @@ const PostService = {
 
   removeZzimList: async (id, data) => {
     try {
-      const result = await data.removeBasketer(id);
-      console.log(result);
+      await data.removeBasketer(id);
     } catch (error) {
       console.error(error);
     }

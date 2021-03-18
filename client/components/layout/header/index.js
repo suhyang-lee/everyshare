@@ -22,6 +22,7 @@ const Header = () => {
   const router = useRouter();
   const { user, logoutDone } = useSelector((state) => state.user);
 
+  const [zzim, setZzim] = useState(0);
   const [isOpen, onClickOpen] = useToggle(false);
   const [isSearchShow, onClickSearch] = useToggle(false);
   const [isShowModal, onModalOpen, onModalClose] = useModal(false);
@@ -35,6 +36,12 @@ const Header = () => {
   const onLogOut = useCallback(() => {
     router.push('/logout');
   }, []);
+
+  useEffect(() => {
+    if (!user.Zzimed) return;
+    let cnt = user.Zzimed.length;
+    setZzim(cnt);
+  }, [user]);
 
   return (
     <>
@@ -76,9 +83,7 @@ const Header = () => {
                     </li>
                     <Link href='/mypage/items'>
                       <li className={styles.circleBtn}>
-                        <div className={styles.zzimed}>
-                          {user.Zzimed.length || 0}
-                        </div>
+                        <div className={styles.zzimed}>{zzim}</div>
                         <img src='/images/icon-shopping.svg' alt='담아두기' />
                       </li>
                     </Link>

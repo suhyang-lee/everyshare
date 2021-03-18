@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import PropTypes from 'prop-types';
-import AuthProvider from 'components/auth/provider';
 import Head from 'next/head';
 import 'styles/global.css';
 
 import wrapper from 'store/configureStore';
 import AppLayout from 'components/layout/appLayout';
 import Layout from 'components/layout/layout';
-import LoadingIcon from 'components/common/loadingIcon';
 import { useRouter } from 'next/router';
 
 const EveryShare = ({ Component, pageProps }) => {
@@ -26,15 +24,13 @@ const EveryShare = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </Layout>
       ) : (
-        <AuthProvider>
-          <AppLayout>
-            <Head>
-              <title>EveryShare</title>
-              <link rel='shortcut icon' href='/favicon.ico' />
-            </Head>
-            <Component {...pageProps} />
-          </AppLayout>
-        </AuthProvider>
+        <AppLayout>
+          <Head>
+            <title>EveryShare</title>
+            <link rel='shortcut icon' href='/favicon.ico' />
+          </Head>
+          <Component {...pageProps} />
+        </AppLayout>
       )}
     </>
   );

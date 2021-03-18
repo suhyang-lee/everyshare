@@ -156,7 +156,6 @@ const Post = {
     try {
       const userId = req.decoded.user_id;
       const postId = parseInt(req.params.id, 10);
-
       const exPost = await PostService.verifyPost(postId);
 
       if (!exPost) return res.status(403).send('상품이 존재하지 않습니다.');
@@ -174,6 +173,7 @@ const Post = {
     try {
       const userId = req.decoded.user_id;
       const postId = parseInt(req.params.id, 10);
+      console.log(userId);
 
       const exPost = await PostService.verifyPost(postId);
 
@@ -181,7 +181,7 @@ const Post = {
 
       await PostService.removeZzimList(userId, exPost);
 
-      res.json({ PostId: exPost.id, UserId: userId });
+      res.json({ PostId: postId, UserId: userId });
     } catch (error) {
       console.error(error);
       next(error);

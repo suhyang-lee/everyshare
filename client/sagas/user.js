@@ -95,7 +95,7 @@ function* loadUserInfo() {
 
     yield put({
       type: USER.LOAD_USER_INFO_SUCCESS,
-      data: result.data,
+      data: result.data.userInfo,
     });
   } catch (err) {
     console.error(err);
