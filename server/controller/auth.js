@@ -61,7 +61,7 @@ const Auth = {
           .status(201)
           .redirect(
             process.env.NODE_ENV === 'production'
-              ? 'http://everyshare.shop/'
+              ? 'https://everyshare.shop/'
               : 'http://localhost:3000/',
           );
       }
@@ -85,7 +85,7 @@ const Auth = {
         })
         .redirect(
           process.env.NODE_ENV === 'production'
-            ? 'http://everyshare.shop/'
+            ? 'https://everyshare.shop/'
             : 'http://localhost:3000/',
         );
     } catch (error) {
