@@ -1,3 +1,24 @@
+@import "../../common/scss/variables";
+@import "../../common/scss/mixins";
+
+@include mobile {
+  .commentProfile {
+    width: 140px;
+  }
+}
+
+@include tablet {
+  .commentProfile {
+    width: 20%;
+  }
+}
+
+@include desktop {
+  .commentProfile {
+    width: 20%;
+  }
+}
+
 .commentWrapper {
   display: flex;
   box-sizing: border-box;
@@ -7,7 +28,6 @@
 }
 
 .commentProfile {
-  width: 20%;
   display: flex;
   flex-direction: column;
   align-items: center;
