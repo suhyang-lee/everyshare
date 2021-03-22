@@ -1,6 +1,6 @@
 # 🍊 에브리쉐어 : EVERYSHARE
 
-![Untitled](C:\Users\SUHYANG\Desktop\임시폴더\Untitled.png)
+![Untitled](https://user-images.githubusercontent.com/74591219/111947292-80242980-8b20-11eb-8728-e5d86f3c6714.png)
 
 ## 🚀 개요
 
@@ -65,7 +65,7 @@ C to C 간 거래를 통하여 본인이 쓰지 않는 물건을 남들과 공�
 
 ### 📚 구현 로드맵
 
-![loadmap](C:\Users\SUHYANG\Desktop\임시폴더\loadmap.png)
+![loadmap](https://user-images.githubusercontent.com/74591219/111947295-831f1a00-8b20-11eb-9f06-82ce5723cb94.png)
 
 ### 📚 기능리스트
 
@@ -87,48 +87,6 @@ C to C 간 거래를 통하여 본인이 쓰지 않는 물건을 남들과 공�
 |      |                | 댓글 수정          | 등록된 댓글을 수정한다          |
 |      |                | 댓글 삭제          | 등록 된 댓글을 삭제한다         |
 
-### 📚 구현 결과물
-
-```
-구현 결과물은 바로보기를 위해 GIF로 제작해두었으며 최상단 링크를 통하여 직접 확인할 수 있습니다. 😊
-```
-
 ### 📚 추가사항
 
 - nginx를 통한 HTTPS 설정
-
-#### ✅ 메인페이지
-
-```
-메인페이지는 최소한의 내용을 넣고 바로 로그인을 할 수 있도록 구성하였습니다.
-```
-
-![ezgif.com-gif-maker](C:\Users\SUHYANG\Downloads\ezgif.com-gif-maker.gif)
-
-#### ✅ 게시물페이지
-
-```
-게시물 페이지는 사용자가 올린 게시물 리스트와 상세 내용을 확인할 수 있는 페이지 입니다.
-```
-
-##### 💬 게시물 작성하기
-
-- **사진 등록** : S3 이용하여 사진 등록했습니다.
-
-![이미지업로드](C:\Users\SUHYANG\Desktop\임시폴더\이미지업로드.gif)
-
-##### 💬 게시물 리스트 보기
-
-![보드보기](C:\Users\SUHYANG\Desktop\임시폴더\보드보기.gif)
-
-##### 💬 거래 신청하기와 찜하기 : 신청만 가능하며 따로 결제 페이지는 구성하지 않았습니다.
-
-![GIF 2021-03-17 오후 4-56-35](C:\Users\SUHYANG\Desktop\임시폴더\GIF 2021-03-17 오후 4-56-35.gif)
-
-#### ✅ 마이페이지
-
-```
-회원정보를 수정하거나 사용자가 자신이 올린 댓글, 게시물, 거래 신청에 대한 내역을 확인할 수 있습니다.
-```
-
-![GIF 2021-03-17 오후 5-34-54](C:\Users\SUHYANG\Desktop\임시폴더\GIF 2021-03-17 오후 5-34-54.gif)
