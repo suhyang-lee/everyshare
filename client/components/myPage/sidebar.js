@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import Link from "next/link";
 import styles from "./sidebar.module.scss";
 
-const Sidebar = () => {
+const Sidebar = ({ onMenuClose, onHeaderOpen }) => {
+  const onMenuClick = useCallback(() => {
+    onMenuClose();
+    onHeaderOpen();
+  }, [onMenuClose, onHeaderOpen]);
   return (
     <aside className={styles.sidebar}>
       <h3>MY PAGE</h3>
 
       <h4>거래 내역</h4>
-      <ul>
+      <ul className={styles.sidebarList} onClick={onMenuClick}>
         <Link href="/mypage/owner">
           <li>내가 대여해 준 물품</li>
         </Link>
@@ -18,7 +22,7 @@ const Sidebar = () => {
       </ul>
 
       <h4>회원 정보</h4>
-      <ul>
+      <ul className={styles.sidebarList} onClick={onMenuClick}>
         <Link href="/mypage/items">
           <li>관심 있는 물품</li>
         </Link>

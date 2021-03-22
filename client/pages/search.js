@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { END } from 'redux-saga';
-import _ from 'lodash/array';
-import Auth from 'lib/ssr/auth';
-import wrapper from 'store/configureStore';
+import React, { useEffect } from "react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { END } from "redux-saga";
+import _ from "lodash/array";
+import Auth from "lib/ssr/auth";
+import wrapper from "store/configureStore";
 
-import AppLayout from 'components/layout/appLayout';
-import BoardList from 'components/board';
+import BoardList from "components/board";
 
-import SEARCH from 'actions/searchAction';
+import SEARCH from "actions/searchAction";
 
 const Search = () => {
   const router = useRouter();
@@ -19,7 +18,7 @@ const Search = () => {
   const { keyword } = router.query;
 
   const { searchs, hasMoreSearch, loadSearchLoading } = useSelector(
-    (state) => state.search,
+    (state) => state.search
   );
 
   useEffect(() => {
@@ -28,14 +27,14 @@ const Search = () => {
       keyword: keyword,
     };
 
-    const keywordList = JSON.parse(localStorage.getItem('keywords') || '[]');
+    const keywordList = JSON.parse(localStorage.getItem("keywords") || "[]");
 
     if (keywordList.length >= 10) keywordList.pop();
 
     keywordList.unshift(newKeyword);
-    const keywords = _.uniqBy(keywordList, 'keyword');
+    const keywords = _.uniqBy(keywordList, "keyword");
 
-    localStorage.setItem('keywords', JSON.stringify([...keywords]));
+    localStorage.setItem("keywords", JSON.stringify([...keywords]));
   }, [keyword]);
 
   useEffect(() => {
@@ -54,9 +53,9 @@ const Search = () => {
         }
       }
     }
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener("scroll", onScroll);
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener("scroll", onScroll);
     };
   }, [hasMoreSearch, loadSearchLoading, searchs.length, keyword]);
 
@@ -65,7 +64,7 @@ const Search = () => {
       <Head>
         <title>게시물 리스트 보기 | EveryShare</title>
       </Head>
-      <BoardList posts={searchs} title='통합검색' />
+      <BoardList posts={searchs} title="통합검색" />
     </>
   );
 };
@@ -81,7 +80,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
 
     context.store.dispatch(END);
     await context.store.sagaTask.toPromise();
-  },
+  }
 );
 
 export default Search;

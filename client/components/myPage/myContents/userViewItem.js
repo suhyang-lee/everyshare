@@ -1,23 +1,23 @@
-import React from 'react';
-import { getFormatDate } from 'utils/format';
-import styled from 'styled-components';
+import React from "react";
+import { getFormatDate } from "utils/format";
+import styled from "styled-components";
 
 const UserViewItem = ({ item, path }) => {
   return (
     <tr>
       <th>
-        <input type='checkbox' name='updateChecked' />
+        <input type="checkbox" name="updateChecked" />
       </th>
-      <td>
+      <th>
         <Link
           href={
-            path === 'comments' ? `/view/${item.PostId}` : `/view/${item.id}`
+            path === "comments" ? `/view/${item.PostId}` : `/view/${item.id}`
           }
         >
           {item[Object.keys(item)[1]]}
         </Link>
-      </td>
-      <td>{getFormatDate(item.createdAt)}</td>
+      </th>
+      <th>{getFormatDate(item.createdAt)}</th>
     </tr>
   );
 };

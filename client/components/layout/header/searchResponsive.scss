@@ -1,0 +1,27 @@
+@include mobile {
+  .wrapper {
+    img {
+      display: none;
+    }
+
+    input[type="search"] {
+      width: 80vw;
+    }
+  }
+}
+
+@include tablet {
+  .wrapper {
+    input[type="search"] {
+      width: 60vw;
+    }
+  }
+}
+
+@include desktop {
+  .wrapper {
+    input[type="search"] {
+      width: 80vw;
+    }
+  }
+}

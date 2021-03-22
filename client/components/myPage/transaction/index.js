@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import MYPAGE from "actions/mypageAction";
 import NoneProduct from "./none";
+import MobileBar from "../mobilebar";
 
 const Transaction = ({ path }) => {
   const dispatch = useDispatch();

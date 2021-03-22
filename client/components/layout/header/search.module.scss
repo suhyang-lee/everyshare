@@ -1,6 +1,11 @@
+@import "../../common/scss/variables";
+@import "../../common/scss/mixins";
+@import "./searchResponsive.scss";
+
 .backgroundWrapper {
   position: fixed;
   width: 100%;
+  min-width: 360px;
   height: 100vh;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
@@ -10,7 +15,7 @@
 .searchWrapper {
   width: 100%;
   position: absolute;
-  z-index: 888;
+  z-index: 15;
   height: 12rem;
   background-color: #fff;
   display: flex;
@@ -61,6 +66,7 @@
   }
 
   .wrapper {
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,7 +77,6 @@
     }
 
     input[type="search"] {
-      width: 80vw;
       height: 3rem;
       font-size: 1.1rem;
       font-weight: 100;

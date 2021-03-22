@@ -1,0 +1,20 @@
+@include mobile {
+  .title {
+    padding: 0 1rem;
+  }
+  .contents {
+    padding: 0 1rem;
+  }
+}
+
+@include tablet {
+  .title {
+    padding: 0 2rem;
+  }
+  .contents {
+    padding: 0 2rem;
+  }
+}
+
+@include desktop {
+}

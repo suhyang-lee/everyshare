@@ -1,17 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import MYPAGE from 'actions/mypageAction';
-import PaginationList from 'components/myPage/myContents/pagination';
-import UserViewItem from 'components/myPage/myContents/userViewItem';
-import styles from './userView.module.scss';
+import MYPAGE from "actions/mypageAction";
+import PaginationList from "components/myPage/myContents/pagination";
+import UserViewItem from "components/myPage/myContents/userViewItem";
+import styles from "./userView.module.scss";
 
 const MyContents = ({ path }) => {
   const dispatch = useDispatch();
   const [pageNum, setPageNum] = useState(1);
 
   const { myContents, myContentsTotalCount } = useSelector(
-    (state) => state.mypage,
+    (state) => state.mypage
   );
 
   useEffect(() => {
@@ -27,6 +27,7 @@ const MyContents = ({ path }) => {
   const onChangePage = useCallback(
     (e, value) => {
       e.preventDefault();
+
       dispatch({
         type: MYPAGE.LOAD_MYCONTENTS_REQUEST,
         data: {
@@ -36,45 +37,47 @@ const MyContents = ({ path }) => {
       });
       setPageNum(value);
     },
-    [pageNum, setPageNum],
+    [pageNum, setPageNum]
   );
 
   return (
-    <table className={styles.myTable}>
-      <thead>
-        <tr>
-          <th>
-            <input type='checkbox' name='allChecked' />
-          </th>
-          <th>제목</th>
-          <th>작성일</th>
-        </tr>
-      </thead>
-      <tbody>
-        {myContents.length !== 0 ? (
-          myContents.map((item) => (
-            <UserViewItem key={item.id} item={item} path={path} />
-          ))
-        ) : (
+    <>
+      <table className={styles.myTable}>
+        <thead>
           <tr>
-            <th></th>
-            <td>작성된 내용이 없습니다</td>
-            <td></td>
+            <th>
+              <input type="checkbox" name="allChecked" />
+            </th>
+            <th>제목</th>
+            <th>작성일</th>
           </tr>
-        )}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colSpan='4'>
-            <PaginationList
-              pageCount={Math.ceil(myContentsTotalCount / 5)}
-              page={pageNum}
-              onChangePage={onChangePage}
-            />
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+        </thead>
+        <tbody>
+          {myContents.length !== 0 ? (
+            myContents.map((item) => (
+              <UserViewItem key={item.id} item={item} path={path} />
+            ))
+          ) : (
+            <tr>
+              <th></th>
+              <td>작성된 내용이 없습니다</td>
+              <td></td>
+            </tr>
+          )}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan="4">
+              <PaginationList
+                pageCount={Math.ceil(myContentsTotalCount / 5)}
+                page={pageNum}
+                onChangePage={onChangePage}
+              />
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </>
   );
 };
 

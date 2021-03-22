@@ -1,15 +1,39 @@
-.slickImageWrapper {
-  width: 100%;
-  height: 500px;
-  overflow: hidden;
+@import "../../common/scss/variables";
+@import "../../common/scss/mixins";
 
+.slickImageWrapper {
   img {
-    width: 100%;
-    height: 500px;
     -o-object-fit: cover;
     object-fit: cover;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@include mobile {
+  .slickImageWrapper {
+    height: 50%;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+@include tablet {
+  .slickImageWrapper {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+@include desktop {
+  .slickImageWrapper {
+    width: 100%;
+    img {
+      width: 100%;
+    }
   }
 }

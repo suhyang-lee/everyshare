@@ -33,6 +33,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "html-to-draftjs": "^1.4.0",
     "immer": "^8.0.0",
+    "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "next": "^10.0.7",
     "next-redux-wrapper": "^6.0.2",

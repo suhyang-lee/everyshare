@@ -1,3 +1,7 @@
+@import "../../common/scss/variables.scss";
+@import "../../common/scss/mixins";
+@import "./userViewResponsive.scss";
+
 .myTable {
   width: 100%;
   margin-bottom: 5rem;

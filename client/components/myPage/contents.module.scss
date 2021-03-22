@@ -1,3 +1,7 @@
+@import "../common/scss/variables.scss";
+@import "../common/scss/mixins";
+@import "./contentsResponsive.scss";
+
 .userContents {
   margin-bottom: 8rem;
 

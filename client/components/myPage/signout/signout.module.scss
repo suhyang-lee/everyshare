@@ -1,3 +1,7 @@
+@import "../../common/scss/variables.scss";
+@import "../../common/scss/mixins";
+@import "./signoutResponsive.scss";
+
 .contents {
   display: flex;
   flex-direction: column;
@@ -19,6 +23,11 @@
 }
 
 .notice {
+  background-color: #fdfafa;
+  box-sizing: border-box;
+
+  margin-top: 2rem;
+
   p {
     width: fit-content;
     background-color: #ffc800;
@@ -33,11 +42,6 @@
   ul li::before {
     content: "◾";
   }
-
-  background-color: #fdfafa;
-  box-sizing: border-box;
-  padding: 1rem 2rem 2rem 2rem;
-  margin-top: 2rem;
 }
 
 .agree {

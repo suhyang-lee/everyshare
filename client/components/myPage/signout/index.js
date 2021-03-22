@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import styles from "./signout.module.scss";
 
@@ -23,7 +23,7 @@ const Singout = () => {
     (e) => {
       setAgree(e.target.checked);
     },
-    [agree, setAgree],
+    [agree, setAgree]
   );
 
   const onClickSignOut = useCallback(
@@ -33,7 +33,7 @@ const Singout = () => {
 
       handleOpen();
     },
-    [agree],
+    [agree]
   );
 
   const handleConfirm = useCallback(
@@ -45,7 +45,7 @@ const Singout = () => {
       handleClose();
       router.push("/signout");
     },
-    [setOpen],
+    [setOpen]
   );
 
   return (
@@ -57,6 +57,7 @@ const Singout = () => {
           handleConfirm={handleConfirm}
         />
       )}
+
       <article className={styles.contents}>
         <p>
           에브리쉐어 탈퇴 시, 해당 서비스 이용이 불가합니다. 유의사항 및 안내를

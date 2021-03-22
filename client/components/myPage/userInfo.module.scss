@@ -1,10 +1,9 @@
+@import "../common/scss/variables.scss";
+@import "../common/scss/mixins";
+@import "./userInfoResponsive.scss";
+
 .wrapper {
-  width: 1200px;
-  margin: 0 auto;
-  padding-top: 2rem;
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  margin-top: 10rem;
   position: relative;
 
   h3 {
@@ -14,7 +13,5 @@
 
   h4 {
     font-weight: 700;
-    margin-bottom: 1rem;
-    margin-top: 2rem;
   }
 }

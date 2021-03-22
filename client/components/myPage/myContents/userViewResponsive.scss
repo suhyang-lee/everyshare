@@ -1,0 +1,23 @@
+@include mobile {
+  .myTable {
+    th:first-of-type {
+      width: 50px;
+    }
+    th:nth-of-type(2) {
+      width: 80vw;
+      display: block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    th:last-of-type {
+      display: none;
+    }
+  }
+}
+
+@include tablet {
+}
+
+@include desktop {
+}

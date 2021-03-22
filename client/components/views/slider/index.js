@@ -17,7 +17,7 @@ const Global = createGlobalStyle`
     height: 50px;
     overflow: hidden;
     border: 1px solid #c9c9c9;
-  }
+    }
   img {
     width: 50px;
     height: 50px;

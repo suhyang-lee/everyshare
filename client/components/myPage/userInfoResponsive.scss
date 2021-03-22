@@ -1,0 +1,37 @@
+@include mobile {
+  .wrapper {
+    margin: 7rem auto;
+
+    h4 {
+      padding: 0 1rem;
+      height: 3rem;
+      line-height: 3rem;
+    }
+  }
+}
+
+@include tablet {
+  .wrapper {
+    padding: 0 1rem;
+    grid-template-columns: 1fr 4fr;
+    margin-top: 12rem;
+
+    h4 {
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
+  }
+}
+
+@include desktop {
+  .wrapper {
+    width: 1200px;
+    grid-template-columns: 1fr 4fr;
+    margin: 12rem auto;
+
+    h4 {
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
+  }
+}

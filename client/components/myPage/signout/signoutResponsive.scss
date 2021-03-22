@@ -1,0 +1,14 @@
+@include mobile {
+  .notice {
+    padding: 0 1rem;
+  }
+}
+
+@include tablet {
+}
+
+@include desktop {
+  .notice {
+    padding: 1rem 2rem 2rem 2rem;
+  }
+}
