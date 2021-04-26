@@ -34,11 +34,11 @@ const MypageContents = ({ path, userInfo }) => {
             />
           )
         : ''}
-      {isMenu && (
+      {isMenu && size < 700 && (
         <MobileSideBar onMenuClose={onMenuClose} onHeaderOpen={onHeaderOpen} />
       )}
 
-      {size > 700 && <Sidebar />}
+      {size >= 720 && <Sidebar />}
 
       <Contents info={TITLEINFO[path]}>
         {pageType === 0 && <Transaction path={path} />}
