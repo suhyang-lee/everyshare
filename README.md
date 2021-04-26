@@ -32,7 +32,7 @@ C to C 간 거래를 통하여 본인이 쓰지 않는 물건을 남들과 공�
 <img src="https://img.shields.io/badge/Redux-Saga-999999?style=flat-square&logo=Redux-Saga&logoColor=white"/>
 <img src="https://img.shields.io/badge/Sass-CC6699?style=flat-square&logo=Sass&logoColor=white"/>
 <img src="https://img.shields.io/badge/styled-components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
-<img src="https://img.shields.io/badge/Adobe XD-FF61F6?style=flat-square&logo=Adobe XD&logoColor=white"/>
+<img src="https://img.shields.io/badge/Adobe-XD-FF61F6?style=flat-square&logo=Adobe-XD&logoColor=white"/>
 </p>
 
 #### 🚨 기술 스택 선정 이유
