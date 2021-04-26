@@ -1,43 +1,37 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import Sidebar from "components/myPage/sidebar";
-import Contents from "components/myPage/contents";
-import Transaction from "components/myPage/transaction";
-import MyContents from "components/myPage/myContents";
-import UserInfo from "components/myPage/userInfo";
-import Signout from "components/myPage/signout";
-import MyList from "components/myPage/myList";
+import Sidebar from 'components/myPage/sidebar';
+import Contents from 'components/myPage/contents';
+import Transaction from 'components/myPage/transaction';
+import MyContents from 'components/myPage/myContents';
+import UserInfo from 'components/myPage/userInfo';
+import Signout from 'components/myPage/signout';
+import MyList from 'components/myPage/myList';
 
-import styles from "./userInfo.module.scss";
-import { TITLEINFO, MYPAGETYPE } from "utils/variables";
-import useModal from "hooks/useModal";
-import useWindowSize from "hooks/useWindowSize";
-import MobileBar from "./mobilebar";
+import styles from './userInfo.module.scss';
+import { TITLEINFO, MYPAGETYPE } from 'utils/variables';
+import useModal from 'hooks/useModal';
+import { useWindowWidth } from '@react-hook/window-size';
+import MobileBar from './mobilebar';
 
 const MypageContents = ({ path, userInfo }) => {
   const pageType = MYPAGETYPE[path];
-  const size = useWindowSize();
+  const size = useWindowWidth();
   const [isHeaderShow, onHeaderOpen, onHeaderClose] = useModal(false);
   const [isMenu, onMenuOpen, onMenuClose] = useModal(true);
 
-  useEffect(() => {
-    if (size.width >= 360) {
-      onMenuOpen();
-      onHeaderClose();
-    }
-  }, [size]);
-
   return (
     <section className={styles.wrapper}>
-      {size.width <= 360 ||
-        (isHeaderShow && (
-          <MobileBar
-            onMenuOpen={onMenuOpen}
-            onHeaderOpen={onHeaderOpen}
-            onHeaderClose={onHeaderClose}
-          />
-        ))}
-      {isMenu && (
+      {size < 700
+        ? isHeaderShow && (
+            <MobileBar
+              onMenuOpen={onMenuOpen}
+              onHeaderOpen={onHeaderOpen}
+              onHeaderClose={onHeaderClose}
+            />
+          )
+        : ''}
+      {size > 700 && (
         <Sidebar onMenuClose={onMenuClose} onHeaderOpen={onHeaderOpen} />
       )}
       <Contents info={TITLEINFO[path]}>
