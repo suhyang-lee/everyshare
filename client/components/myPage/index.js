@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Sidebar from 'components/myPage/sidebar';
+import MobileSideBar from 'components/myPage/mobileSideBar';
 import Contents from 'components/myPage/contents';
 import Transaction from 'components/myPage/transaction';
 import MyContents from 'components/myPage/myContents';
@@ -20,6 +21,8 @@ const MypageContents = ({ path, userInfo }) => {
   const [isHeaderShow, onHeaderOpen, onHeaderClose] = useModal(false);
   const [isMenu, onMenuOpen, onMenuClose] = useModal(true);
 
+  useEffect(() => {}, [size]);
+
   return (
     <section className={styles.wrapper}>
       {size < 700
@@ -31,9 +34,12 @@ const MypageContents = ({ path, userInfo }) => {
             />
           )
         : ''}
-      {size > 700 && (
-        <Sidebar onMenuClose={onMenuClose} onHeaderOpen={onHeaderOpen} />
+      {isMenu && (
+        <MobileSideBar onMenuClose={onMenuClose} onHeaderOpen={onHeaderOpen} />
       )}
+
+      {size > 700 && <Sidebar />}
+
       <Contents info={TITLEINFO[path]}>
         {pageType === 0 && <Transaction path={path} />}
         {pageType === 1 && <MyContents path={path} />}

@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import Link from 'next/link';
-import styles from './sidebar.module.scss';
+import styles from './mobile.module.scss';
 
 const Sidebar = ({ onMenuClose, onHeaderOpen }) => {
   const onMenuClick = useCallback(() => {
     onMenuClose();
+    onHeaderOpen();
   }, [onMenuClose]);
   return (
     <aside className={styles.sidebar}>
